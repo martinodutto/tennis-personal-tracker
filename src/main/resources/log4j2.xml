@@ -10,17 +10,29 @@
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:logfile.path}">
+                    <IfFileName glob="tpt.log.*"/>
+                    <IfAccumulatedFileCount exceeds="10"/>
+                </Delete>
+            </DefaultRolloverStrategy>
         </RollingFile>
 
         <RollingFile name="APP" fileName="${sys:logfile.path}/tpt_app.log"
                      filePattern="${sys:logfile.path}/tpt_app.log.%d{yyyy-MM-dd}">
             <PatternLayout>
-                <pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %-5threadId %-20.20threadName %level{length=1} %m%n</pattern>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %-5threadId %-20.20threadName [%-5level] %m%n</pattern>
                 <charset>UTF-8</charset>
             </PatternLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:logfile.path}">
+                    <IfFileName glob="tpt_app.log.*"/>
+                    <IfAccumulatedFileCount exceeds="10"/>
+                </Delete>
+            </DefaultRolloverStrategy>
         </RollingFile>
 
         <Console name="STDOUT" target="SYSTEM_OUT">
