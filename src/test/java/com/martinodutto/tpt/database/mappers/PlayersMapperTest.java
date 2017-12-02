@@ -39,4 +39,40 @@ public class PlayersMapperTest {
         assertEquals("M", player.getGender());
     }
 
+    @Test
+    public void selectByPkWorks() throws Exception {
+        final Player player = playersMapper.selectByPk(1); // TODO this is unsafe: we can't be certain this exists
+        assertNotNull(player);
+        assertNotNull(player.getName());
+    }
+
+    @Test
+    public void insertWorks() throws Exception {
+        Player player = new Player();
+        player.setName("Alessia");
+        player.setSurname("Nardozzi");
+        player.setGender("F");
+        assertEquals(1, playersMapper.insert(player));
+        LOGGER.info("Inserted new player with id {}", player.getPlayerId());
+    }
+
+    @Test
+    public void updateWorks() throws Exception {
+        final Player player1 = new Player();
+        player1.setName("Giacomo");
+        player1.setSurname("Vercelli");
+        player1.setGender("M");
+        playersMapper.insert(player1);
+        final Optional<Player> originalPlayer = playersMapper.selectAll().stream().filter(p -> "Giacomo Vercelli".equals(p.getName() + " " + p.getSurname())).findFirst();
+        assertTrue(originalPlayer.isPresent());
+        final Player player2 = originalPlayer.get();
+        player2.setName("Carlo");
+        assertEquals(1, playersMapper.update(player2));
+    }
+
+    @Test
+    public void deleteWorks() throws Exception {
+        Player player = playersMapper.selectByPk(1); // TODO this is unsafe: we can't be certain this exists
+        assertEquals(1, playersMapper.delete(player));
+    }
 }

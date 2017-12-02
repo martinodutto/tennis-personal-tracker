@@ -2,24 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.martinodutto.tpt.database.mappers.PlayersMapper">
     <resultMap id="PlayersRM" type="com.martinodutto.tpt.database.entities.Player">
-        <result column="PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="playerId"/>
+        <id column="PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="playerId"/>
         <result column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" property="name"/>
         <result column="SURNAME" javaType="java.lang.String" jdbcType="VARCHAR" property="surname"/>
         <result column="GENDER" javaType="java.lang.String" jdbcType="VARCHAR" property="gender"/>
-        <result column="CREATION_TIMESTAMP" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" property="creationTimestamp"/>
+        <result column="CREATION_TIMESTAMP" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"
+                property="creationTimestamp"/>
     </resultMap>
 
     <sql id="selectAllSql">
         SELECT
-        PLAYER_ID,
-        NAME,
-        SURNAME,
-        GENDER,
-        CREATION_TIMESTAMP
+            PLAYER_ID,
+            NAME,
+            SURNAME,
+            GENDER,
+            CREATION_TIMESTAMP
         FROM PLAYERS
     </sql>
 
     <select id="selectAll" resultMap="PlayersRM">
         <include refid="selectAllSql"/>
     </select>
+
+    <select id="selectByPk" resultMap="PlayersRM">
+        <include refid="selectAllSql"/>
+        WHERE PLAYER_ID = #{playerId, jdbcType=NUMERIC}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="playerId">
+        INSERT INTO PLAYERS (NAME, SURNAME, GENDER, CREATION_TIMESTAMP)
+        VALUES
+        (#{player.name, jdbcType=VARCHAR}, #{player.surname, jdbcType=VARCHAR}, #{player.gender, jdbcType=VARCHAR},
+        systimestamp)
+        <!-- TODO make this work -->
+        <!--<selectKey keyProperty="playerId" order="AFTER" resultType="int">-->
+            <!--SELECT LAST_INSERT_ID();-->
+        <!--</selectKey>-->
+    </insert>
+
+    <update id="update">
+        UPDATE PLAYERS
+        SET
+            NAME    = #{player.name, jdbcType=VARCHAR},
+            SURNAME = #{player.surname, jdbcType=VARCHAR},
+            GENDER  = #{player.gender, jdbcType=VARCHAR}
+        WHERE PLAYER_ID = #{player.playerId, jdbcType=NUMERIC}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM PLAYERS
+        WHERE PLAYER_ID = #{player.playerId, jdbcType=NUMERIC}
+    </delete>
 </mapper>
