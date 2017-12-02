@@ -6,7 +6,7 @@
         <result column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" property="name"/>
         <result column="SURNAME" javaType="java.lang.String" jdbcType="VARCHAR" property="surname"/>
         <result column="GENDER" javaType="java.lang.String" jdbcType="VARCHAR" property="gender"/>
-        <result column="CREATION_TIMESTAMP" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" property="creationTimestamp"/>
+        <result column="CREATION_TIMESTAMP" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP" property="creationTimestamp"/>
     </resultMap>
 
     <sql id="selectAllSql">

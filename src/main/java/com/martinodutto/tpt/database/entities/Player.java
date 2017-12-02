@@ -1,6 +1,6 @@
 package com.martinodutto.tpt.database.entities;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Player {
 
@@ -12,7 +12,7 @@ public class Player {
 
     private String gender;
 
-    private Timestamp creationTimestamp;
+    private LocalDateTime creationTimestamp;
 
     public int getPlayerId() {
         return playerId;
@@ -46,11 +46,11 @@ public class Player {
         this.gender = gender;
     }
 
-    public Timestamp getCreationTimestamp() {
+    public LocalDateTime getCreationTimestamp() {
         return creationTimestamp;
     }
 
-    public void setCreationTimestamp(Timestamp creationTimestamp) {
+    public void setCreationTimestamp(LocalDateTime creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
     }
 

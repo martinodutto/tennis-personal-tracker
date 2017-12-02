@@ -11,7 +11,8 @@
     <properties>
         <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
-        <mybatis-spring-boot.version>1.2.0</mybatis-spring-boot.version>
+        <!-- we use this version because we need at least MyBatis 3.4.5 to correctly handle the new Java 8 LocalDateTime etc. types -->
+        <mybatis-spring-boot.version>1.3.1</mybatis-spring-boot.version>
     </properties>
 
     <dependencyManagement>
