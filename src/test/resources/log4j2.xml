@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- we want logs to be written only to stdout for the tests -->
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>%d{HH:mm:ss,SSS} %-5threadId %-20.20threadName %level{length=1} %m%n</pattern>
+                <charset>UTF-8</charset>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</configuration>
