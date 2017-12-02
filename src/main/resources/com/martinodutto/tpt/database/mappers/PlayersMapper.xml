@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.martinodutto.tpt.database.mappers.PlayersMapper">
+    <resultMap id="PlayersRM" type="com.martinodutto.tpt.database.entities.Player">
+        <result column="PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="playerId"/>
+        <result column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" property="name"/>
+        <result column="SURNAME" javaType="java.lang.String" jdbcType="VARCHAR" property="surname"/>
+        <result column="GENDER" javaType="java.lang.String" jdbcType="VARCHAR" property="gender"/>
+        <result column="CREATION_TIMESTAMP" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" property="creationTimestamp"/>
+    </resultMap>
+
+    <sql id="selectAllSql">
+        SELECT
+        PLAYER_ID,
+        NAME,
+        SURNAME,
+        GENDER,
+        CREATION_TIMESTAMP
+        FROM PLAYERS
+    </sql>
+
+    <select id="selectAll" resultMap="PlayersRM">
+        <include refid="selectAllSql"/>
+    </select>
+</mapper>
