@@ -41,9 +41,11 @@ public class PlayersMapperTest {
 
     @Test
     public void selectByPkWorks() throws Exception {
-        final Player player = playersMapper.selectByPk(1); // TODO this is unsafe: we can't be certain this exists
-        assertNotNull(player);
-        assertNotNull(player.getName());
+        final Optional<Player> martino = playersMapper.selectAll().stream().filter(p -> "Martino".equals(p.getName())).findFirst();
+        assertTrue(martino.isPresent());
+        final Player martinoAgain = playersMapper.selectByPk(martino.get().getPlayerId());
+        assertNotNull(martinoAgain);
+        assertEquals("Martino", martinoAgain.getName());
     }
 
     @Test
@@ -58,21 +60,26 @@ public class PlayersMapperTest {
 
     @Test
     public void updateWorks() throws Exception {
-        final Player player1 = new Player();
-        player1.setName("Giacomo");
-        player1.setSurname("Vercelli");
-        player1.setGender("M");
-        playersMapper.insert(player1);
-        final Optional<Player> originalPlayer = playersMapper.selectAll().stream().filter(p -> "Giacomo Vercelli".equals(p.getName() + " " + p.getSurname())).findFirst();
-        assertTrue(originalPlayer.isPresent());
-        final Player player2 = originalPlayer.get();
-        player2.setName("Carlo");
-        assertEquals(1, playersMapper.update(player2));
+        final Player playerBefore = new Player();
+        playerBefore.setName("Giacomo");
+        playerBefore.setSurname("Vercelli");
+        playerBefore.setGender("M");
+        playersMapper.insert(playerBefore);
+        playerBefore.setName("Carlo");
+        assertEquals(1, playersMapper.update(playerBefore));
+        final Player playerAfter = playersMapper.selectByPk(playerBefore.getPlayerId());
+        assertEquals("Carlo", playerAfter.getName());
     }
 
     @Test
     public void deleteWorks() throws Exception {
-        Player player = playersMapper.selectByPk(1); // TODO this is unsafe: we can't be certain this exists
+        final Player player = new Player();
+        player.setName("Giovanni");
+        player.setSurname("Roncato");
+        player.setGender("M");
+        playersMapper.insert(player);
+        int playerId = player.getPlayerId();
         assertEquals(1, playersMapper.delete(player));
+        assertEquals(null, playersMapper.selectByPk(playerId));
     }
 }

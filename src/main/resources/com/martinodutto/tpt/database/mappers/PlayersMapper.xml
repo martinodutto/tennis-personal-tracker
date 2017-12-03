@@ -34,10 +34,9 @@
         VALUES
         (#{player.name, jdbcType=VARCHAR}, #{player.surname, jdbcType=VARCHAR}, #{player.gender, jdbcType=VARCHAR},
         systimestamp)
-        <!-- TODO make this work -->
-        <!--<selectKey keyProperty="playerId" order="AFTER" resultType="int">-->
-            <!--SELECT LAST_INSERT_ID();-->
-        <!--</selectKey>-->
+        <selectKey keyProperty="player.playerId" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
     </insert>
 
     <update id="update">
