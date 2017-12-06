@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @Mapper
@@ -13,6 +14,7 @@ public interface PlayersMapper {
 
     List<Player> selectAll();
 
+    @Nullable
     Player selectByPk(@Param("playerId") int playerId);
 
     int insert(@Param("player") Player player);
