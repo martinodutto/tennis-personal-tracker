@@ -8,13 +8,17 @@ import {NewActivityComponent} from './new-activity/new-activity.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AppRoutingModule} from "./app-routing/app-routing.module";
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {MatchResultComponent} from './match-result/match-result.component';
+import {SetResultComponent} from './set-result/set-result.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NewActivityComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MatchResultComponent,
+    SetResultComponent
   ],
   imports: [
     BrowserModule,

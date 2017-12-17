@@ -1,0 +1,4 @@
+<div>
+  <app-set-result *ngFor="let set of sets; index as i"></app-set-result>
+  <button type="button" class="btn btn-success btn-lg fa fa-plus" (click)="addNewSet()" [hidden]="sets.length === 5" ngbTooltip="Add a set"></button>
+</div>
