@@ -3,11 +3,13 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
+import {NewActivityComponent} from './new-activity/new-activity.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NewActivityComponent
   ],
   imports: [
     BrowserModule,
