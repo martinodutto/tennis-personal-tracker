@@ -1,4 +1,9 @@
-<form class="set-result">
-  <input type="number" [(ngModel)]="firstPlayerGames" name="first">
-  <input type="number" [(ngModel)]="secondPlayerGames" name="second">
-</form>
+<div [formGroup]="set" class="set-result">
+  <input type="number"
+         name="first"
+         formControlName="firstPlayerGames">
+  <input type="number"
+         name="second"
+         formControlName="secondPlayerGames">
+  <!-- class="form-control" -->
+</div>

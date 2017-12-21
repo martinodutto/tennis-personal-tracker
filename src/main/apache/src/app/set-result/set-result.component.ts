@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-set-result',
@@ -7,17 +8,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SetResultComponent implements OnInit {
 
-  firstPlayerGames: number;
-  secondPlayerGames: number;
-  // setResultControl: FormControl;
-
-  constructor() {
-    this.firstPlayerGames = 0;
-    this.secondPlayerGames = 0;
-    // this.setResultControl = new FormControl("", [Validators.min(0), Validators.max(7)]);
-  }
+  @Input("group") set: FormGroup;
 
   ngOnInit() {
+    //
   }
-
 }

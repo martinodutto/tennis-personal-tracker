@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SetResultComponent} from "../set-result/set-result.component";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-match-result',
@@ -8,18 +8,27 @@ import {SetResultComponent} from "../set-result/set-result.component";
 })
 export class MatchResultComponent implements OnInit {
 
-  sets: SetResultComponent[];
+  @Input("group") match: FormGroup;
 
-  constructor() {
-    this.sets = [new SetResultComponent()];
+  constructor(private _fb: FormBuilder) {
+  }
+
+  ngOnInit() {
+    this.match.addControl('sets', this._fb.array([
+      this.initSet()
+    ]));
+  }
+
+  initSet() {
+    return this._fb.group({
+      firstPlayerGames: new FormControl(0, [Validators.required, Validators.min(0)]),
+      secondPlayerGames: new FormControl(0, [Validators.required, Validators.min(0)])
+    })
   }
 
   // adds a new set to the match, without a result (yet)
   addNewSet() {
-    this.sets.push(new SetResultComponent());
+    const setArray = <FormArray> this.match.controls['sets'];
+    setArray.push(this.initSet());
   }
-
-  ngOnInit() {
-  }
-
 }

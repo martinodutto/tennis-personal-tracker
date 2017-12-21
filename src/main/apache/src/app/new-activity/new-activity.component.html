@@ -1,15 +1,27 @@
-<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="activityDate" ngbDatepicker #d="ngbDatepicker">
-      <button class="input-group-addon" (click)="d.toggle()" type="button">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </button>
-    </div>
-  </div>
-</form>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="save()" novalidate>
 
-<div class="results">
-  <app-match-result></app-match-result>
+    <div class="form-group row">
+        <label for="activityDateInput" class="col-form-label">
+          Activity date
+        </label>
+        <div class="input-group col-sm-3">
+          <input class="form-control" formControlName="activityDate" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                 #d="ngbDatepicker" id="activityDateInput">
+          <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+        </div>
+    </div>
+
+    <div class="results">
+      <!-- this component contains the result of the tennis match -->
+      <app-match-result [group]="form.controls['match']"></app-match-result>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save</button>
+    </div>
+
+  </form>
 </div>

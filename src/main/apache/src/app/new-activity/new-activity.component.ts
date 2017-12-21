@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {SetResultComponent} from "../set-result/set-result.component";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-new-activity',
@@ -7,12 +8,26 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./new-activity.component.css']
 })
 export class NewActivityComponent implements OnInit {
+  // form model for the whole page
+  form: FormGroup;
 
-  activityDate: NgbDateStruct;
+  result: SetResultComponent[];
 
-  constructor() { }
+  // injecting a form builder
+  constructor(private _fb: FormBuilder) {
+  }
 
   ngOnInit() {
+    const now = new Date();
+    this.form = this._fb.group({
+      activityDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, [Validators.required]),
+      match: this._fb.group({})
+    });
+  }
+
+  save() {
+    console.debug('Submitting the data to the server!');
+    // TODO use this.form.value to recover the data from the form
   }
 
 }

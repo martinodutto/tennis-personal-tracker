@@ -1,4 +1,12 @@
-<div>
-  <app-set-result *ngFor="let set of sets; index as i"></app-set-result>
-  <button type="button" class="btn btn-success btn-lg fa fa-plus" (click)="addNewSet()" [hidden]="sets.length === 5" ngbTooltip="Add a set"></button>
+<div [formGroup]="match">
+  
+  <div formArrayName="sets">
+    <span *ngFor="let set of match.controls['sets'].controls; let i = index" class="app-set-result">
+      <div [formGroupName]="i">
+        <app-set-result [group]="set"></app-set-result>
+      </div>
+    </span>
+    <button type="button" class="btn btn-info btn-lg fa fa-plus" (click)="addNewSet()" [hidden]="match.controls['sets'].length === 5" ngbTooltip="Add a set"></button>
+  </div>
+
 </div>
