@@ -1,4 +1,37 @@
 <div>
+  <header>
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+      <a class="navbar-brand" href="#">
+        <img src="/tennis-personal-tracker/static/assets/img/tennis-ball.svg" width="25" height="25"
+             class="d-inline-block align-top" alt="">
+        Tennis Personal Tracker
+      </a>
+      <!-- this button is shown when the screen gets too small and the links must be stacked and hidden in a separate menu -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- links -->
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
   <!-- this tag will be replaced by the router with the "components" of the currently needed view -->
   <router-outlet></router-outlet>
+
+  <footer class="container-fluid bg-dark">
+    <div class="row" id="footer-row">
+      <div class="container text-center">
+      <span class="text-white">
+        <a href="https://github.com/martinodutto/tennis-personal-tracker">See the code on GitHub</a>
+        <div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+      </span>
+      </div>
+    </div>
+  </footer>
 </div>

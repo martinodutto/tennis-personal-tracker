@@ -1,27 +1,74 @@
-<div class="container">
+<div class="container-fluid tpt-page-content">
   <form [formGroup]="form" (ngSubmit)="save()" novalidate>
 
-    <div class="form-group row">
-        <label for="activityDateInput" class="col-form-label">
-          Activity date
-        </label>
-        <div class="input-group col-sm-3">
-          <input class="form-control" formControlName="activityDate" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-                 #d="ngbDatepicker" id="activityDateInput">
-          <button class="input-group-addon" (click)="d.toggle()" type="button">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-          </button>
+    <div class="card">
+      <div class="card-header">
+        Required fields
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label for="activityDateInput" class="col-md-3 col-lg-2 col-form-label">
+            Activity date
+          </label>
+          <div class="input-group col-md-6 col-lg-3">
+            <input class="form-control" formControlName="activityDate" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                   #d="ngbDatepicker" id="activityDateInput">
+            <button class="input-group-addon" (click)="d.toggle()" type="button">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
+
+        <div class="form-group row">
+          <label for="firstPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
+            First player
+          </label>
+          <div class="col-md-6 col-lg-3">
+            <input class="form-control" formControlName="firstPlayerName" id="firstPlayerNameInput">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="secondPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
+            Second player
+          </label>
+          <div class="col-md-6 col-lg-3">
+            <input class="form-control" formControlName="secondPlayerName" id="secondPlayerNameInput">
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="results">
-      <!-- this component contains the result of the tennis match -->
-      <app-match-result [group]="form.controls['match']"></app-match-result>
+    <div class="card">
+      <div class="card-header">
+        Match result{{form.value.firstPlayerName || form.value.secondPlayerName ? ' &mdash; ' : ''}}<b>{{form.value.firstPlayerName}}</b>{{form.value.firstPlayerName
+        || form.value.secondPlayerName ? ' vs ' : ''}}<b>{{form.value.secondPlayerName}}</b>
+      </div>
+      <div class="card-body">
+        <!-- this component contains the result of the tennis match -->
+        <app-match-result [group]="form.controls['match']"></app-match-result>
+      </div>
     </div>
 
-    <div class="btn-group">
+    <div class="card">
+      <div class="card-header">
+        Optional fields
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <div class="col-md-3">
+            <label for="clubInput" class="col-form-label">
+              Club
+            </label>
+            <input class="form-control" formControlName="club" id="clubInput">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
       <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save</button>
+      <button type="button" class="btn btn-danger">Discard</button>
     </div>
-
   </form>
 </div>

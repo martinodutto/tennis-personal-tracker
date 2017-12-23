@@ -21,6 +21,9 @@ export class NewActivityComponent implements OnInit {
     const now = new Date();
     this.form = this._fb.group({
       activityDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, [Validators.required]),
+      firstPlayerName: new FormControl('', Validators.required),
+      secondPlayerName: new FormControl('', Validators.required),
+      club: new FormControl(''),
       match: this._fb.group({})
     });
   }

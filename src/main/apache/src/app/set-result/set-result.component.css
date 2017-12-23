@@ -4,9 +4,14 @@
 
 input {
   display: block;
-  height: 150px;
-  width: 100px;
-  font-size: 120px;
+  height: 100px;
+  width: 66px;
+  font-size: 80px;
   text-align: center;
   border-radius: 10px;
+  border-width: 1px;
+}
+
+input[name="first"] {
+  margin-bottom: 5px;
 }
