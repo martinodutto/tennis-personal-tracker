@@ -1,3 +1,9 @@
-#footer-row {
-  padding: 20px 0 20px 0;
+/* workarounds for a sticky footer */
+.content {
+  min-height: 100%;
+  margin: 0 auto -50px;
+}
+
+.footer, .push {
+  height: 50px;
 }
