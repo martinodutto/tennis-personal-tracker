@@ -1,9 +1,9 @@
-<div [formGroup]="match">
-  
+<div [formGroup]="match" class="text-center">
+
   <div formArrayName="sets">
     <span *ngFor="let set of match.controls['sets'].controls; let i = index" class="app-set-result">
       <div [formGroupName]="i">
-        <app-set-result [group]="set"></app-set-result>
+        <app-set-result [group]="set" [parity]="i%2 === 0"></app-set-result>
       </div>
     </span>
     <button type="button" class="btn btn-info btn-lg fa fa-plus" (click)="addNewSet()" [hidden]="match.controls['sets'].length === 5" ngbTooltip="Add a set"></button>

@@ -2,6 +2,10 @@
   display: inline-block;
 }
 
+.app-set-result:not(:first-child) {
+  margin-left: 30px;
+}
+
 button {
   cursor: pointer;
 }

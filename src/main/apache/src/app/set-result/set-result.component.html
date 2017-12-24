@@ -1,9 +1,18 @@
-<div [formGroup]="set" class="set-result">
+<div [formGroup]="set" [ngbPopover]="popContent" triggers="manual" #p="ngbPopover"
+     placement="{{parity ? 'top' : 'bottom'}}">
+  <!-- here we define the validation messages for a single set -->
+  <ng-template #popContent>
+    <div class="text-danger">
+      <p *ngIf="set.errors.tieBreakSet?.required !== undefined">Fill both players' results</p>
+      <p *ngIf="set.errors.tieBreakSet?.min !== undefined">Minimum number of games: {{set.errors.tieBreakSet.min}}</p>
+      <p *ngIf="set.errors.tieBreakSet?.max !== undefined">Maximum number of games: {{set.errors.tieBreakSet.max}}</p>
+      <p *ngIf="set.errors.tieBreakSet?.invalidResult !== undefined">Invalid result for a set</p>
+    </div>
+  </ng-template>
   <input type="number"
          name="first"
          formControlName="firstPlayerGames">
   <input type="number"
          name="second"
          formControlName="secondPlayerGames">
-  <!-- class="form-control" -->
 </div>

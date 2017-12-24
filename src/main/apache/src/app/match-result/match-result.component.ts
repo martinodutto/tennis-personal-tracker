@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {TieBreakSetValidator} from "../validators/tie-break-set-validator/tie-break-set-validator";
 
 @Component({
   selector: 'app-match-result',
@@ -21,8 +22,10 @@ export class MatchResultComponent implements OnInit {
 
   initSet() {
     return this._fb.group({
-      firstPlayerGames: new FormControl(0, [Validators.required, Validators.min(0)]),
-      secondPlayerGames: new FormControl(0, [Validators.required, Validators.min(0)])
+      firstPlayerGames: new FormControl(0),
+      secondPlayerGames: new FormControl(0)
+    }, {
+      validator: TieBreakSetValidator.validate
     })
   }
 

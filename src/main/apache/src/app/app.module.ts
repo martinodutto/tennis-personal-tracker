@@ -11,7 +11,6 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {MatchResultComponent} from './match-result/match-result.component';
 import {SetResultComponent} from './set-result/set-result.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
