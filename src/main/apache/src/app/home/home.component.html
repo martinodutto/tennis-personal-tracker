@@ -1,7 +1,20 @@
 <div class="container-fluid tpt-page-content">
-  <div class="text-center">
-    <button type="button" class="btn btn-info" (click)="goToNewActivity()">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-    </button>
+  <div class="container text-left">
+    <div class="row homepage-button">
+      <div class="offset-md-3 col-md-6">
+        <button type="button" class="btn btn-outline-success btn-block" (click)="goToNewActivity()">
+          <i class="fa fa-plus-square pull-right" aria-hidden="true"></i>
+          <span class="pull-left">New activity</span>
+        </button>
+      </div>
+    </div>
+    <div class="row homepage-button">
+      <div class="offset-md-3 col-md-6">
+        <button type="button" class="btn btn-outline-danger btn-block">
+          <i class="fa fa-history pull-right" aria-hidden="true"></i>
+          <span class="pull-left">See past results</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

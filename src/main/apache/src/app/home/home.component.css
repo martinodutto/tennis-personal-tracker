@@ -1,3 +1,11 @@
 i {
   font-size: 100px;
 }
+
+.homepage-button span {
+  font-size: 18px;
+}
+
+.homepage-button {
+  margin-bottom: 20px;
+}
