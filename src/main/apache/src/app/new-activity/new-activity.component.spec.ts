@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewActivityComponent} from './new-activity.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('NewActivityComponent', () => {
   let component: NewActivityComponent;
@@ -10,7 +11,8 @@ describe('NewActivityComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbDatepickerModule.forRoot()
       ],
       declarations: [ NewActivityComponent ]
     })

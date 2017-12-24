@@ -1,8 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MatchResultComponent} from './match-result.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {SetResultComponent} from "../set-result/set-result.component";
+import {NgbPopoverModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('MatchResultComponent', () => {
   let component: MatchResultComponent;
@@ -11,7 +12,8 @@ describe('MatchResultComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbPopoverModule.forRoot()
       ],
       declarations: [ MatchResultComponent, SetResultComponent ]
     })
@@ -21,6 +23,7 @@ describe('MatchResultComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MatchResultComponent);
     component = fixture.componentInstance;
+    component.match = new FormGroup({});
     fixture.detectChanges();
   });
 

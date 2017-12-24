@@ -1,7 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SetResultComponent} from './set-result.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {NgbPopoverModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('SetResultComponent', () => {
   let component: SetResultComponent;
@@ -10,7 +11,8 @@ describe('SetResultComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbPopoverModule.forRoot()
       ],
       declarations: [ SetResultComponent ]
     })
@@ -20,6 +22,11 @@ describe('SetResultComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SetResultComponent);
     component = fixture.componentInstance;
+    // manually initialized because it's an @Input()
+    component.set = new FormGroup({
+      firstPlayerGames: new FormControl(0),
+      secondPlayerGames: new FormControl(0)
+    });
     fixture.detectChanges();
   });
 
