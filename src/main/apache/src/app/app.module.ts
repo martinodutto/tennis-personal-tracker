@@ -11,6 +11,8 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {MatchResultComponent} from './match-result/match-result.component';
 import {SetResultComponent} from './set-result/set-result.component';
 import {ActivityService} from "./services/activity/activity.service";
+import {HomeComponent} from './home/home.component';
+import {HeaderComponent} from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {ActivityService} from "./services/activity/activity.service";
     NewActivityComponent,
     PageNotFoundComponent,
     MatchResultComponent,
-    SetResultComponent
+    SetResultComponent,
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

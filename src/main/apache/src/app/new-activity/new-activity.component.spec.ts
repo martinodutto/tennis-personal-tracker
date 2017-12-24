@@ -2,7 +2,12 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewActivityComponent} from './new-activity.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepickerModule, NgbModalModule, NgbPopoverModule} from "@ng-bootstrap/ng-bootstrap";
+import {MatchResultComponent} from "../match-result/match-result.component";
+import {SetResultComponent} from "../set-result/set-result.component";
+import {ActivityService} from "../services/activity/activity.service";
+import {HttpClientModule} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 describe('NewActivityComponent', () => {
   let component: NewActivityComponent;
@@ -12,9 +17,24 @@ describe('NewActivityComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        NgbDatepickerModule.forRoot()
+        NgbDatepickerModule.forRoot(),
+        NgbPopoverModule.forRoot(),
+        NgbModalModule.forRoot(),
+        HttpClientModule
       ],
-      declarations: [ NewActivityComponent ]
+      declarations: [
+        NewActivityComponent,
+        MatchResultComponent,
+        SetResultComponent
+      ],
+      providers: [
+        ActivityService,
+        {
+          provide: Router, useClass: class {
+            navigate = jasmine.createSpy("navigate");
+          }
+        }
+      ]
     })
     .compileComponents();
   }));

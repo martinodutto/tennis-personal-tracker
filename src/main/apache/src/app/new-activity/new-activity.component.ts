@@ -4,6 +4,8 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "
 import {ActivityService} from "../services/activity/activity.service";
 import {NgbDateISOParserFormatter} from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter";
 import {Activity} from "../model/activity";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-activity',
@@ -13,11 +15,13 @@ import {Activity} from "../model/activity";
 export class NewActivityComponent implements OnInit {
   // form model for the whole page
   form: FormGroup;
-
   result: SetResultComponent[];
 
   // injections
-  constructor(private _fb: FormBuilder, private activityService: ActivityService) {
+  constructor(private _fb: FormBuilder,
+              private activityService: ActivityService,
+              private modalService: NgbModal,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -58,4 +62,11 @@ export class NewActivityComponent implements OnInit {
     return a;
   }
 
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      if (result === 'Discarded') {
+        this.router.navigate(['home']);
+      }
+    });
+  }
 }
