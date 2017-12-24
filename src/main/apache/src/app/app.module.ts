@@ -13,6 +13,7 @@ import {SetResultComponent} from './set-result/set-result.component';
 import {ActivityService} from "./services/activity/activity.service";
 import {HomeComponent} from './home/home.component';
 import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {HeaderComponent} from './header/header.component';
     MatchResultComponent,
     SetResultComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
