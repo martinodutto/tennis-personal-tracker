@@ -14,6 +14,7 @@ import {ActivityService} from "./services/activity/activity.service";
 import {HomeComponent} from './home/home.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
+import {CreditsComponent} from './credits/credits.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {FooterComponent} from './footer/footer.component';
     SetResultComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,

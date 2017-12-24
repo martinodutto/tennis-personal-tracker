@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {NewActivityComponent} from "../new-activity/new-activity.component";
 import {PageNotFoundComponent} from "../page-not-found/page-not-found.component";
 import {HomeComponent} from "../home/home.component";
+import {CreditsComponent} from "../credits/credits.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -16,6 +17,9 @@ const routes: Routes = [{
 }, {
   path: 'new',
   component: NewActivityComponent
+}, {
+  path: 'credits',
+  component: CreditsComponent
 }, {
   path: '**', // this must be the LAST path, because it matches any not resolved path
   component: PageNotFoundComponent
