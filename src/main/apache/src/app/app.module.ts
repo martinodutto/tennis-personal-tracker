@@ -10,6 +10,7 @@ import {AppRoutingModule} from "./app-routing/app-routing.module";
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {MatchResultComponent} from './match-result/match-result.component';
 import {SetResultComponent} from './set-result/set-result.component';
+import {ActivityService} from "./services/activity/activity.service";
 
 @NgModule({
   declarations: [
@@ -26,8 +27,12 @@ import {SetResultComponent} from './set-result/set-result.component';
     ReactiveFormsModule,
     NgbModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    ActivityService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {
 }

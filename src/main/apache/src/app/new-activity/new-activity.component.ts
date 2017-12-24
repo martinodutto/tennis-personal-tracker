@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {SetResultComponent} from "../set-result/set-result.component";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ActivityService} from "../services/activity/activity.service";
+import {NgbDateISOParserFormatter} from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter";
+import {Activity} from "../model/activity";
 
 @Component({
   selector: 'app-new-activity',
@@ -13,8 +16,8 @@ export class NewActivityComponent implements OnInit {
 
   result: SetResultComponent[];
 
-  // injecting a form builder
-  constructor(private _fb: FormBuilder) {
+  // injections
+  constructor(private _fb: FormBuilder, private activityService: ActivityService) {
   }
 
   ngOnInit() {
@@ -29,8 +32,30 @@ export class NewActivityComponent implements OnInit {
   }
 
   save() {
-    console.debug('Submitting the data to the server!');
-    // TODO use this.form.value to recover the data from the form
+    console.debug('Submitting the data to the server...');
+    this.activityService.createActivity(
+      this.mapFormToActivity(<FormGroup> this.form)
+    ).subscribe((response) => {
+      if (response) {
+        console.debug('Form submitted correctly!');
+      }
+    }, (error) => {
+      console.debug('Form submission ended with error {}', error);
+    });
+  }
+
+  mapFormToActivity(form: FormGroup): Activity {
+    let df: NgbDateISOParserFormatter = new NgbDateISOParserFormatter();
+    let formValues: AbstractControl = form.value;
+
+    let a: Activity = new Activity();
+    a.activityDate = df.format(formValues['activityDate']);
+    a.firstPlayerName = formValues['firstPlayerName'];
+    a.secondPlayerName = formValues['secondPlayerName'];
+    a.match = formValues['match'];
+    a.club = formValues['club'];
+
+    return a;
   }
 
 }

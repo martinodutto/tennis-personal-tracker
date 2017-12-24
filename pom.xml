@@ -13,6 +13,7 @@
         <!-- we use this version because we need at least MyBatis 3.4.5 to correctly handle the new Java 8 LocalDateTime etc. types -->
         <mybatis-spring-boot.version>1.3.1</mybatis-spring-boot.version>
         <jsr305.version>3.0.2</jsr305.version>
+        <jackson-datatype-jsr310.version>2.9.3</jackson-datatype-jsr310.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     </properties>
@@ -83,6 +84,12 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <version>${jsr305.version}</version>
+        </dependency>
+        <!-- needed to let Jackson correctly handle Java 8 (JSR310) dates -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-datatype-jsr310.version}</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
