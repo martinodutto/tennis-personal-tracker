@@ -15,6 +15,7 @@ import {HomeComponent} from './home/home.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {CreditsComponent} from './credits/credits.component';
+import {TimeFormatService} from "./services/time-format/time-format.service";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {CreditsComponent} from './credits/credits.component';
     NgbModule.forRoot()
   ],
   providers: [
+    TimeFormatService,
     ActivityService
   ],
   bootstrap: [

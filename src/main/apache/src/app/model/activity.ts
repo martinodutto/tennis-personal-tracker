@@ -8,9 +8,21 @@ export class Activity {
 
   private _secondPlayerName: string;
 
-  private _match: MatchResult;
+  private _activityType: string;
 
-  private _club: String;
+  private _bestOf: string;
+
+  private _lastSetTiebreak: string;
+
+  private _club: string;
+
+  private _tournament: string;
+
+  private _activityTime: string;
+
+  private _duration: string;
+
+  private _match: MatchResult;
 
   get activityDate(): string {
     return this._activityDate;
@@ -36,19 +48,67 @@ export class Activity {
     this._secondPlayerName = value;
   }
 
+  get activityType(): string {
+    return this._activityType;
+  }
+
+  set activityType(value: string) {
+    this._activityType = value;
+  }
+
+  get bestOf(): string {
+    return this._bestOf;
+  }
+
+  set bestOf(value: string) {
+    this._bestOf = value;
+  }
+
+  get lastSetTiebreak(): string {
+    return this._lastSetTiebreak;
+  }
+
+  set lastSetTiebreak(value: string) {
+    this._lastSetTiebreak = value;
+  }
+
+  get club(): string {
+    return this._club;
+  }
+
+  set club(value: string) {
+    this._club = value;
+  }
+
+  get tournament(): string {
+    return this._tournament;
+  }
+
+  set tournament(value: string) {
+    this._tournament = value;
+  }
+
+  get activityTime(): string {
+    return this._activityTime;
+  }
+
+  set activityTime(value: string) {
+    this._activityTime = value;
+  }
+
+  get duration(): string {
+    return this._duration;
+  }
+
+  set duration(value: string) {
+    this._duration = value;
+  }
+
   get match(): MatchResult {
     return this._match;
   }
 
   set match(value: MatchResult) {
     this._match = value;
-  }
-
-  get club(): String {
-    return this._club;
-  }
-
-  set club(value: String) {
-    this._club = value;
   }
 }

@@ -59,10 +59,58 @@
         <div class="card-body">
           <div class="form-group row">
             <div class="col-md-3">
-              <label for="clubInput" class="col-form-label">
+              <label for="activityType" class="col-form-label">
+                Activity type
+              </label>
+              <select class="form-control" formControlName="activityType" id="activityType" (ngModelChange)="onActivityTypeChange($event)">
+                <option *ngFor="let choice of optionsActivityType">{{choice}}</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="bestOf" class="col-form-label">
+                3-or-5 setter
+              </label>
+              <select class="form-control" formControlName="bestOf" id="bestOf" (ngModelChange)="onBestOfChange($event)">
+                <option *ngFor="let choice of optionsBestOf">{{choice}}</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="lastSetTiebreak" class="col-form-label">
+                Last set tiebreak
+              </label>
+              <select class="form-control" formControlName="lastSetTiebreak" id="lastSetTiebreak">
+                <option *ngFor="let choice of optionsLastSetTiebreak">{{choice}}</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="club" class="col-form-label">
                 Club
               </label>
-              <input class="form-control" formControlName="club" id="clubInput">
+              <input class="form-control" formControlName="club" id="club">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label for="tournament" class="col-form-label">
+                Tournament
+              </label>
+              <input class="form-control" formControlName="tournament" id="tournament">
+            </div>
+            <div class="col-md-3">
+              <label for="activityTime" class="col-form-label">
+                Activity time
+              </label>
+              <div id="activityTime">
+                <ngb-timepicker [spinners]="false" formControlName="activityTime"></ngb-timepicker>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="duration" class="col-form-label">
+                Duration
+              </label>
+              <div id="duration">
+                <ngb-timepicker [spinners]="false" formControlName="duration"></ngb-timepicker>
+              </div>
             </div>
           </div>
         </div>
