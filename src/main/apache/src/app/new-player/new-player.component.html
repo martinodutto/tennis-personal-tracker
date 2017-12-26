@@ -10,28 +10,31 @@
             To use the application, you need to register a new player profile.
             Associated to it, you will have all of your tennis activities and results.
           </p>
-          <div class="form-group row">
+          <div class="form-group required row">
             <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
               <label for="name" class="col-form-label">
                 Name
               </label>
-              <input class="form-control" formControlName="name" id="name">
+              <input class="form-control" formControlName="name" id="name"
+                     [ngClass]="{'is-invalid': form.controls['name'].touched && form.controls['name'].invalid}">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group required row">
             <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
               <label for="surname" class="col-form-label">
                 Surname
               </label>
-              <input class="form-control" formControlName="surname" id="surname">
+              <input class="form-control" formControlName="surname" id="surname"
+                     [ngClass]="{'is-invalid': form.controls['surname'].touched && form.controls['surname'].invalid}">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group required row">
             <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
               <label for="gender" class="col-form-label">
                 Gender
               </label>
-              <select class="form-control" formControlName="gender" id="gender">
+              <select class="form-control" formControlName="gender" id="gender"
+                      [ngClass]="{'is-invalid': form.controls['gender'].touched && form.controls['gender'].invalid}">
                 <option *ngFor="let choice of optionsGender">{{choice}}</option>
               </select>
             </div>
@@ -51,7 +54,8 @@
       </div>
       <div class="modal-body">
         <p>
-          Congratulations {{form.value.name}}, you successfully created your brand new player profile! Now you're ready to
+          Congratulations {{form.value.name}}, you successfully created your brand new player profile! Now you're ready
+          to
           access all the functionalities of Tennis Personal Tracker.
         </p>
         <p>

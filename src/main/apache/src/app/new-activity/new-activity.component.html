@@ -3,39 +3,39 @@
     <form [formGroup]="form" (ngSubmit)="save()" novalidate>
 
       <div class="card">
-        <div class="card-header">
-          Required fields
-        </div>
         <div class="card-body">
-          <div class="form-group row">
+          <div class="form-group required row">
             <label for="activityDateInput" class="col-md-3 col-lg-2 col-form-label">
               Activity date
             </label>
-            <div class="input-group col-md-6 col-lg-3">
+            <div class="input-group col-md-6 col-lg-4">
               <input class="form-control" formControlName="activityDate" placeholder="yyyy-mm-dd" name="dp"
                      ngbDatepicker
-                     #d="ngbDatepicker" id="activityDateInput">
+                     #d="ngbDatepicker" id="activityDateInput"
+                     [ngClass]="{'is-invalid': form.controls['activityDate'].touched && form.controls['activityDate'].invalid}">
               <button class="input-group-addon" (click)="d.toggle()" type="button">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group required row">
             <label for="firstPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
               First player
             </label>
-            <div class="col-md-6 col-lg-3">
-              <input class="form-control" formControlName="firstPlayerName" id="firstPlayerNameInput">
+            <div class="col-md-6 col-lg-4">
+              <input class="form-control" formControlName="firstPlayerName" id="firstPlayerNameInput"
+                     [ngClass]="{'is-invalid': form.controls['firstPlayerName'].touched && form.controls['firstPlayerName'].invalid}">
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group required row">
             <label for="secondPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
               Second player
             </label>
-            <div class="input-group col-md-6 col-lg-3">
-              <input class="form-control" formControlName="secondPlayerName" id="secondPlayerNameInput">
+            <div class="input-group col-md-6 col-lg-4">
+              <input class="form-control" formControlName="secondPlayerName" id="secondPlayerNameInput"
+                     [ngClass]="{'is-invalid': form.controls['secondPlayerName'].touched && form.controls['secondPlayerName'].invalid}">
               <button class="input-group-addon" type="button" ngbTooltip="Add a player"
                       (click)="openNewPlayerModal(newPlayerModalContent)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -157,28 +157,31 @@
         <div class="modal-body">
           <div class="container">
             <p>Fill the details for the new player you want to add:</p>
-            <div class="form-group row">
+            <div class="form-group required row">
               <div class="col-sm-12">
                 <label for="name" class="col-form-label">
                   Name
                 </label>
-                <input class="form-control" formControlName="name" id="name">
+                <input class="form-control" formControlName="name" id="name"
+                       [ngClass]="{'is-invalid': newPlayerForm.controls['name'].touched && newPlayerForm.controls['name'].invalid}">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group required row">
               <div class="col-sm-12">
                 <label for="surname" class="col-form-label">
                   Surname
                 </label>
-                <input class="form-control" formControlName="surname" id="surname">
+                <input class="form-control" formControlName="surname" id="surname"
+                       [ngClass]="{'is-invalid': newPlayerForm.controls['surname'].touched && newPlayerForm.controls['surname'].invalid}">
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group required row">
               <div class="col-sm-12">
                 <label for="gender" class="col-form-label">
                   Gender
                 </label>
-                <select class="form-control" formControlName="gender" id="gender">
+                <select class="form-control" formControlName="gender" id="gender"
+                        [ngClass]="{'is-invalid': newPlayerForm.controls['gender'].touched && newPlayerForm.controls['gender'].invalid}">
                   <option *ngFor="let choice of optionsGender">{{choice}}</option>
                 </select>
               </div>
@@ -187,7 +190,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-info" (click)="c('Close click')">Cancel</button>
-          <button type="button" class="btn btn-success" (click)="c(newPlayerForm)" [disabled]="newPlayerForm.invalid">Add</button>
+          <button type="button" class="btn btn-success" (click)="c(newPlayerForm)" [disabled]="newPlayerForm.invalid">
+            Add
+          </button>
         </div>
       </form>
     </ng-template>

@@ -17,3 +17,22 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* by applying a "required" class to a form-group, we automatically get a red asterisk following the "col-form-label"
+label underneath. Example use:
+
+ <div class="form-group required row">
+  <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+    <label for="name" class="col-form-label">
+      Name
+    </label>
+    <input class="form-control" formControlName="name" id="name"
+          [ngClass]="{'is-invalid': form.controls['name'].touched && form.controls['name'].invalid}">
+    </div>
+ </div>
+
+*/
+.form-group.required .col-form-label:after {
+  content: "*";
+  color: red;
+}

@@ -11,3 +11,19 @@ input {
 input[name="first"] {
   margin-bottom: 5px;
 }
+
+@media screen and (max-width: 667px) {
+  input {
+    height: 80px;
+    width: 53px;
+    font-size: 64px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  input {
+    height: 70px;
+    width: 46px;
+    font-size: 60px;
+  }
+}
