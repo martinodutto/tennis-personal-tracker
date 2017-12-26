@@ -23,6 +23,7 @@ export class NewActivityComponent implements OnInit {
   optionsLastSetTiebreak: Array<string>;
   optionsGender: Array<string>;
   result: SetResultComponent[];
+  collapsedOptionalSection: boolean = true;
 
   // injections
   constructor(private formBuilder: FormBuilder,
@@ -132,5 +133,9 @@ export class NewActivityComponent implements OnInit {
       this.form.controls['lastSetTiebreak'].enable();
       this.form.controls['tournament'].enable();
     }
+  }
+
+  toggleCollapse() {
+    this.collapsedOptionalSection = !this.collapsedOptionalSection;
   }
 }
