@@ -16,4 +16,8 @@ export class HomeComponent implements OnInit {
   goToNewActivity() {
     this.router.navigate(['new']);
   }
+
+  goToPlayerCreation() {
+    this.router.navigate(['newplayer']);
+  }
 }

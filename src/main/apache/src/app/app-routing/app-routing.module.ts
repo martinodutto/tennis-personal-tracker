@@ -5,12 +5,16 @@ import {NewActivityComponent} from "../new-activity/new-activity.component";
 import {PageNotFoundComponent} from "../page-not-found/page-not-found.component";
 import {HomeComponent} from "../home/home.component";
 import {CreditsComponent} from "../credits/credits.component";
+import {NewPlayerComponent} from "../new-player/new-player.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
   path: '',
   pathMatch: 'full',
   redirectTo: 'home'
+}, {
+  path: 'newplayer',
+  component: NewPlayerComponent
 }, {
   path: 'home',
   component: HomeComponent

@@ -22,7 +22,7 @@ export class NewActivityComponent implements OnInit {
   result: SetResultComponent[];
 
   // injections
-  constructor(private _fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private activityService: ActivityService,
               private modalService: NgbModal,
               private router: Router,
@@ -43,7 +43,7 @@ export class NewActivityComponent implements OnInit {
       'Yes',
       'No'
     ];
-    this.form = this._fb.group({
+    this.form = this.formBuilder.group({
       activityDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, [Validators.required]),
       firstPlayerName: new FormControl('', Validators.required),
       secondPlayerName: new FormControl('', Validators.required),
@@ -54,7 +54,7 @@ export class NewActivityComponent implements OnInit {
       tournament: new FormControl(''),
       activityTime: new FormControl({}),
       duration: new FormControl({}),
-      match: this._fb.group({})
+      match: this.formBuilder.group({})
     });
   }
 
@@ -67,7 +67,7 @@ export class NewActivityComponent implements OnInit {
         console.debug('Form submitted correctly!');
       }
     }, (error) => {
-      console.debug(`Form submission ended with error: ${error.message}`);
+      console.error(`Form submission ended with error: ${error.message}`);
     });
   }
 

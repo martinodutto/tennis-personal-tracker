@@ -1,0 +1,66 @@
+<div class="container-fluid tpt-page-content">
+  <div class="container">
+    <form [formGroup]="form" (ngSubmit)="createNewPlayer()" novalidate>
+      <div class="card">
+        <div class="card-header font-weight-bold">
+          Register a new player
+        </div>
+        <div class="card-body">
+          <p>
+            To use the application, you need to register a new player profile.
+            Associated to it, you will have all of your tennis activities and results.
+          </p>
+          <div class="form-group row">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+              <label for="name" class="col-form-label">
+                Name
+              </label>
+              <input class="form-control" formControlName="name" id="name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+              <label for="surname" class="col-form-label">
+                Surname
+              </label>
+              <input class="form-control" formControlName="surname" id="surname">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+              <label for="gender" class="col-form-label">
+                Gender
+              </label>
+              <select class="form-control" formControlName="gender" id="gender">
+                <option *ngFor="let choice of optionsGender">{{choice}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="pull-right">
+            <button type="submit" class="btn btn-success" [disabled]="form.invalid">I'm ready!</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <ng-template #successModalContent let-c="close">
+      <div class="modal-header">
+        <h4 class="modal-title">Success</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Congratulations {{form.value.name}}, you successfully created your brand new player profile! Now you're ready to
+          access all the functionalities of Tennis Personal Tracker.
+        </p>
+        <p>
+          Click the button to access your homepage. Have fun!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="c('Success')">Go to your homepage</button>
+      </div>
+    </ng-template>
+  </div>
+</div>

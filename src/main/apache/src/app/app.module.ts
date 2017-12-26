@@ -16,6 +16,8 @@ import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {CreditsComponent} from './credits/credits.component';
 import {TimeFormatService} from "./services/time-format/time-format.service";
+import {NewPlayerComponent} from './new-player/new-player.component';
+import {PlayerService} from "./services/player/player.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import {TimeFormatService} from "./services/time-format/time-format.service";
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    CreditsComponent
+    CreditsComponent,
+    NewPlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import {TimeFormatService} from "./services/time-format/time-format.service";
   ],
   providers: [
     TimeFormatService,
+    PlayerService,
     ActivityService
   ],
   bootstrap: [
