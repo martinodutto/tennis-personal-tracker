@@ -16,7 +16,7 @@ export class TieBreakSetValidator {
         errorDetails['max'] = 7;
       } else {
         if (!isNullOrUndefined(c2.value)) {
-          if (c1.value === 7 && c2.value < 5) {
+          if ((c1.value === 7 && c2.value < 5) || (c1.value === 7 && c2.value === 7)) {
             errorDetails['invalidResult'] = true;
           }
         }

@@ -108,6 +108,14 @@ describe('TieBreakSetValidator', () => {
     expect(TieBreakSetValidator.validate(this.testFormGroup)).toEqual({tieBreakSet: {invalidResult: true}});
   });
 
+  it('does not validate a 7 - 7', () => {
+    this.testFormGroup.setValue({
+      firstPlayerGames: 7,
+      secondPlayerGames: 7
+    });
+    expect(TieBreakSetValidator.validate(this.testFormGroup)).toEqual({tieBreakSet: {invalidResult: true}});
+  });
+
   it('an 8-8 returns just one "max number of games" error message', () => {
     this.testFormGroup.setValue({
       firstPlayerGames: 8,
