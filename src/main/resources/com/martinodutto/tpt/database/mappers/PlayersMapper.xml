@@ -6,6 +6,7 @@
         <result column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" property="name"/>
         <result column="SURNAME" javaType="java.lang.String" jdbcType="VARCHAR" property="surname"/>
         <result column="GENDER" javaType="java.lang.String" jdbcType="VARCHAR" property="gender"/>
+        <result column="GUEST" javaType="java.lang.String" jdbcType="VARCHAR" property="guest"/>
         <result column="CREATION_TIMESTAMP" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"
                 property="creationTimestamp"/>
     </resultMap>
@@ -16,6 +17,7 @@
             NAME,
             SURNAME,
             GENDER,
+            GUEST,
             CREATION_TIMESTAMP
         FROM PLAYERS
     </sql>
@@ -30,10 +32,10 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="playerId">
-        INSERT INTO PLAYERS (NAME, SURNAME, GENDER, CREATION_TIMESTAMP)
+        INSERT INTO PLAYERS (NAME, SURNAME, GENDER, GUEST, CREATION_TIMESTAMP)
         VALUES
         (#{player.name, jdbcType=VARCHAR}, #{player.surname, jdbcType=VARCHAR}, #{player.gender, jdbcType=VARCHAR},
-        systimestamp)
+        #{player.guest, jdbcType=VARCHAR}, #{player.creationTimestamp, jdbcType=TIMESTAMP})
         <selectKey keyProperty="player.playerId" order="AFTER" resultType="int">
             SELECT LAST_INSERT_ID();
         </selectKey>
@@ -44,7 +46,8 @@
         SET
             NAME    = #{player.name, jdbcType=VARCHAR},
             SURNAME = #{player.surname, jdbcType=VARCHAR},
-            GENDER  = #{player.gender, jdbcType=VARCHAR}
+            GENDER  = #{player.gender, jdbcType=VARCHAR},
+            GUEST   = #{player.guest, jdbcType=VARCHAR}
         WHERE PLAYER_ID = #{player.playerId, jdbcType=NUMERIC}
     </update>
 

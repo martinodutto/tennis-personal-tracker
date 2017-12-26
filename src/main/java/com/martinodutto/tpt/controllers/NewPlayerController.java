@@ -43,6 +43,7 @@ public class NewPlayerController {
         player.setName(playerForm.get_name());
         player.setSurname(playerForm.get_surname());
         player.setGender(playerForm.get_gender());
+        player.setGuest(playerForm.get_guest());
         player.setCreationTimestamp(LocalDateTime.now());
 
         return player;

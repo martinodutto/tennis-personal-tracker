@@ -8,6 +8,8 @@ public class PlayerForm {
 
     private String _gender;
 
+    private String _guest;
+
     public String get_name() {
         return _name;
     }
@@ -32,12 +34,21 @@ public class PlayerForm {
         this._gender = _gender;
     }
 
+    public String get_guest() {
+        return _guest;
+    }
+
+    public void set_guest(String _guest) {
+        this._guest = _guest;
+    }
+
     @Override
     public String toString() {
         return "PlayerForm{" +
                 "_name='" + _name + '\'' +
                 ", _surname='" + _surname + '\'' +
                 ", _gender='" + _gender + '\'' +
+                ", _guest='" + _guest + '\'' +
                 '}';
     }
 }

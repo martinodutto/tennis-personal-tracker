@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +55,7 @@ public class PlayersMapperTest {
         player.setName("Alessia");
         player.setSurname("Nardozzi");
         player.setGender("F");
+        player.setGuest("Y");
         assertEquals(1, playersMapper.insert(player));
         LOGGER.info("Inserted new player with id {}", player.getPlayerId());
     }
@@ -64,10 +66,12 @@ public class PlayersMapperTest {
         playerBefore.setName("Giacomo");
         playerBefore.setSurname("Vercelli");
         playerBefore.setGender("M");
+        playerBefore.setGuest("N");
         playersMapper.insert(playerBefore);
         playerBefore.setName("Carlo");
         assertEquals(1, playersMapper.update(playerBefore));
         final Player playerAfter = playersMapper.selectByPk(playerBefore.getPlayerId());
+        assertNotNull(playerAfter);
         assertEquals("Carlo", playerAfter.getName());
     }
 
@@ -77,9 +81,30 @@ public class PlayersMapperTest {
         player.setName("Giovanni");
         player.setSurname("Roncato");
         player.setGender("M");
+        player.setGuest("Y");
         playersMapper.insert(player);
         int playerId = player.getPlayerId();
         assertEquals(1, playersMapper.delete(player));
         assertEquals(null, playersMapper.selectByPk(playerId));
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void aViolatedGuestConstraintProducesAnError() {
+        final Player player = new Player();
+        player.setName("Giovanni");
+        player.setSurname("Roncato");
+        player.setGender("M");
+        player.setGuest("A"); // "A" is not an admitted value
+        playersMapper.insert(player);
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    public void aNullGuestConstraintProducesAnError() {
+        final Player player = new Player();
+        player.setName("Giovanni");
+        player.setSurname("Roncato");
+        player.setGender("M");
+        // we don't expressly set a guest
+        playersMapper.insert(player);
     }
 }

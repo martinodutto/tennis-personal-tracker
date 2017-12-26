@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Player} from "../model/player";
+import {Guest, Player} from "../model/player";
 import {PlayerService} from "../services/player/player.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
@@ -61,6 +61,7 @@ export class NewPlayerComponent implements OnInit {
     p.name = formValues['name'];
     p.surname = formValues['surname'];
     p.gender = formValues['gender'];
+    p.guest = Guest.N;
 
     return p;
   }

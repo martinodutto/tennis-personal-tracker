@@ -12,6 +12,8 @@ public class Player {
 
     private String gender;
 
+    private String guest;
+
     private LocalDateTime creationTimestamp;
 
     public int getPlayerId() {
@@ -46,6 +48,14 @@ public class Player {
         this.gender = gender;
     }
 
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
+    }
+
     public LocalDateTime getCreationTimestamp() {
         return creationTimestamp;
     }
@@ -61,6 +71,7 @@ public class Player {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", gender='" + gender + '\'' +
+                ", guest='" + guest + '\'' +
                 ", creationTimestamp=" + creationTimestamp +
                 '}';
     }

@@ -6,6 +6,8 @@ export class Player {
 
   private _gender: string;
 
+  private _guest: Guest;
+
   get name(): string {
     return this._name;
   }
@@ -29,4 +31,17 @@ export class Player {
   set gender(value: string) {
     this._gender = value;
   }
+
+  get guest(): Guest {
+    return this._guest;
+  }
+
+  set guest(value: Guest) {
+    this._guest = value;
+  }
+}
+
+export enum Guest {
+  Y = "Y",
+  N = "N"
 }
