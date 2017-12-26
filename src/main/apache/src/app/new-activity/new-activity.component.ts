@@ -91,11 +91,13 @@ export class NewActivityComponent implements OnInit {
     return a;
   }
 
-  open(content) {
+  openDiscardModal(content) {
     this.modalService.open(content).result.then((result) => {
       if (result === 'Discarded') {
         this.router.navigate(['home']);
       }
+    }, () => {
+      // nothing to do
     });
   }
 

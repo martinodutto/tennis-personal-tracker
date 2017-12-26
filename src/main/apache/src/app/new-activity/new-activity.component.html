@@ -118,12 +118,12 @@
 
       <div>
         <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save</button>
-        <button type="button" class="btn btn-danger" (click)="open(content)">Discard</button>
+        <button type="button" class="btn btn-danger" (click)="openDiscardModal(discardModalContent)">Discard</button>
       </div>
     </form>
 
     <!-- template for the discard confirmation modal -->
-    <ng-template #content let-c="close" let-d="dismiss">
+    <ng-template #discardModalContent let-c="close" let-d="dismiss">
       <div class="modal-header">
         <h4 class="modal-title">Discarding activity</h4>
         <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="d('Cross click')">
