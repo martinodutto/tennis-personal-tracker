@@ -7,6 +7,8 @@ import {Activity} from "../model/activity";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
 import {TimeFormatService} from "../services/time-format/time-format.service";
+import {PlayerService} from "../services/player/player.service";
+import {Guest, Player} from "../model/player";
 
 @Component({
   selector: 'app-new-activity',
@@ -16,9 +18,11 @@ import {TimeFormatService} from "../services/time-format/time-format.service";
 export class NewActivityComponent implements OnInit {
   // form model for the whole page
   form: FormGroup;
+  newPlayerForm: FormGroup;
   optionsActivityType: Array<string>;
   optionsBestOf: Array<string>;
   optionsLastSetTiebreak: Array<string>;
+  optionsGender: Array<string>;
   result: SetResultComponent[];
 
   // injections
@@ -26,7 +30,8 @@ export class NewActivityComponent implements OnInit {
               private activityService: ActivityService,
               private modalService: NgbModal,
               private router: Router,
-              private timeFormatService: TimeFormatService) {
+              private timeFormatService: TimeFormatService,
+              private playerService: PlayerService) {
   }
 
   ngOnInit() {
@@ -42,6 +47,10 @@ export class NewActivityComponent implements OnInit {
     this.optionsLastSetTiebreak = [
       'Yes',
       'No'
+    ];
+    this.optionsGender = [
+      'M',
+      'F'
     ];
     this.form = this.formBuilder.group({
       activityDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, [Validators.required]),
@@ -95,6 +104,32 @@ export class NewActivityComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
       if (result === 'Discarded') {
         this.router.navigate(['home']);
+      }
+    }, () => {
+      // nothing to do
+    });
+  }
+
+  openNewPlayerModal(content) {
+    this.newPlayerForm = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      surname: new FormControl('', Validators.required),
+      gender: new FormControl(this.optionsGender[0], Validators.required)
+    });
+    this.modalService.open(content).result.then((result) => {
+      if (result && result instanceof Object) {
+        const newPlayer: Player = new Player(result, Guest.Y);
+        this.playerService.createPlayer(
+          newPlayer
+        ).subscribe(() => {
+          console.debug('Player created correctly!');
+          this.form.patchValue({
+            secondPlayerName: newPlayer.name + ' ' + newPlayer.surname
+          });
+        }, error => {
+          console.error(`Player creation ended with error: ${error.message}`);
+          // TODO manage error
+        });
       }
     }, () => {
       // nothing to do

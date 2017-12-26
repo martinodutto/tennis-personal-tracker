@@ -9,6 +9,7 @@ import {ActivityService} from "../services/activity/activity.service";
 import {HttpClientModule} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {TimeFormatService} from "../services/time-format/time-format.service";
+import {PlayerService} from "../services/player/player.service";
 
 describe('NewActivityComponent', () => {
   let component: NewActivityComponent;
@@ -32,6 +33,7 @@ describe('NewActivityComponent', () => {
       providers: [
         TimeFormatService,
         ActivityService,
+        PlayerService,
         {
           provide: Router, useClass: class {
             navigate = jasmine.createSpy("navigate");

@@ -34,8 +34,12 @@
             <label for="secondPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
               Second player
             </label>
-            <div class="col-md-6 col-lg-3">
+            <div class="input-group col-md-6 col-lg-3">
               <input class="form-control" formControlName="secondPlayerName" id="secondPlayerNameInput">
+              <button class="input-group-addon" type="button" ngbTooltip="Add a player"
+                      (click)="openNewPlayerModal(newPlayerModalContent)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -62,7 +66,8 @@
               <label for="activityType" class="col-form-label">
                 Activity type
               </label>
-              <select class="form-control" formControlName="activityType" id="activityType" (ngModelChange)="onActivityTypeChange($event)">
+              <select class="form-control" formControlName="activityType" id="activityType"
+                      (ngModelChange)="onActivityTypeChange($event)">
                 <option *ngFor="let choice of optionsActivityType">{{choice}}</option>
               </select>
             </div>
@@ -70,7 +75,8 @@
               <label for="bestOf" class="col-form-label">
                 3-or-5 setter
               </label>
-              <select class="form-control" formControlName="bestOf" id="bestOf" (ngModelChange)="onBestOfChange($event)">
+              <select class="form-control" formControlName="bestOf" id="bestOf"
+                      (ngModelChange)="onBestOfChange($event)">
                 <option *ngFor="let choice of optionsBestOf">{{choice}}</option>
               </select>
             </div>
@@ -137,6 +143,53 @@
         <button type="button" class="btn btn-info" (click)="c('Close click')">Cancel</button>
         <button type="button" class="btn btn-warning" (click)="c('Discarded')">Confirm</button>
       </div>
+    </ng-template>
+
+    <!-- template for adding a new player -->
+    <ng-template #newPlayerModalContent let-c="close" let-d="dismiss">
+      <form [formGroup]="newPlayerForm" novalidate>
+        <div class="modal-header">
+          <h4 class="modal-title">Add a player</h4>
+          <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="d('Cross click')">
+            <i class="fa fa-close" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <p>Fill the details for the new player you want to add:</p>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="name" class="col-form-label">
+                  Name
+                </label>
+                <input class="form-control" formControlName="name" id="name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="surname" class="col-form-label">
+                  Surname
+                </label>
+                <input class="form-control" formControlName="surname" id="surname">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="gender" class="col-form-label">
+                  Gender
+                </label>
+                <select class="form-control" formControlName="gender" id="gender">
+                  <option *ngFor="let choice of optionsGender">{{choice}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" (click)="c('Close click')">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="c(newPlayerForm)" [disabled]="newPlayerForm.invalid">Add</button>
+        </div>
+      </form>
     </ng-template>
   </div>
 </div>

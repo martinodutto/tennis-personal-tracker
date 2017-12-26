@@ -1,3 +1,5 @@
+import {AbstractControl, FormGroup} from "@angular/forms";
+
 export class Player {
 
   private _name: string;
@@ -7,6 +9,15 @@ export class Player {
   private _gender: string;
 
   private _guest: Guest;
+
+  constructor(form: FormGroup, guest: Guest) {
+    let formValues: AbstractControl = form.value;
+
+    this.name = formValues['name'];
+    this.surname = formValues['surname'];
+    this.gender = formValues['gender'];
+    this.guest = guest;
+  }
 
   get name(): string {
     return this._name;
