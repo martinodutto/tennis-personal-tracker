@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Nonnull;
-import java.time.LocalDateTime;
-
 @RestController
 public class NewPlayerController {
 
@@ -31,21 +28,9 @@ public class NewPlayerController {
 
         LOGGER.info("Creating new player with following submitted data: {}", form);
 
-        Player player = mapToPlayer(form);
+        Player player = new Player(form);
         final int insert = playerService.insert(player);
 
         LOGGER.info("Successfully inserted {} records", insert);
-    }
-
-    private Player mapToPlayer(@Nonnull PlayerForm playerForm) {
-
-        Player player = new Player();
-        player.setName(playerForm.get_name());
-        player.setSurname(playerForm.get_surname());
-        player.setGender(playerForm.get_gender());
-        player.setGuest(playerForm.get_guest());
-        player.setCreationTimestamp(LocalDateTime.now());
-
-        return player;
     }
 }

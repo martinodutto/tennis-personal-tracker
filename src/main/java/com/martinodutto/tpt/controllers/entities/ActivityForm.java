@@ -25,6 +25,8 @@ public class ActivityForm {
 
     private LocalTime _duration;
 
+    private String _notes;
+
     private MatchResult _match;
 
     public LocalDate get_activityDate() {
@@ -107,6 +109,14 @@ public class ActivityForm {
         this._duration = _duration;
     }
 
+    public String get_notes() {
+        return _notes;
+    }
+
+    public void set_notes(String _notes) {
+        this._notes = _notes;
+    }
+
     public MatchResult get_match() {
         return _match;
     }
@@ -128,6 +138,7 @@ public class ActivityForm {
                 ", _tournament='" + _tournament + '\'' +
                 ", _activityTime=" + _activityTime +
                 ", _duration=" + _duration +
+                ", _notes='" + _notes + '\'' +
                 ", _match=" + _match +
                 '}';
     }

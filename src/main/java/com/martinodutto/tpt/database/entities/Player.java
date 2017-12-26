@@ -1,5 +1,8 @@
 package com.martinodutto.tpt.database.entities;
 
+import com.martinodutto.tpt.controllers.entities.PlayerForm;
+
+import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 
 public class Player {
@@ -15,6 +18,17 @@ public class Player {
     private String guest;
 
     private LocalDateTime creationTimestamp;
+
+    public Player() {
+    }
+
+    public Player(@Nonnull PlayerForm form) {
+        this.name = form.get_name();
+        this.surname = (form.get_surname());
+        this.gender = form.get_gender();
+        this.guest = form.get_guest();
+        this.creationTimestamp = LocalDateTime.now();
+    }
 
     public int getPlayerId() {
         return playerId;

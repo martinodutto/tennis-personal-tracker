@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SetResultComponent} from "../set-result/set-result.component";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityService} from "../services/activity/activity.service";
-import {NgbDateISOParserFormatter} from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter";
 import {Activity} from "../model/activity";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
@@ -63,6 +62,7 @@ export class NewActivityComponent implements OnInit {
       tournament: new FormControl(''),
       activityTime: new FormControl({}),
       duration: new FormControl({}),
+      notes: new FormControl(''),
       match: this.formBuilder.group({})
     });
   }
@@ -70,7 +70,7 @@ export class NewActivityComponent implements OnInit {
   save() {
     console.debug('Submitting the data to the server...');
     this.activityService.createActivity(
-      this.mapFormToActivity(<FormGroup> this.form)
+      new Activity(<FormGroup> this.form, this.timeFormatService)
     ).subscribe((response) => {
       if (response) {
         console.debug('Form submitted correctly!');
@@ -78,26 +78,6 @@ export class NewActivityComponent implements OnInit {
     }, (error) => {
       console.error(`Form submission ended with error: ${error.message}`);
     });
-  }
-
-  mapFormToActivity(form: FormGroup): Activity {
-    let df: NgbDateISOParserFormatter = new NgbDateISOParserFormatter();
-    let formValues: AbstractControl = form.value;
-
-    let a: Activity = new Activity();
-    a.activityDate = df.format(formValues['activityDate']); // the activity date should never be null at this point
-    a.firstPlayerName = formValues['firstPlayerName'];
-    a.secondPlayerName = formValues['secondPlayerName'];
-    a.activityType = formValues['activityType'];
-    a.bestOf = formValues['bestOf'];
-    a.lastSetTiebreak = formValues['lastSetTiebreak'];
-    a.club = formValues['club'];
-    a.tournament = formValues['tournament'];
-    a.activityTime = this.timeFormatService.format(formValues['activityTime']);
-    a.duration = this.timeFormatService.format(formValues['duration']);
-    a.match = formValues['match'];
-
-    return a;
   }
 
   openDiscardModal(content) {

@@ -1,4 +1,7 @@
 import {MatchResult} from "./match-result";
+import {AbstractControl, FormGroup} from "@angular/forms";
+import {NgbDateISOParserFormatter} from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter";
+import {TimeFormatService} from "../services/time-format/time-format.service";
 
 export class Activity {
 
@@ -22,7 +25,27 @@ export class Activity {
 
   private _duration: string;
 
+  private _notes: string;
+
   private _match: MatchResult;
+
+  constructor(form: FormGroup, timeFormatService: TimeFormatService) {
+    let df: NgbDateISOParserFormatter = new NgbDateISOParserFormatter();
+    let formValues: AbstractControl = form.value;
+
+    this.activityDate = df.format(formValues['activityDate']);
+    this.firstPlayerName = formValues['firstPlayerName'];
+    this.secondPlayerName = formValues['secondPlayerName'];
+    this.activityType = formValues['activityType'];
+    this.bestOf = formValues['bestOf'];
+    this.lastSetTiebreak = formValues['lastSetTiebreak'];
+    this.club = formValues['club'];
+    this.tournament = formValues['tournament'];
+    this.activityTime = timeFormatService.format(formValues['activityTime']);
+    this.duration = timeFormatService.format(formValues['duration']);
+    this.notes = formValues['notes'];
+    this.match = formValues['match'];
+  }
 
   get activityDate(): string {
     return this._activityDate;
@@ -110,5 +133,13 @@ export class Activity {
 
   set match(value: MatchResult) {
     this._match = value;
+  }
+
+  get notes(): string {
+    return this._notes;
+  }
+
+  set notes(value: string) {
+    this._notes = value;
   }
 }

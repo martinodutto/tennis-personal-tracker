@@ -62,7 +62,7 @@
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="activityType" class="col-form-label">
                 Activity type
               </label>
@@ -71,7 +71,7 @@
                 <option *ngFor="let choice of optionsActivityType">{{choice}}</option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="bestOf" class="col-form-label">
                 3-or-5 setter
               </label>
@@ -80,7 +80,7 @@
                 <option *ngFor="let choice of optionsBestOf">{{choice}}</option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="lastSetTiebreak" class="col-form-label">
                 Last set tiebreak
               </label>
@@ -88,21 +88,21 @@
                 <option *ngFor="let choice of optionsLastSetTiebreak">{{choice}}</option>
               </select>
             </div>
-            <div class="col-md-3">
+          </div>
+          <div class="form-group row">
+            <div class="col-md-4">
               <label for="club" class="col-form-label">
                 Club
               </label>
               <input class="form-control" formControlName="club" id="club">
             </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="tournament" class="col-form-label">
                 Tournament
               </label>
               <input class="form-control" formControlName="tournament" id="tournament">
             </div>
-            <div class="col-md-3">
+            <div class="col-6 col-md-4 col-lg-2">
               <label for="activityTime" class="col-form-label">
                 Activity time
               </label>
@@ -110,13 +110,21 @@
                 <ngb-timepicker [spinners]="false" formControlName="activityTime"></ngb-timepicker>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-6 col-md-4 col-lg-2">
               <label for="duration" class="col-form-label">
                 Duration
               </label>
               <div id="duration">
                 <ngb-timepicker [spinners]="false" formControlName="duration"></ngb-timepicker>
               </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6 col-lg-4">
+              <label for="notes" class="col-form-label">
+                Notes
+              </label>
+              <textarea class="form-control" formControlName="notes" rows="3" id="notes"></textarea>
             </div>
           </div>
         </div>
