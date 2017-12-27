@@ -4,6 +4,8 @@
 <configuration>
     <mappers>
         <!-- Please keep in alphabetic order -->
+        <mapper resource="com/martinodutto/tpt/database/mappers/ActivitiesMapper.xml"/>
         <mapper resource="com/martinodutto/tpt/database/mappers/PlayersMapper.xml"/>
+        <mapper resource="com/martinodutto/tpt/database/mappers/ResultsMapper.xml"/>
     </mappers>
 </configuration>

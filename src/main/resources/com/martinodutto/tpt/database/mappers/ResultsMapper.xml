@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.martinodutto.tpt.database.mappers.ResultsMapper">
+    <resultMap id="ResultsRM" type="com.martinodutto.tpt.database.entities.Result">
+        <id column="ACTIVITY_ID" javaType="int" jdbcType="NUMERIC" property="activityId"/>
+        <result column="3_OR_5_SETTER" javaType="int" jdbcType="NUMERIC" property="threeOrFiveSetter"/>
+        <result column="LAST_SET_TIEBREAK" javaType="java.lang.String" jdbcType="VARCHAR" property="lastSetTiebreak"/>
+        <result column="SET_1_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set1P1"/>
+        <result column="SET_1_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set1P2"/>
+        <result column="SET_2_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set2P1"/>
+        <result column="SET_2_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set2P2"/>
+        <result column="SET_3_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set3P1"/>
+        <result column="SET_3_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set3P2"/>
+        <result column="SET_4_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set4P1"/>
+        <result column="SET_4_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set4P2"/>
+        <result column="SET_5_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set5P1"/>
+        <result column="SET_5_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set5P2"/>
+    </resultMap>
+
+    <sql id="selectAllSql">
+        SELECT
+            ACTIVITY_ID,
+            "3_OR_5_SETTER",
+            LAST_SET_TIEBREAK,
+            SET_1_P_1,
+            SET_1_P_2,
+            SET_2_P_1,
+            SET_2_P_2,
+            SET_3_P_1,
+            SET_3_P_2,
+            SET_4_P_1,
+            SET_4_P_2,
+            SET_5_P_1,
+            SET_5_P_2
+        FROM RESULTS
+    </sql>
+
+    <select id="selectAll" resultMap="ResultsRM">
+        <include refid="selectAllSql"/>
+    </select>
+
+    <select id="selectByPk" resultMap="ResultsRM">
+        <include refid="selectAllSql"/>
+        WHERE ACTIVITY_ID = #{activityId, jdbcType=NUMERIC}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO RESULTS (
+            ACTIVITY_ID,
+            "3_OR_5_SETTER",
+            LAST_SET_TIEBREAK,
+            SET_1_P_1,
+            SET_1_P_2,
+            SET_2_P_1,
+            SET_2_P_2,
+            SET_3_P_1,
+            SET_3_P_2,
+            SET_4_P_1,
+            SET_4_P_2,
+            SET_5_P_1,
+            SET_5_P_2
+        )
+        VALUES (
+            #{result.activityId, jdbcType=NUMERIC},
+            #{result.threeOrFiveSetter, jdbcType=NUMERIC},
+            #{result.lastSetTiebreak, jdbcType=VARCHAR},
+            #{result.set1P1, jdbcType=NUMERIC},
+            #{result.set1P2, jdbcType=NUMERIC},
+            #{result.set2P1, jdbcType=NUMERIC},
+            #{result.set2P2, jdbcType=NUMERIC},
+            #{result.set3P1, jdbcType=NUMERIC},
+            #{result.set3P2, jdbcType=NUMERIC},
+            #{result.set4P1, jdbcType=NUMERIC},
+            #{result.set4P2, jdbcType=NUMERIC},
+            #{result.set5P1, jdbcType=NUMERIC},
+            #{result.set5P2, jdbcType=NUMERIC})
+    </insert>
+
+    <update id="update">
+        UPDATE RESULTS
+        SET
+            ACTIVITY_ID       = #{result.activityId, jdbcType=NUMERIC},
+            "3_OR_5_SETTER"   = #{result.threeOrFiveSetter, jdbcType=NUMERIC},
+            LAST_SET_TIEBREAK = #{result.lastSetTiebreak, jdbcType=VARCHAR},
+            SET_1_P_1         = #{result.set1P1, jdbcType=NUMERIC},
+            SET_1_P_2         = #{result.set1P2, jdbcType=NUMERIC},
+            SET_2_P_1         = #{result.set2P1, jdbcType=NUMERIC},
+            SET_2_P_2         = #{result.set2P2, jdbcType=NUMERIC},
+            SET_3_P_1         = #{result.set3P1, jdbcType=NUMERIC},
+            SET_3_P_2         = #{result.set3P2, jdbcType=NUMERIC},
+            SET_4_P_1         = #{result.set4P1, jdbcType=NUMERIC},
+            SET_4_P_2         = #{result.set4P2, jdbcType=NUMERIC},
+            SET_5_P_1         = #{result.set5P1, jdbcType=NUMERIC},
+            SET_5_P_2         = #{result.set5P2, jdbcType=NUMERIC}
+        WHERE ACTIVITY_ID = #{result.activityId, jdbcType=NUMERIC}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM RESULTS
+        WHERE ACTIVITY_ID = #{result.activityId, jdbcType=NUMERIC}
+    </delete>
+</mapper>
