@@ -29,14 +29,17 @@ const routes: Routes = [{
   component: PageNotFoundComponent
 }];
 
+// we use {useHash: true} as an option for the router to avoid the browser to call the server (and thus returning a 404)
+// while manually changing the URL to a defined router route. See https://github.com/angular/angular-cli/issues/5113
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   exports: [
     RouterModule
   ],
   declarations: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
