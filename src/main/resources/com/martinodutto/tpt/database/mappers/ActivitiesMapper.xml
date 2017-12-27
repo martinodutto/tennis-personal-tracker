@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.martinodutto.tpt.database.mappers.ActivitiesMapper">
+    <resultMap id="ActivitiesRM" type="com.martinodutto.tpt.database.entities.Activity">
+        <id column="ACTIVITY_ID" javaType="int" jdbcType="NUMERIC" property="activityId"/>
+        <result column="ACTIVITY_DATE" javaType="java.time.LocalDate" jdbcType="DATE" property="activityDate"/>
+        <result column="ACTIVITY_TIME" javaType="java.time.LocalTime" jdbcType="TIME" property="activityTime"/>
+        <result column="DURATION" javaType="java.time.LocalTime" jdbcType="TIME" property="duration"/>
+        <result column="FIRST_PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="firstPlayerId"/>
+        <result column="SECOND_PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="secondPlayerId"/>
+        <result column="ACTIVITY_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" property="activityType"/>
+        <result column="CLUB" javaType="java.lang.String" jdbcType="VARCHAR" property="club"/>
+        <result column="TOURNAMENT" javaType="java.lang.String" jdbcType="VARCHAR" property="tournament"/>
+        <result column="NOTES" javaType="java.lang.String" jdbcType="VARCHAR" property="notes"/>
+    </resultMap>
+
+    <sql id="selectAllSql">
+        SELECT
+            ACTIVITY_ID,
+            ACTIVITY_DATE,
+            ACTIVITY_TIME,
+            DURATION,
+            FIRST_PLAYER_ID,
+            SECOND_PLAYER_ID,
+            ACTIVITY_TYPE,
+            CLUB,
+            TOURNAMENT,
+            NOTES
+        FROM ACTIVITIES
+    </sql>
+
+    <select id="selectAll" resultMap="ActivitiesRM">
+        <include refid="selectAllSql"/>
+    </select>
+
+    <select id="selectByPk" resultMap="ActivitiesRM">
+        <include refid="selectAllSql"/>
+        WHERE ACTIVITY_ID = #{activityId, jdbcType=NUMERIC}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="activityId">
+        INSERT INTO ACTIVITIES (
+        ACTIVITY_DATE,
+        ACTIVITY_TIME,
+        DURATION,
+        FIRST_PLAYER_ID,
+        SECOND_PLAYER_ID,
+        ACTIVITY_TYPE,
+        CLUB,
+        TOURNAMENT,
+        NOTES)
+        VALUES (
+        #{activity.activityDate, jdbcType=DATE},
+        #{activity.activityTime, jdbcType=TIME},
+        #{activity.duration, jdbcType=TIME},
+        #{activity.firstPlayerId, jdbcType=NUMERIC},
+        #{activity.secondPlayerId, jdbcType=NUMERIC},
+        #{activity.activityType, jdbcType=VARCHAR},
+        #{activity.club, jdbcType=VARCHAR},
+        #{activity.tournament, jdbcType=VARCHAR},
+        #{activity.notes, jdbcType=VARCHAR})
+        <selectKey keyProperty="activity.activityId" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <update id="update">
+        UPDATE ACTIVITIES
+        SET
+            ACTIVITY_DATE    = #{activity.activityDate, jdbcType=DATE},
+            ACTIVITY_TIME    = #{activity.activityTime, jdbcType=TIME},
+            DURATION         = #{activity.duration, jdbcType=TIME},
+            FIRST_PLAYER_ID  = #{activity.firstPlayerId, jdbcType=NUMERIC},
+            SECOND_PLAYER_ID = #{activity.secondPlayerId, jdbcType=NUMERIC},
+            ACTIVITY_TYPE    = #{activity.activityType, jdbcType=VARCHAR},
+            CLUB             = #{activity.club, jdbcType=VARCHAR},
+            TOURNAMENT       = #{activity.tournament, jdbcType=VARCHAR},
+            NOTES            = #{activity.notes, jdbcType=VARCHAR}
+        WHERE ACTIVITY_ID = #{activity.activityId, jdbcType=NUMERIC}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM ACTIVITIES
+        WHERE ACTIVITY_ID = #{activity.activityId, jdbcType=NUMERIC}
+    </delete>
+</mapper>

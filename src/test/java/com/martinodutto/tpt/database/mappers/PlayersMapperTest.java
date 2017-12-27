@@ -27,7 +27,7 @@ public class PlayersMapperTest {
     private PlayersMapper playersMapper;
 
     @Test
-    public void selectAllWorks() throws Exception {
+    public void selectAllWorks() {
         final List<Player> players = playersMapper.selectAll();
         LOGGER.info("Successfully selected {} players", players.size());
         assertNotNull(players);
@@ -41,7 +41,7 @@ public class PlayersMapperTest {
     }
 
     @Test
-    public void selectByPkWorks() throws Exception {
+    public void selectByPkWorks() {
         final Optional<Player> martino = playersMapper.selectAll().stream().filter(p -> "Martino".equals(p.getName())).findFirst();
         assertTrue(martino.isPresent());
         final Player martinoAgain = playersMapper.selectByPk(martino.get().getPlayerId());
@@ -50,18 +50,24 @@ public class PlayersMapperTest {
     }
 
     @Test
-    public void insertWorks() throws Exception {
+    public void selectingAnInexistentPkReturnsNull() {
+        assertNull(playersMapper.selectByPk(12));
+    }
+
+    @Test
+    public void insertWorks() {
         Player player = new Player();
         player.setName("Alessia");
         player.setSurname("Nardozzi");
         player.setGender("F");
         player.setGuest("Y");
         assertEquals(1, playersMapper.insert(player));
+        assertNotNull(playersMapper.selectByPk(player.getPlayerId())); // this also lets us verify that the id is attached correctly to the entity
         LOGGER.info("Inserted new player with id {}", player.getPlayerId());
     }
 
     @Test
-    public void updateWorks() throws Exception {
+    public void updateWorks() {
         final Player playerBefore = new Player();
         playerBefore.setName("Giacomo");
         playerBefore.setSurname("Vercelli");
@@ -76,7 +82,7 @@ public class PlayersMapperTest {
     }
 
     @Test
-    public void deleteWorks() throws Exception {
+    public void deleteWorks() {
         final Player player = new Player();
         player.setName("Giovanni");
         player.setSurname("Roncato");
@@ -85,7 +91,8 @@ public class PlayersMapperTest {
         playersMapper.insert(player);
         int playerId = player.getPlayerId();
         assertEquals(1, playersMapper.delete(player));
-        assertEquals(null, playersMapper.selectByPk(playerId));
+        assertEquals(3, playersMapper.selectAll().size());
+        assertNull(playersMapper.selectByPk(playerId));
     }
 
     @Test(expected = DataIntegrityViolationException.class)
