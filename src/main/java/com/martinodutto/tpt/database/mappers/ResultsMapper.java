@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -17,9 +18,9 @@ public interface ResultsMapper {
     @Nullable
     Result selectByPk(@Param("activityId") int activityId);
 
-    int insert(@Param("result") Result result);
+    int insert(@Nonnull @Param("result") Result result);
 
-    int update(@Param("result") Result result);
+    int update(@Nonnull @Param("result") Result result);
 
-    int delete(@Param("result") Result result);
+    int delete(@Nonnull @Param("result") Result result);
 }

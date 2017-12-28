@@ -1,5 +1,6 @@
 package com.martinodutto.tpt.database.mappers;
 
+import com.martinodutto.tpt.database.entities.Activity;
 import com.martinodutto.tpt.database.entities.Result;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,9 @@ public class ResultsMapperTest {
 
     @Autowired
     private ResultsMapper resultsMapper;
+
+    @Autowired
+    private ActivitiesMapper activitiesMapper;
 
     @Test
     public void selectAllWorks() {
@@ -202,5 +206,13 @@ public class ResultsMapperTest {
         assertEquals(1, resultsMapper.delete(result));
         assertEquals(2, resultsMapper.selectAll().size());
         assertNull(resultsMapper.selectByPk(4));
+    }
+
+    @Test
+    public void deletingAnActivityDeletesEvenTheResults() {
+        final Activity activity = activitiesMapper.selectByPk(5);
+        assertNotNull(activity);
+        assertEquals(1, activitiesMapper.delete(activity));
+        assertNull("Testing the FK cascade constraint", resultsMapper.selectByPk(5));
     }
 }
