@@ -7,13 +7,13 @@ export class Activity {
 
   private _activityDate: string;
 
-  private _firstPlayerName: string;
+  private _firstPlayerId: number;
 
-  private _secondPlayerName: string;
+  private _secondPlayerId: number;
 
   private _activityType: string;
 
-  private _bestOf: string;
+  private _bestOf: number;
 
   private _lastSetTiebreak: string;
 
@@ -34,11 +34,11 @@ export class Activity {
     let formValues: AbstractControl = form.value;
 
     this.activityDate = df.format(formValues['activityDate']);
-    this.firstPlayerName = formValues['firstPlayerName'];
-    this.secondPlayerName = formValues['secondPlayerName'];
+    this.firstPlayerId = formValues['firstPlayerId'];
+    this.secondPlayerId = formValues['secondPlayerId'];
     this.activityType = formValues['activityType'];
-    this.bestOf = formValues['bestOf'];
-    this.lastSetTiebreak = formValues['lastSetTiebreak'];
+    this.bestOf = formValues['bestOf'] === 'Best of 3' ? 3 : 5;
+    this.lastSetTiebreak = formValues['lastSetTiebreak'] === 'Yes' ? 'Y' : 'N';
     this.club = formValues['club'];
     this.tournament = formValues['tournament'];
     this.activityTime = timeFormatService.format(formValues['activityTime']);
@@ -55,20 +55,20 @@ export class Activity {
     this._activityDate = value;
   }
 
-  get firstPlayerName(): string {
-    return this._firstPlayerName;
+  get firstPlayerId(): number {
+    return this._firstPlayerId;
   }
 
-  set firstPlayerName(value: string) {
-    this._firstPlayerName = value;
+  set firstPlayerId(value: number) {
+    this._firstPlayerId = value;
   }
 
-  get secondPlayerName(): string {
-    return this._secondPlayerName;
+  get secondPlayerId(): number {
+    return this._secondPlayerId;
   }
 
-  set secondPlayerName(value: string) {
-    this._secondPlayerName = value;
+  set secondPlayerId(value: number) {
+    this._secondPlayerId = value;
   }
 
   get activityType(): string {
@@ -79,11 +79,11 @@ export class Activity {
     this._activityType = value;
   }
 
-  get bestOf(): string {
+  get bestOf(): number {
     return this._bestOf;
   }
 
-  set bestOf(value: string) {
+  set bestOf(value: number) {
     this._bestOf = value;
   }
 
@@ -127,19 +127,19 @@ export class Activity {
     this._duration = value;
   }
 
-  get match(): MatchResult {
-    return this._match;
-  }
-
-  set match(value: MatchResult) {
-    this._match = value;
-  }
-
   get notes(): string {
     return this._notes;
   }
 
   set notes(value: string) {
     this._notes = value;
+  }
+
+  get match(): MatchResult {
+    return this._match;
+  }
+
+  set match(value: MatchResult) {
+    this._match = value;
   }
 }

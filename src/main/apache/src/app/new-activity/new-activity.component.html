@@ -20,22 +20,25 @@
           </div>
 
           <div class="form-group required row">
-            <label for="firstPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
+            <label for="firstPlayerFullName" class="col-md-3 col-lg-2 col-form-label">
               First player
             </label>
             <div class="col-md-6 col-lg-4">
-              <input class="form-control" formControlName="firstPlayerName" id="firstPlayerNameInput"
-                     [ngClass]="{'is-invalid': form.controls['firstPlayerName'].touched && form.controls['firstPlayerName'].invalid}">
+              <input class="form-control" id="firstPlayerFullName" value="{{firstPlayerFullName}}" readonly>
             </div>
           </div>
 
           <div class="form-group required row">
-            <label for="secondPlayerNameInput" class="col-md-3 col-lg-2 col-form-label">
+            <label for="secondPlayerFullName" class="col-md-3 col-lg-2 col-form-label">
               Second player
             </label>
             <div class="input-group col-md-6 col-lg-4">
-              <input class="form-control" formControlName="secondPlayerName" id="secondPlayerNameInput"
-                     [ngClass]="{'is-invalid': form.controls['secondPlayerName'].touched && form.controls['secondPlayerName'].invalid}">
+              <select class="form-control" formControlName="secondPlayerId" id="secondPlayerFullName"
+                      (ngModelChange)="onSecondPlayerChange($event)"
+                      [ngClass]="{'is-invalid': form.controls['secondPlayerId'].touched && form.controls['secondPlayerId'].invalid}">
+                <option *ngFor="let player of optionsKnownPlayers" [value]="player.playerId">{{getFullName(player)}}
+                </option>
+              </select>
               <button class="input-group-addon" type="button" ngbTooltip="Add a player"
                       (click)="openNewPlayerModal(newPlayerModalContent)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -47,8 +50,7 @@
 
       <div class="card">
         <div class="card-header">
-          Match result{{form.value.firstPlayerName || form.value.secondPlayerName ? ' &mdash; ' : ''}}<b>{{form.value.firstPlayerName}}</b>{{form.value.firstPlayerName
-          || form.value.secondPlayerName ? ' vs ' : ''}}<b>{{form.value.secondPlayerName}}</b>
+          Match result &mdash; <b>{{firstPlayerFullName}}</b>{{secondPlayerFullName ? ' vs ' : ''}}<b>{{secondPlayerFullName}}</b>
         </div>
         <div class="card-body">
           <!-- this component contains the result of the tennis match -->

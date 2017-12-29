@@ -10,7 +10,7 @@ export class PlayerService {
 
   constructor(private http: HttpClient) { }
 
-  createPlayer(player: Player): Observable<Object> {
-    return this.http.post(this.URL_PREFIX + "/createPlayer", player);
+  createPlayer(player: Player): Observable<Player> {
+    return this.http.post<Player>(this.URL_PREFIX + "/createPlayer", player);
   }
 }

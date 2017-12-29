@@ -18,6 +18,8 @@ import {CreditsComponent} from './credits/credits.component';
 import {TimeFormatService} from "./services/time-format/time-format.service";
 import {NewPlayerComponent} from './new-player/new-player.component';
 import {PlayerService} from "./services/player/player.service";
+import {CurrentPlayerResolve} from "./resolves/current-player-resolve";
+import {KnownPlayersResolve} from "./resolves/known-players-resolve";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {PlayerService} from "./services/player/player.service";
   providers: [
     TimeFormatService,
     PlayerService,
-    ActivityService
+    ActivityService,
+    CurrentPlayerResolve,
+    KnownPlayersResolve
   ],
   bootstrap: [
     AppComponent

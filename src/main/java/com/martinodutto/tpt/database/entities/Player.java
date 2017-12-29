@@ -9,6 +9,8 @@ public class Player {
 
     private int playerId;
 
+    private int userId;
+
     private String name;
 
     private String surname;
@@ -22,9 +24,10 @@ public class Player {
     public Player() {
     }
 
-    public Player(@Nonnull PlayerForm form) {
+    public Player(@Nonnull PlayerForm form, int userId) {
+        this.userId = userId;
         this.name = form.get_name();
-        this.surname = (form.get_surname());
+        this.surname = form.get_surname();
         this.gender = form.get_gender();
         this.guest = form.get_guest();
         this.creationTimestamp = LocalDateTime.now();
@@ -36,6 +39,14 @@ public class Player {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -82,6 +93,7 @@ public class Player {
     public String toString() {
         return "Player{" +
                 "playerId=" + playerId +
+                ", userId=" + userId +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", gender='" + gender + '\'' +

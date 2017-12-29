@@ -2,6 +2,8 @@ import {AbstractControl, FormGroup} from "@angular/forms";
 
 export class Player {
 
+  private _playerId: number;
+
   private _name: string;
 
   private _surname: string;
@@ -17,6 +19,14 @@ export class Player {
     this.surname = formValues['surname'];
     this.gender = formValues['gender'];
     this.guest = guest;
+  }
+
+  get playerId(): number {
+    return this._playerId;
+  }
+
+  set playerId(value: number) {
+    this._playerId = value;
   }
 
   get name(): string {

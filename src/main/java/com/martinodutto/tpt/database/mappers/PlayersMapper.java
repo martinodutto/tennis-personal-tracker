@@ -18,6 +18,18 @@ public interface PlayersMapper {
     @Nullable
     Player selectByPk(@Param("playerId") int playerId);
 
+    /**
+     * Extracts THE player associated to the current user.
+     * The player must be at most (and, actually, even at least) one.
+     *
+     * @param userId Id of the current user.
+     * @return Player associated to the user.
+     */
+    @Nullable
+    Player selectUserPlayer(@Param("userId") int userId);
+
+    List<Player> selectUserKnownPlayers(@Param("userId") int userId);
+
     int insert(@Nonnull @Param("player") Player player);
 
     int update(@Nonnull @Param("player") Player player);

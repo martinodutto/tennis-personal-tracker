@@ -1,5 +1,8 @@
 package com.martinodutto.tpt.database.entities;
 
+import com.martinodutto.tpt.controllers.entities.ActivityForm;
+
+import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -24,6 +27,21 @@ public class Activity {
     private String tournament;
 
     private String notes;
+
+    public Activity() {
+    }
+
+    public Activity(@Nonnull ActivityForm activityForm) {
+        this.activityDate = activityForm.get_activityDate();
+        this.activityTime = activityForm.get_activityTime();
+        this.duration = activityForm.get_duration();
+        this.firstPlayerId = activityForm.get_firstPlayerId();
+        this.secondPlayerId = activityForm.get_secondPlayerId();
+        this.activityType = activityForm.get_activityType();
+        this.club = activityForm.get_club();
+        this.tournament = activityForm.get_tournament();
+        this.notes = activityForm.get_notes();
+    }
 
     public int getActivityId() {
         return activityId;

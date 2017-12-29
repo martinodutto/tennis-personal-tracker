@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityService} from "../services/activity/activity.service";
 import {Activity} from "../model/activity";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TimeFormatService} from "../services/time-format/time-format.service";
 import {PlayerService} from "../services/player/player.service";
 import {Guest, Player} from "../model/player";
@@ -18,18 +18,22 @@ export class NewActivityComponent implements OnInit {
   // form model for the whole page
   form: FormGroup;
   newPlayerForm: FormGroup;
+  optionsKnownPlayers: Player[];
   optionsActivityType: Array<string>;
   optionsBestOf: Array<string>;
   optionsLastSetTiebreak: Array<string>;
   optionsGender: Array<string>;
   result: SetResultComponent[];
   collapsedOptionalSection: boolean = true;
+  firstPlayerFullName: string;
+  secondPlayerFullName: string;
 
   // injections
   constructor(private formBuilder: FormBuilder,
               private activityService: ActivityService,
               private modalService: NgbModal,
               private router: Router,
+              private route: ActivatedRoute,
               private timeFormatService: TimeFormatService,
               private playerService: PlayerService) {
   }
@@ -52,10 +56,18 @@ export class NewActivityComponent implements OnInit {
       'M',
       'F'
     ];
+
+    // the resolve provides us with the user's player information
+    let currentPlayer: Player = this.route.snapshot.data['currentPlayer'];
+    this.firstPlayerFullName = this.getFullName(currentPlayer);
+
+    // loaded by the server
+    this.optionsKnownPlayers = this.route.snapshot.data['knownPlayers'];
+
     this.form = this.formBuilder.group({
       activityDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, [Validators.required]),
-      firstPlayerName: new FormControl('', Validators.required),
-      secondPlayerName: new FormControl('', Validators.required),
+      firstPlayerId: new FormControl(currentPlayer.playerId, Validators.required), // a "fake" control, because this is constant
+      secondPlayerId: new FormControl(this.optionsKnownPlayers[0].playerId, Validators.min(0)), // this trick lets us have an empty and invalid default
       activityType: new FormControl(this.optionsActivityType[0]),
       bestOf: new FormControl(this.optionsBestOf[0]),
       lastSetTiebreak: new FormControl(this.optionsLastSetTiebreak[0]),
@@ -73,9 +85,7 @@ export class NewActivityComponent implements OnInit {
     this.activityService.createActivity(
       new Activity(<FormGroup> this.form, this.timeFormatService)
     ).subscribe((response) => {
-      if (response) {
-        console.debug('Form submitted correctly!');
-      }
+      console.debug('Form submitted correctly!');
     }, (error) => {
       console.error(`Form submission ended with error: ${error.message}`);
     });
@@ -102,10 +112,11 @@ export class NewActivityComponent implements OnInit {
         const newPlayer: Player = new Player(result, Guest.Y);
         this.playerService.createPlayer(
           newPlayer
-        ).subscribe(() => {
-          console.debug('Player created correctly!');
+        ).subscribe((p) => {
+          console.debug(`Player ${p.name} ${p.surname} created correctly!`);
+          this.optionsKnownPlayers.push(p);
           this.form.patchValue({
-            secondPlayerName: newPlayer.name + ' ' + newPlayer.surname
+            secondPlayerId: p.playerId
           });
         }, error => {
           console.error(`Player creation ended with error: ${error.message}`);
@@ -115,6 +126,15 @@ export class NewActivityComponent implements OnInit {
     }, () => {
       // nothing to do
     });
+  }
+
+  onSecondPlayerChange(event) {
+    let selectedPlayers: Player[] = this.optionsKnownPlayers.filter(player => {
+      return player.playerId === parseInt(event);
+    });
+    if (selectedPlayers && selectedPlayers.length > 0) {
+      this.secondPlayerFullName = this.getFullName(selectedPlayers[0]);
+    }
   }
 
   onBestOfChange(event) {
@@ -137,5 +157,13 @@ export class NewActivityComponent implements OnInit {
 
   toggleCollapse() {
     this.collapsedOptionalSection = !this.collapsedOptionalSection;
+  }
+
+  getFullName(p: Player) {
+    if (p.name && p.surname) {
+      return p.name + ' ' + p.surname;
+    } else {
+      return '';
+    }
   }
 }

@@ -11,6 +11,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,8 +57,28 @@ public class PlayersMapperTest {
     }
 
     @Test
+    public void selectUserPlayerWorks() {
+        final Player player = playersMapper.selectUserPlayer(0);
+        assertNotNull(player);
+        assertEquals(2, player.getPlayerId());
+        assertEquals(0, player.getUserId());
+        assertEquals("Carlo", player.getName());
+        assertEquals("Pantaleo", player.getSurname());
+        assertEquals("M", player.getGender());
+        assertEquals("N", player.getGuest());
+        assertEquals(LocalDateTime.parse("2017-12-02 16:00:41.097000000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS")), player.getCreationTimestamp());
+    }
+
+    @Test
+    public void selectUserKnownPlayersWorks() {
+        final List<Player> players = playersMapper.selectUserKnownPlayers(0);
+        assertEquals(2, players.size());
+    }
+
+    @Test
     public void insertWorks() {
         Player player = new Player();
+        player.setUserId(1);
         player.setName("Alessia");
         player.setSurname("Nardozzi");
         player.setGender("F");
@@ -69,11 +91,13 @@ public class PlayersMapperTest {
     @Test
     public void updateWorks() {
         final Player playerBefore = new Player();
+        playerBefore.setUserId(2);
         playerBefore.setName("Giacomo");
         playerBefore.setSurname("Vercelli");
         playerBefore.setGender("M");
         playerBefore.setGuest("N");
         playersMapper.insert(playerBefore);
+        assertNotNull(playersMapper.selectByPk(playerBefore.getPlayerId()));
         playerBefore.setName("Carlo");
         assertEquals(1, playersMapper.update(playerBefore));
         final Player playerAfter = playersMapper.selectByPk(playerBefore.getPlayerId());
@@ -84,6 +108,7 @@ public class PlayersMapperTest {
     @Test
     public void deleteWorks() {
         final Player player = new Player();
+        player.setUserId(3);
         player.setName("Giovanni");
         player.setSurname("Roncato");
         player.setGender("M");
@@ -98,6 +123,7 @@ public class PlayersMapperTest {
     @Test(expected = DataIntegrityViolationException.class)
     public void aViolatedGuestConstraintProducesAnError() {
         final Player player = new Player();
+        player.setUserId(44);
         player.setName("Giovanni");
         player.setSurname("Roncato");
         player.setGender("M");
@@ -108,6 +134,7 @@ public class PlayersMapperTest {
     @Test(expected = DataIntegrityViolationException.class)
     public void aNullGuestConstraintProducesAnError() {
         final Player player = new Player();
+        player.setUserId(0);
         player.setName("Giovanni");
         player.setSurname("Roncato");
         player.setGender("M");

@@ -6,6 +6,8 @@ import {PageNotFoundComponent} from "../page-not-found/page-not-found.component"
 import {HomeComponent} from "../home/home.component";
 import {CreditsComponent} from "../credits/credits.component";
 import {NewPlayerComponent} from "../new-player/new-player.component";
+import {CurrentPlayerResolve} from "../resolves/current-player-resolve";
+import {KnownPlayersResolve} from "../resolves/known-players-resolve";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -20,7 +22,11 @@ const routes: Routes = [{
   component: HomeComponent
 }, {
   path: 'new',
-  component: NewActivityComponent
+  component: NewActivityComponent,
+  resolve: {
+    currentPlayer: CurrentPlayerResolve,
+    knownPlayers: KnownPlayersResolve
+  }
 }, {
   path: 'credits',
   component: CreditsComponent

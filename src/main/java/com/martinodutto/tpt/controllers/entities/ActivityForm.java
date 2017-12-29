@@ -7,13 +7,13 @@ public class ActivityForm {
 
     private LocalDate _activityDate;
 
-    private String _firstPlayerName;
+    private int _firstPlayerId;
 
-    private String _secondPlayerName;
+    private int _secondPlayerId;
 
     private String _activityType;
 
-    private String _bestOf;
+    private int _bestOf;
 
     private String _lastSetTiebreak;
 
@@ -37,20 +37,20 @@ public class ActivityForm {
         this._activityDate = _activityDate;
     }
 
-    public String get_firstPlayerName() {
-        return _firstPlayerName;
+    public int get_firstPlayerId() {
+        return _firstPlayerId;
     }
 
-    public void set_firstPlayerName(String _firstPlayerName) {
-        this._firstPlayerName = _firstPlayerName;
+    public void set_firstPlayerId(int _firstPlayerId) {
+        this._firstPlayerId = _firstPlayerId;
     }
 
-    public String get_secondPlayerName() {
-        return _secondPlayerName;
+    public int get_secondPlayerId() {
+        return _secondPlayerId;
     }
 
-    public void set_secondPlayerName(String _secondPlayerName) {
-        this._secondPlayerName = _secondPlayerName;
+    public void set_secondPlayerId(int _secondPlayerId) {
+        this._secondPlayerId = _secondPlayerId;
     }
 
     public String get_activityType() {
@@ -61,11 +61,11 @@ public class ActivityForm {
         this._activityType = _activityType;
     }
 
-    public String get_bestOf() {
+    public int get_bestOf() {
         return _bestOf;
     }
 
-    public void set_bestOf(String _bestOf) {
+    public void set_bestOf(int _bestOf) {
         this._bestOf = _bestOf;
     }
 
@@ -129,10 +129,10 @@ public class ActivityForm {
     public String toString() {
         return "ActivityForm{" +
                 "_activityDate=" + _activityDate +
-                ", _firstPlayerName='" + _firstPlayerName + '\'' +
-                ", _secondPlayerName='" + _secondPlayerName + '\'' +
+                ", _firstPlayerId=" + _firstPlayerId +
+                ", _secondPlayerId=" + _secondPlayerId +
                 ", _activityType='" + _activityType + '\'' +
-                ", _bestOf='" + _bestOf + '\'' +
+                ", _bestOf=" + _bestOf +
                 ", _lastSetTiebreak='" + _lastSetTiebreak + '\'' +
                 ", _club='" + _club + '\'' +
                 ", _tournament='" + _tournament + '\'' +

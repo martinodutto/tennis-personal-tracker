@@ -2,6 +2,7 @@ package com.martinodutto.tpt.controllers;
 
 import com.martinodutto.tpt.controllers.entities.PlayerForm;
 import com.martinodutto.tpt.database.entities.Player;
+import com.martinodutto.tpt.services.CurrentUserHelper;
 import com.martinodutto.tpt.services.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,19 +19,24 @@ public class NewPlayerController {
 
     private final PlayerService playerService;
 
+    private final CurrentUserHelper currentUserHelper;
+
     @Autowired
-    public NewPlayerController(PlayerService playerService) {
+    public NewPlayerController(PlayerService playerService, CurrentUserHelper currentUserHelper) {
         this.playerService = playerService;
+        this.currentUserHelper = currentUserHelper;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/player/createPlayer")
-    public void createPlayer(@RequestBody PlayerForm form) {
+    public Player createPlayer(@RequestBody PlayerForm form) {
 
         LOGGER.info("Creating new player with following submitted data: {}", form);
 
-        Player player = new Player(form);
-        final int insert = playerService.insert(player);
+        Player player = new Player(form, currentUserHelper.getUserId());
+        final int insert = playerService.addPlayer(player);
 
         LOGGER.info("Successfully inserted {} records", insert);
+
+        return player;
     }
 }

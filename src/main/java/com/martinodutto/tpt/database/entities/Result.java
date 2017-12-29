@@ -1,5 +1,11 @@
 package com.martinodutto.tpt.database.entities;
 
+import com.martinodutto.tpt.controllers.entities.ActivityForm;
+import com.martinodutto.tpt.controllers.entities.SetResult;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class Result {
 
     private int activityId;
@@ -27,6 +33,42 @@ public class Result {
     private Integer set5P1;
 
     private Integer set5P2;
+
+    public Result() {
+    }
+
+    public Result(@Nonnull ActivityForm activityForm) {
+        this.threeOrFiveSetter = activityForm.get_bestOf();
+        this.lastSetTiebreak = activityForm.get_lastSetTiebreak();
+        final List<SetResult> sets = activityForm.get_match().getSets();
+        if (sets != null && sets.size() > 0) {
+            SetResult set;
+            set = sets.get(0);
+            this.set1P1 = set.getFirstPlayerGames();
+            this.set1P2 = set.getSecondPlayerGames();
+            if (sets.size() > 1) {
+                set = sets.get(1);
+                this.set2P1 = set.getFirstPlayerGames();
+                this.set2P2 = set.getSecondPlayerGames();
+                if (sets.size() > 2) {
+                    set = sets.get(2);
+                    this.set3P1 = set.getFirstPlayerGames();
+                    this.set3P2 = set.getSecondPlayerGames();
+                    if (sets.size() > 3) {
+                        set = sets.get(3);
+                        this.set4P1 = set.getFirstPlayerGames();
+                        this.set4P2 = set.getSecondPlayerGames();
+                        if (sets.size() > 4) {
+                            set = sets.get(4);
+                            this.set5P1 = set.getFirstPlayerGames();
+                            this.set5P2 = set.getSecondPlayerGames();
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 
     public int getActivityId() {
         return activityId;
