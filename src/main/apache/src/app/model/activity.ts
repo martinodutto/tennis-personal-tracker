@@ -37,7 +37,7 @@ export class Activity {
     this.firstPlayerId = formValues['firstPlayerId'];
     this.secondPlayerId = formValues['secondPlayerId'];
     this.activityType = formValues['activityType'];
-    this.bestOf = formValues['bestOf'] === 'Best of 3' ? 3 : 5;
+    this.bestOf = formValues['bestOf'];
     this.lastSetTiebreak = formValues['lastSetTiebreak'] === 'Yes' ? 'Y' : 'N';
     this.club = formValues['club'];
     this.tournament = formValues['tournament'];

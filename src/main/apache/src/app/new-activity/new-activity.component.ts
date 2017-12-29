@@ -20,7 +20,7 @@ export class NewActivityComponent implements OnInit {
   newPlayerForm: FormGroup;
   optionsKnownPlayers: Player[];
   optionsActivityType: Array<string>;
-  optionsBestOf: Array<string>;
+  optionsBestOf: Array<number>;
   optionsLastSetTiebreak: Array<string>;
   optionsGender: Array<string>;
   result: SetResultComponent[];
@@ -47,8 +47,8 @@ export class NewActivityComponent implements OnInit {
       'Training'
     ];
     this.optionsBestOf = [
-      'Best of 3',
-      'Best of 5'
+      3,
+      5
     ];
     this.optionsLastSetTiebreak = [
       'Yes',
@@ -142,11 +142,6 @@ export class NewActivityComponent implements OnInit {
     if (selectedPlayers && selectedPlayers.length > 0) {
       this.secondPlayerFullName = this.getFullName(selectedPlayers[0]);
     }
-  }
-
-  onBestOfChange(event) {
-    console.debug('3 or 5 setter option changed!');
-    // TODO implement logic
   }
 
   onActivityTypeChange(event) {

@@ -58,7 +58,7 @@
         </div>
         <div class="card-body">
           <!-- this component contains the result of the tennis match -->
-          <app-match-result [group]="form.controls['match']"></app-match-result>
+          <app-match-result [group]="form.controls['match']" [setNumber]="form.controls['bestOf'].value"></app-match-result>
         </div>
       </div>
 
@@ -86,8 +86,7 @@
               <label for="bestOf" class="col-form-label">
                 3-or-5 setter
               </label>
-              <select class="form-control" formControlName="bestOf" id="bestOf"
-                      (ngModelChange)="onBestOfChange($event)">
+              <select class="form-control" formControlName="bestOf" id="bestOf">
                 <option *ngFor="let choice of optionsBestOf">{{choice}}</option>
               </select>
             </div>

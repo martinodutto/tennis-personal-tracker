@@ -11,6 +11,21 @@ export class MatchResultComponent implements OnInit {
 
   @Input("group") match: FormGroup;
 
+  _setNumber: number;
+
+  @Input()
+  set setNumber(setNumber: string) {
+    const sn = parseInt(setNumber);
+    this._setNumber = sn;
+    const setArray = <FormArray> this.match.controls['sets'];
+    // this gets called before ngOnInit, so we must ensure that all the elements exist
+    if (setArray && setArray.length > sn) {
+      for (let i = sn; i < setArray.length; i++) {
+        setArray.removeAt(i);
+      }
+    }
+  }
+
   constructor(private _fb: FormBuilder) {
   }
 
