@@ -27,6 +27,8 @@ export class NewActivityComponent implements OnInit {
   collapsedOptionalSection: boolean = true;
   firstPlayerFullName: string;
   secondPlayerFullName: string;
+  newPlayerErrorMessage: string;
+  submitErrorMessage: string;
 
   // injections
   constructor(private formBuilder: FormBuilder,
@@ -82,12 +84,15 @@ export class NewActivityComponent implements OnInit {
 
   save() {
     console.debug('Submitting the data to the server...');
+    this.submitErrorMessage = null; // reset, in case an error message was already displayed
     this.activityService.createActivity(
       new Activity(<FormGroup> this.form, this.timeFormatService)
-    ).subscribe((response) => {
+    ).subscribe(() => {
       console.debug('Form submitted correctly!');
+      this.router.navigate(['home']);
     }, (error) => {
       console.error(`Form submission ended with error: ${error.message}`);
+      this.submitErrorMessage = 'An internal error occurred while saving the activity';
     });
   }
 
@@ -107,6 +112,8 @@ export class NewActivityComponent implements OnInit {
       surname: new FormControl('', Validators.required),
       gender: new FormControl(this.optionsGender[0], Validators.required)
     });
+
+    this.newPlayerErrorMessage = null; // reset, in case an error message was already displayed
     this.modalService.open(content).result.then((result) => {
       if (result && result instanceof Object) {
         const newPlayer: Player = new Player(result, Guest.Y);
@@ -120,7 +127,7 @@ export class NewActivityComponent implements OnInit {
           });
         }, error => {
           console.error(`Player creation ended with error: ${error.message}`);
-          // TODO manage error
+          this.newPlayerErrorMessage = 'An error occurred while adding the player';
         });
       }
     }, () => {

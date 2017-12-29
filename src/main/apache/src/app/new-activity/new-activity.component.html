@@ -45,6 +45,10 @@
               </button>
             </div>
           </div>
+
+          <div class="alerts">
+            <ngb-alert *ngIf="newPlayerErrorMessage" type="danger" (close)="newPlayerErrorMessage = null">{{newPlayerErrorMessage}}</ngb-alert>
+          </div>
         </div>
       </div>
 
@@ -138,10 +142,14 @@
       </div>
 
       <div>
-        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save</button>
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save and close</button>
         <button type="button" class="btn btn-danger" (click)="openDiscardModal(discardModalContent)">Discard</button>
       </div>
     </form>
+
+    <div class="alerts">
+      <ngb-alert *ngIf="submitErrorMessage" type="danger" (close)="submitErrorMessage = null">{{submitErrorMessage}}</ngb-alert>
+    </div>
 
     <!-- template for the discard confirmation modal -->
     <ng-template #discardModalContent let-c="close" let-d="dismiss">

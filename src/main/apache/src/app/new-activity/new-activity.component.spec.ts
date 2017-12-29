@@ -2,7 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewActivityComponent} from './new-activity.component';
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {NgbDatepickerModule, NgbModalModule, NgbPopoverModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbAlertModule, NgbDatepickerModule, NgbModalModule, NgbPopoverModule,
+  NgbTimepickerModule
+} from "@ng-bootstrap/ng-bootstrap";
 import {MatchResultComponent} from "../match-result/match-result.component";
 import {SetResultComponent} from "../set-result/set-result.component";
 import {ActivityService} from "../services/activity/activity.service";
@@ -24,6 +27,7 @@ describe('NewActivityComponent', () => {
         NgbTimepickerModule.forRoot(),
         NgbPopoverModule.forRoot(),
         NgbModalModule.forRoot(),
+        NgbAlertModule.forRoot(),
         HttpClientModule
       ],
       declarations: [
