@@ -104,7 +104,7 @@
               <label for="club" class="col-form-label">
                 Club
               </label>
-              <input class="form-control" formControlName="club" id="club">
+              <input class="form-control" formControlName="club" id="club" [ngbTypeahead]="searchClub">
             </div>
             <div class="col-md-4">
               <label for="tournament" class="col-form-label">

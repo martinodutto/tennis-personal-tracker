@@ -8,6 +8,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TimeFormatService} from "../services/time-format/time-format.service";
 import {PlayerService} from "../services/player/player.service";
 import {Guest, Player} from "../model/player";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+import "rxjs/add/operator/map";
 
 @Component({
   selector: 'app-new-activity',
@@ -29,6 +33,13 @@ export class NewActivityComponent implements OnInit {
   secondPlayerFullName: string;
   newPlayerErrorMessage: string;
   submitErrorMessage: string;
+  typeaheadClubs: string[] = []; // loaded asynchronously
+  searchClub = (text$: Observable<string>) => {
+    return text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(searchKey => searchKey.length < 2 ? [] : this.typeaheadClubs.filter(v => v.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0).slice(0, 10));
+  };
 
   // injections
   constructor(private formBuilder: FormBuilder,
@@ -63,11 +74,23 @@ export class NewActivityComponent implements OnInit {
     let currentPlayer: Player = this.route.snapshot.data['currentPlayer'];
     this.firstPlayerFullName = this.getFullName(currentPlayer);
 
-    // loaded by the server
+    // loaded by the server (sync)
     this.optionsKnownPlayers = this.route.snapshot.data['knownPlayers'];
 
+    // async loaders
+    this.activityService.getUserClubs(currentPlayer.playerId).subscribe(clubs => {
+      this.typeaheadClubs = clubs;
+    }, error => {
+      console.error(`Error while loading the clubs: ${error.message}`);
+      this.typeaheadClubs = [];
+    });
+
     this.form = this.formBuilder.group({
-      activityDate: new FormControl({year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()}, [Validators.required]),
+      activityDate: new FormControl({
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+        day: now.getDate()
+      }, [Validators.required]),
       firstPlayerId: new FormControl(currentPlayer.playerId, Validators.required), // a "fake" control, because this is constant
       secondPlayerId: new FormControl(this.optionsKnownPlayers[0].playerId, Validators.min(0)), // this trick lets us have an empty and invalid default
       activityType: new FormControl(this.optionsActivityType[0]),

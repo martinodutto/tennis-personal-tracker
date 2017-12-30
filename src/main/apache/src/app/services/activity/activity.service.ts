@@ -22,4 +22,12 @@ export class ActivityService {
   createActivity(activity: Activity): Observable<Object> {
     return this.http.post(this.URL_PREFIX + "/createActivity", activity);
   }
+
+  getUserClubs(userPlayerId: number): Observable<string[]> {
+    return this.http.get<string[]>(this.URL_PREFIX + "/getUserClubs", {
+      params: {
+        firstPlayerId: userPlayerId.toString()
+      }
+    });
+  }
 }

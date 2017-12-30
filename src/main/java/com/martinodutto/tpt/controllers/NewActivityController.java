@@ -11,10 +11,7 @@ import com.martinodutto.tpt.services.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,6 +48,13 @@ public class NewActivityController {
 
         LOGGER.info("Finding current user's known players");
         return playerService.getKnownPlayers();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/activity/getUserClubs")
+    public List<String> getUserClubs(@RequestParam("firstPlayerId") int firstPlayerId) {
+
+        LOGGER.info("Finding current user's clubs");
+        return activityService.getUserClubs(firstPlayerId);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/activity/createActivity")

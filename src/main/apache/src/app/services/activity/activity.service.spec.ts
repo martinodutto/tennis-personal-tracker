@@ -1,13 +1,13 @@
 import {inject, TestBed} from '@angular/core/testing';
 
 import {ActivityService} from './activity.service';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('ActivityService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule
+        HttpClientTestingModule
       ],
       providers: [ActivityService]
     });

@@ -2,10 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewPlayerComponent} from './new-player.component';
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
-import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {PlayerService} from "../services/player/player.service";
 import {Router} from "@angular/router";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('NewPlayerComponent', () => {
   let component: NewPlayerComponent;
@@ -16,7 +16,7 @@ describe('NewPlayerComponent', () => {
       imports: [
         ReactiveFormsModule,
         NgbModalModule.forRoot(),
-        HttpClientModule
+        HttpClientTestingModule
       ],
       declarations: [
         NewPlayerComponent

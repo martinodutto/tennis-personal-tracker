@@ -57,6 +57,15 @@ public class ActivitiesMapperTest {
     }
 
     @Test
+    public void selectUserClubsWorks() {
+        final List<String> clubs = activitiesMapper.selectUserClubs(1);
+        assertEquals(2, clubs.size());
+        // we are testing even the alphabetic ascending sorting of the results
+        assertEquals("AELTC", clubs.get(0));
+        assertEquals("Country Club", clubs.get(1));
+    }
+
+    @Test
     public void insertWorks() {
         Activity activity = new Activity();
         activity.setActivityDate(LocalDate.parse("20170512", DateTimeFormatter.BASIC_ISO_DATE));

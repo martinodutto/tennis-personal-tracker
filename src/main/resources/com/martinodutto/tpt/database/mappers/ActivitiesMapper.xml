@@ -38,6 +38,13 @@
         WHERE ACTIVITY_ID = #{activityId, jdbcType=NUMERIC}
     </select>
 
+    <select id="selectUserClubs" resultType="java.lang.String">
+        SELECT DISTINCT CLUB
+        FROM ACTIVITIES
+        WHERE FIRST_PLAYER_ID = #{firstPlayerId, jdbcType=NUMERIC} AND LENGTH(CLUB) > 0
+        ORDER BY CLUB ASC
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="activityId">
         INSERT INTO ACTIVITIES (
         ACTIVITY_DATE,

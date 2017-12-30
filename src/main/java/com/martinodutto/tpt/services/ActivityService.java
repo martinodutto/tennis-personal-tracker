@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 @Service
 public class ActivityService {
@@ -42,5 +43,10 @@ public class ActivityService {
     public void addActivity(@Nonnull Activity activity) {
         int activityOutcome = activitiesMapper.insert(activity);
         LOGGER.info("Persisted {} new activities", activityOutcome);
+    }
+
+    @Transactional
+    public List<String> getUserClubs(int userPlayerId) {
+        return activitiesMapper.selectUserClubs(userPlayerId);
     }
 }

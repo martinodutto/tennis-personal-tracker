@@ -18,6 +18,8 @@ public interface ActivitiesMapper {
     @Nullable
     Activity selectByPk(@Param("activityId") int activityId);
 
+    List<String> selectUserClubs(@Param("firstPlayerId") int firstPlayerId);
+
     int insert(@Nonnull @Param("activity") Activity activity);
 
     int update(@Nonnull @Param("activity") Activity activity);
