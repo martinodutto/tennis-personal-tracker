@@ -1,16 +1,23 @@
 package com.martinodutto.tpt.controllers.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ActivityForm {
 
+    @NotNull
     private LocalDate _activityDate;
 
     private int _firstPlayerId;
 
+    @Min(0)
     private int _secondPlayerId;
 
+    @NotEmpty
     private String _activityType;
 
     private int _bestOf;

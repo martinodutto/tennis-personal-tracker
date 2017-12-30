@@ -115,7 +115,19 @@ export class NewActivityComponent implements OnInit {
       this.router.navigate(['home']);
     }, (error) => {
       console.error(`Form submission ended with error: ${error.message}`);
-      this.submitErrorMessage = 'An internal error occurred while saving the activity';
+      switch (error.status) {
+        case 400: {
+          this.submitErrorMessage = 'An empty form was submitted';
+          break;
+        }
+        case 406: {
+          this.submitErrorMessage = 'An invalid form was submitted';
+          break;
+        }
+        default: {
+          this.submitErrorMessage = 'An internal error occurred while saving the activity';
+        }
+      }
     });
   }
 
@@ -150,7 +162,15 @@ export class NewActivityComponent implements OnInit {
           });
         }, error => {
           console.error(`Player creation ended with error: ${error.message}`);
-          this.newPlayerErrorMessage = 'An error occurred while adding the player';
+          switch (error.status) {
+            case 406: {
+              this.newPlayerErrorMessage = 'Invalid player';
+              break;
+            }
+            default: {
+              this.newPlayerErrorMessage = 'An error occurred while adding the player';
+            }
+          }
         });
       }
     }, () => {

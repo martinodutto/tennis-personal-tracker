@@ -1,13 +1,19 @@
 package com.martinodutto.tpt.controllers.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class PlayerForm {
 
+    @NotEmpty
     private String _name;
 
+    @NotEmpty
     private String _surname;
 
+    @NotEmpty
     private String _gender;
 
+    @NotEmpty
     private String _guest;
 
     public String get_name() {

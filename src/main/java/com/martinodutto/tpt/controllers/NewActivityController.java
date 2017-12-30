@@ -5,14 +5,17 @@ import com.martinodutto.tpt.database.entities.Activity;
 import com.martinodutto.tpt.database.entities.Player;
 import com.martinodutto.tpt.database.entities.Result;
 import com.martinodutto.tpt.exceptions.EmptyInputException;
+import com.martinodutto.tpt.exceptions.InvalidInputException;
 import com.martinodutto.tpt.exceptions.NoDataFoundOnDatabaseException;
 import com.martinodutto.tpt.services.ActivityService;
 import com.martinodutto.tpt.services.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -58,9 +61,14 @@ public class NewActivityController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/activity/createActivity")
-    public void createActivity(@RequestBody ActivityForm form) throws EmptyInputException {
+    public void createActivity(@Valid @RequestBody ActivityForm form, BindingResult bindingResult) throws EmptyInputException, InvalidInputException {
 
         LOGGER.info("Received {} as a form input from the frontend", form);
+
+        if (bindingResult.hasErrors()) {
+            throw new InvalidInputException(bindingResult.getAllErrors());
+        }
+
         if (form != null) {
             Activity activity = new Activity(form);
             if ("Match".equals(activity.getActivityType())) {
