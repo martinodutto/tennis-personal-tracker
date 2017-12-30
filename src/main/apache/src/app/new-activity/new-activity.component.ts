@@ -167,6 +167,10 @@ export class NewActivityComponent implements OnInit {
               this.newPlayerErrorMessage = 'Invalid player';
               break;
             }
+            case 409: {
+              this.newPlayerErrorMessage = 'Found a duplicate player: please choose another name/surname and try again';
+              break;
+            }
             default: {
               this.newPlayerErrorMessage = 'An error occurred while adding the player';
             }

@@ -2,6 +2,7 @@ package com.martinodutto.tpt.services;
 
 import com.martinodutto.tpt.database.entities.Player;
 import com.martinodutto.tpt.database.mappers.PlayersMapper;
+import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +24,13 @@ public class PlayerService {
     }
 
     @Transactional
-    public int addPlayer(@Nonnull Player player) {
-        return playersMapper.insert(player);
+    public int addPlayer(@Nonnull Player player) throws DuplicateKeyException {
+        try {
+            return playersMapper.insert(player);
+        } catch (org.springframework.dao.DuplicateKeyException d) {
+            // makes this a checked exception, with an HTTP response code
+            throw new DuplicateKeyException(d);
+        }
     }
 
     @Transactional

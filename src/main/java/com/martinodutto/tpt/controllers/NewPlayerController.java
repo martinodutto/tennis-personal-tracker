@@ -2,6 +2,7 @@ package com.martinodutto.tpt.controllers;
 
 import com.martinodutto.tpt.controllers.entities.PlayerForm;
 import com.martinodutto.tpt.database.entities.Player;
+import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import com.martinodutto.tpt.exceptions.InvalidInputException;
 import com.martinodutto.tpt.services.CurrentUserHelper;
 import com.martinodutto.tpt.services.PlayerService;
@@ -32,7 +33,7 @@ public class NewPlayerController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/player/createPlayer")
-    public Player createPlayer(@Valid @RequestBody PlayerForm form, BindingResult bindingResult) throws InvalidInputException {
+    public Player createPlayer(@Valid @RequestBody PlayerForm form, BindingResult bindingResult) throws InvalidInputException, DuplicateKeyException {
 
         LOGGER.info("Creating new player with following submitted data: {}", form);
 
