@@ -172,11 +172,9 @@ export class NewActivityComponent implements OnInit {
     if (event === this.optionsActivityType[1]) {
       this.form.controls['bestOf'].disable();
       this.form.controls['lastSetTiebreak'].disable();
-      this.form.controls['tournament'].disable();
     } else if (event === this.optionsActivityType[0]) {
       this.form.controls['bestOf'].enable();
       this.form.controls['lastSetTiebreak'].enable();
-      this.form.controls['tournament'].enable();
     }
   }
 

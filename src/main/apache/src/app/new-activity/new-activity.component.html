@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" [hidden]="form.controls['activityType'].value !== 'Match'">
         <div class="card-header">
           Match result &mdash; <b>{{firstPlayerFullName}}</b>{{secondPlayerFullName ? ' vs ' : ''}}<b>{{secondPlayerFullName}}</b>
         </div>
