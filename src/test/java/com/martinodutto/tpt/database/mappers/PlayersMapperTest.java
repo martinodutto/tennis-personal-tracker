@@ -1,6 +1,8 @@
 package com.martinodutto.tpt.database.mappers;
 
+import com.martinodutto.tpt.database.entities.Activity;
 import com.martinodutto.tpt.database.entities.Player;
+import com.martinodutto.tpt.database.entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,6 +29,12 @@ public class PlayersMapperTest {
 
     @Autowired
     private PlayersMapper playersMapper;
+
+    @Autowired
+    private UsersMapper usersMapper;
+
+    @Autowired
+    private ActivitiesMapper activitiesMapper;
 
     @Test
     public void selectAllWorks() {
@@ -78,7 +86,7 @@ public class PlayersMapperTest {
     @Test
     public void insertWorks() {
         Player player = new Player();
-        player.setUserId(1);
+        player.setUserId(0);
         player.setName("Alessia");
         player.setSurname("Nardozzi");
         player.setGender("F");
@@ -91,7 +99,7 @@ public class PlayersMapperTest {
     @Test
     public void updateWorks() {
         final Player playerBefore = new Player();
-        playerBefore.setUserId(2);
+        playerBefore.setUserId(0);
         playerBefore.setName("Giacomo");
         playerBefore.setSurname("Vercelli");
         playerBefore.setGender("M");
@@ -108,7 +116,7 @@ public class PlayersMapperTest {
     @Test
     public void deleteWorks() {
         final Player player = new Player();
-        player.setUserId(3);
+        player.setUserId(0);
         player.setName("Giovanni");
         player.setSurname("Roncato");
         player.setGender("M");
@@ -120,10 +128,24 @@ public class PlayersMapperTest {
         assertNull(playersMapper.selectByPk(playerId));
     }
 
+    @Test
+    public void deletingAUserDeletesAlsoAllItsPlayers() {
+        final User user = usersMapper.selectByPk(0);
+        assertNotNull(user);
+        // pre-deletion we have 3 players
+        assertEquals(3, playersMapper.selectAll().size());
+        // to be able to delete the players, we must first delete their activities (because of the FK "restrict" bound)
+        final List<Activity> activities = activitiesMapper.selectAll();
+        activities.forEach(a -> activitiesMapper.delete(a)); // deleted them all, just for convenience
+        assertEquals(1, usersMapper.delete(user));
+        // post-deletion we must have 0 players left
+        assertEquals(0, playersMapper.selectAll().size());
+    }
+
     @Test(expected = DataIntegrityViolationException.class)
     public void aViolatedGuestConstraintProducesAnError() {
         final Player player = new Player();
-        player.setUserId(44);
+        player.setUserId(0);
         player.setName("Giovanni");
         player.setSurname("Roncato");
         player.setGender("M");

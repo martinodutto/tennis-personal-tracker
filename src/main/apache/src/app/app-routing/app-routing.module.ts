@@ -9,6 +9,7 @@ import {NewPlayerComponent} from "../new-player/new-player.component";
 import {CurrentPlayerResolve} from "../resolves/current-player-resolve";
 import {KnownPlayersResolve} from "../resolves/known-players-resolve";
 import {LoginComponent} from "../login/login.component";
+import {RegisterComponent} from "../register/register.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -18,6 +19,9 @@ const routes: Routes = [{
 }, {
   path: 'login',
   component: LoginComponent
+}, {
+  path: 'register',
+  component: RegisterComponent
 }, {
   path: 'newplayer',
   component: NewPlayerComponent

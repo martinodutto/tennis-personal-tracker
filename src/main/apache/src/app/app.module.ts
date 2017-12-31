@@ -21,6 +21,7 @@ import {PlayerService} from "./services/player/player.service";
 import {CurrentPlayerResolve} from "./resolves/current-player-resolve";
 import {KnownPlayersResolve} from "./resolves/known-players-resolve";
 import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {LoginComponent} from './login/login.component';
     FooterComponent,
     CreditsComponent,
     NewPlayerComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
