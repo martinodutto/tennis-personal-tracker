@@ -8,12 +8,16 @@ import {CreditsComponent} from "../credits/credits.component";
 import {NewPlayerComponent} from "../new-player/new-player.component";
 import {CurrentPlayerResolve} from "../resolves/current-player-resolve";
 import {KnownPlayersResolve} from "../resolves/known-players-resolve";
+import {LoginComponent} from "../login/login.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
   path: '',
   pathMatch: 'full',
   redirectTo: 'home'
+}, {
+  path: 'login',
+  component: LoginComponent
 }, {
   path: 'newplayer',
   component: NewPlayerComponent

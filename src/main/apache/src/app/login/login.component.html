@@ -1,0 +1,36 @@
+<div class="container-fluid tpt-page-content">
+  <div class="container">
+    <form [formGroup]="form" (ngSubmit)="login()" novalidate>
+      <div class="card login mx-auto">
+        <div class="card-header font-weight-bold">
+          Login
+        </div>
+        <div class="card-body">
+          <div class="form-group required row">
+            <div class="col-10 offset-1">
+              <label for="username" class="col-form-label">
+                Username
+              </label>
+              <input type="text" class="form-control" formControlName="username" id="username"
+                     [ngClass]="{'is-invalid': form.controls['username'].touched && form.controls['username'].invalid}">
+            </div>
+          </div>
+          <div class="form-group required row">
+            <div class="col-10 offset-1">
+              <label for="password" class="col-form-label">
+                Password
+              </label>
+              <input type="password" class="form-control" formControlName="password" id="password"
+                     [ngClass]="{'is-invalid': form.controls['password'].touched && form.controls['password'].invalid}">
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="pull-right">
+            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Login</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
