@@ -15,7 +15,7 @@
               <label for="name" class="col-form-label">
                 Name
               </label>
-              <input class="form-control" formControlName="name" id="name"
+              <input type="text" class="form-control" formControlName="name" id="name"
                      [ngClass]="{'is-invalid': form.controls['name'].touched && form.controls['name'].invalid}">
             </div>
           </div>
@@ -24,7 +24,7 @@
               <label for="surname" class="col-form-label">
                 Surname
               </label>
-              <input class="form-control" formControlName="surname" id="surname"
+              <input type="text" class="form-control" formControlName="surname" id="surname"
                      [ngClass]="{'is-invalid': form.controls['surname'].touched && form.controls['surname'].invalid}">
             </div>
           </div>
