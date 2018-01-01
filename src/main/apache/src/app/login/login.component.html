@@ -22,10 +22,13 @@
                      [ngClass]="{'is-invalid': form.controls['password'].touched && form.controls['password'].invalid}">
             </div>
           </div>
+          <div>
+            <ngb-alert *ngIf="loginErrorMessage" type="danger" (close)="loginErrorMessage = null">{{loginErrorMessage}}</ngb-alert>
+          </div>
         </div>
         <div class="card-footer">
           <div class="pull-left">
-            <button type="button" class="btn btn-info" (click)="register()">Sign-up</button>
+            <button type="button" class="btn btn-info" (click)="signUp()">Sign-up</button>
           </div>
           <div class="pull-right">
             <button type="submit" class="btn btn-success" [disabled]="form.invalid">Sign-in</button>

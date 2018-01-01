@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
@@ -23,6 +23,10 @@ import {KnownPlayersResolve} from "./resolves/known-players-resolve";
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {AuthenticationService} from "./services/authentication/authentication.service";
+import {JwtInterceptor} from "./interceptors/jwt-interceptor/jwt-interceptor";
+import {PrivatePageGuard} from "./guards/private-page-guard";
+import {LoginPageGuard} from "./guards/login-page-guard";
+import {LogoutComponent} from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import {AuthenticationService} from "./services/authentication/authentication.se
     CreditsComponent,
     NewPlayerComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +56,15 @@ import {AuthenticationService} from "./services/authentication/authentication.se
     PlayerService,
     ActivityService,
     AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
     CurrentPlayerResolve,
-    KnownPlayersResolve
+    KnownPlayersResolve,
+    PrivatePageGuard,
+    LoginPageGuard
   ],
   bootstrap: [
     AppComponent

@@ -54,6 +54,23 @@ public class UsersMapperTest {
     }
 
     @Test
+    public void selectByUsernameWorks() {
+        final User user = usersMapper.selectByUsername("mdutto");
+        assertNotNull(user);
+        assertEquals(0, user.getUserId());
+        assertEquals("mdutto", user.getUsername());
+        assertEquals("password", user.getPassword());
+        assertTrue(user.isEnabled());
+        assertEquals(1, (long) user.getRoleId());
+    }
+
+    @Test
+    public void anInvalidUsernameReturnsNull() {
+        final User user = usersMapper.selectByUsername("MDUTTO");
+        assertNull(user);
+    }
+
+    @Test
     public void insertWorks() {
         User user = new User();
         user.setUsername("gponzano");

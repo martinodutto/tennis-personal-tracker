@@ -28,6 +28,11 @@
         WHERE USER_ID = #{userId, jdbcType=NUMERIC}
     </select>
 
+    <select id="selectByUsername" resultMap="UsersRM">
+        <include refid="selectAllSql"/>
+        WHERE USERNAME = #{username, jdbcType=VARCHAR}
+    </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO USERS (
         USERNAME,

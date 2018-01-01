@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 @Service
 public class AuthenticationService {
@@ -26,5 +27,17 @@ public class AuthenticationService {
     public void addUser(@Nonnull User user) {
         final int insertOutcome = usersMapper.insert(user);
         LOGGER.info("Persisted {} new users", insertOutcome);
+    }
+
+    @Transactional
+    @Nullable
+    public User getUserBy(String username) {
+        return usersMapper.selectByUsername(username);
+    }
+
+    @Transactional
+    @Nullable
+    public User getUserBy(int userId) {
+        return usersMapper.selectByPk(userId);
     }
 }

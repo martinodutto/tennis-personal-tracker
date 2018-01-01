@@ -2,6 +2,7 @@ package com.martinodutto.tpt.controllers.entities;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class UserForm {
 
@@ -27,6 +28,10 @@ public class UserForm {
 
     public void set_password(String _password) {
         this._password = _password;
+    }
+
+    public UsernamePasswordAuthenticationToken toAuthenticationToken() {
+        return new UsernamePasswordAuthenticationToken(_username, _password);
     }
 
     @Override

@@ -10,6 +10,9 @@ import {CurrentPlayerResolve} from "../resolves/current-player-resolve";
 import {KnownPlayersResolve} from "../resolves/known-players-resolve";
 import {LoginComponent} from "../login/login.component";
 import {RegisterComponent} from "../register/register.component";
+import {PrivatePageGuard} from "../guards/private-page-guard";
+import {LoginPageGuard} from "../guards/login-page-guard";
+import {LogoutComponent} from "../logout/logout.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -18,29 +21,40 @@ const routes: Routes = [{
   redirectTo: 'home'
 }, {
   path: 'login',
-  component: LoginComponent
+  component: LoginComponent,
+  canActivate: [LoginPageGuard]
 }, {
   path: 'register',
-  component: RegisterComponent
+  component: RegisterComponent,
+  canActivate: [LoginPageGuard]
+}, {
+  path: 'logout',
+  component: LogoutComponent,
+  canActivate: [LoginPageGuard]
 }, {
   path: 'newplayer',
-  component: NewPlayerComponent
+  component: NewPlayerComponent,
+  canActivate: [PrivatePageGuard]
 }, {
   path: 'home',
-  component: HomeComponent
+  component: HomeComponent,
+  canActivate: [PrivatePageGuard]
 }, {
   path: 'new',
   component: NewActivityComponent,
+  canActivate: [PrivatePageGuard],
   resolve: {
     currentPlayer: CurrentPlayerResolve,
     knownPlayers: KnownPlayersResolve
   }
 }, {
   path: 'credits',
-  component: CreditsComponent
+  component: CreditsComponent,
+  canActivate: [PrivatePageGuard]
 }, {
   path: '**', // this must be the LAST path, because it matches any not resolved path
-  component: PageNotFoundComponent
+  component: PageNotFoundComponent,
+  canActivate: [PrivatePageGuard]
 }];
 
 // we use {useHash: true} as an option for the router to avoid the browser to call the server (and thus returning a 404)

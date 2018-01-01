@@ -4,6 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {HeaderComponent} from "./header/header.component";
 import {FooterComponent} from "./footer/footer.component";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {AuthenticationService} from "./services/authentication/authentication.service";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -17,6 +18,9 @@ describe('AppComponent', () => {
         HeaderComponent,
         FooterComponent
       ],
+      providers: [
+        AuthenticationService
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

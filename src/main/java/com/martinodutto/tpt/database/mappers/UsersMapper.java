@@ -18,6 +18,9 @@ public interface UsersMapper {
     @Nullable
     User selectByPk(@Param("userId") int userId);
 
+    @Nullable
+    User selectByUsername(@Param("username") String username);
+
     int insert(@Nonnull @Param("user") User user);
 
     int update(@Nonnull @Param("user") User user);

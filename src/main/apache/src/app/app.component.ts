@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -8,11 +7,11 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  constructor(/*private http: HttpClient*/) {}
 
   ngOnInit(): void {
-    this.http.get('../script/hello', {responseType: 'text'}).subscribe(response => {
-      console.info(`This is the response got from the server: ${response}`);
-    })
+    // this.http.get('../script/hello', {responseType: 'text'}).subscribe(response => {
+    //   console.info(`This is the response got from the server: ${response}`);
+    // })
   }
 }
