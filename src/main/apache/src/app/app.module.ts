@@ -22,6 +22,7 @@ import {CurrentPlayerResolve} from "./resolves/current-player-resolve";
 import {KnownPlayersResolve} from "./resolves/known-players-resolve";
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {AuthenticationService} from "./services/authentication/authentication.service";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {RegisterComponent} from './register/register.component';
     TimeFormatService,
     PlayerService,
     ActivityService,
+    AuthenticationService,
     CurrentPlayerResolve,
     KnownPlayersResolve
   ],

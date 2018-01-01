@@ -10,7 +10,7 @@ import java.util.List;
 @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Invalid input")
 public class InvalidInputException extends Exception {
 
-    List<ObjectError> validationErrors;
+    private List<ObjectError> validationErrors;
 
     public InvalidInputException() {
     }
@@ -18,5 +18,9 @@ public class InvalidInputException extends Exception {
     public InvalidInputException(@Nonnull List<ObjectError> validationErrors) {
         super("Invalid form with " + validationErrors.size() + " errors");
         this.validationErrors = validationErrors;
+    }
+
+    public List<ObjectError> getValidationErrors() {
+        return validationErrors;
     }
 }

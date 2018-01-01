@@ -1,5 +1,9 @@
 package com.martinodutto.tpt.database.entities;
 
+import com.martinodutto.tpt.controllers.entities.UserForm;
+
+import javax.annotation.Nonnull;
+
 public class User {
 
     private int userId;
@@ -11,6 +15,16 @@ public class User {
     private boolean enabled;
 
     private Integer roleId;
+
+    public User() {
+    }
+
+    public User(@Nonnull UserForm form) {
+        this.username = form.get_username();
+        this.password = form.get_password();
+        this.enabled = true; // when a user is created, it is enabled by default
+        // TODO which role do we assign?
+    }
 
     public int getUserId() {
         return userId;

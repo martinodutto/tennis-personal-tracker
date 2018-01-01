@@ -80,6 +80,7 @@ public class NewActivityController {
         } else {
             throw new EmptyInputException();
         }
+
         LOGGER.info("Successfully created a new activity");
     }
 }
