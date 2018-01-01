@@ -11,7 +11,7 @@
               <label for="username" class="col-form-label">
                 Choose a username
               </label>
-              <input type="text" class="form-control" formControlName="username" id="username"
+              <input type="text" class="form-control" formControlName="username" id="username" autocomplete="username"
                      [ngClass]="{'is-invalid': form.controls['username'].touched && form.controls['username'].invalid}">
             </div>
           </div>
@@ -21,6 +21,7 @@
                 Choose a password
               </label>
               <input type="password" class="form-control" formControlName="password" id="password"
+                     autocomplete="new-password"
                      placeholder="Must be at least 8 characters long"
                      [ngClass]="{'is-invalid': form.controls['password'].touched && form.controls['password'].invalid}">
             </div>

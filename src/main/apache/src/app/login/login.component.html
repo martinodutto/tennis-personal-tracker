@@ -10,12 +10,14 @@
           <div class="form-group row">
             <div class="col-sm-10 offset-sm-1">
               <input type="text" class="form-control" formControlName="username" id="username" placeholder="Username"
+                     autocomplete="username"
                      [ngClass]="{'is-invalid': form.controls['username'].touched && form.controls['username'].invalid}">
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-10 offset-sm-1">
               <input type="password" class="form-control" formControlName="password" id="password"
+                     autocomplete="current-password"
                      placeholder="Password"
                      [ngClass]="{'is-invalid': form.controls['password'].touched && form.controls['password'].invalid}">
             </div>
