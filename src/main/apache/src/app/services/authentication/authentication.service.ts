@@ -20,11 +20,11 @@ export class AuthenticationService {
   }
 
   register(user: User): Observable<any> {
-    return this.http.post(this.URL_PREFIX + "/register", user);
+    return this.http.post(this.URL_PREFIX + "/register", this.encodeToBase64(user));
   }
 
   login(user: User): Observable<any> {
-    return this.http.post(this.URL_PREFIX + "/login", user);
+    return this.http.post(this.URL_PREFIX + "/login", this.encodeToBase64(user));
   }
 
   logout(): void {
@@ -33,5 +33,12 @@ export class AuthenticationService {
 
   isSignedIn(): boolean {
     return this.getJwtToken() !== null;
+  }
+
+  private encodeToBase64(user: User): User {
+    user.username = btoa(user.username);
+    user.password = btoa(user.password);
+
+    return user;
   }
 }

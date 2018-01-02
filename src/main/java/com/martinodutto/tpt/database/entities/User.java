@@ -1,10 +1,12 @@
 package com.martinodutto.tpt.database.entities;
 
 import com.martinodutto.tpt.controllers.entities.UserForm;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.annotation.Nonnull;
+import java.util.Base64;
 import java.util.Collection;
 
 public class User implements UserDetails {
@@ -23,8 +25,8 @@ public class User implements UserDetails {
     }
 
     public User(@Nonnull UserForm form) {
-        this.username = form.get_username();
-        this.password = form.get_password();
+        this.username = new String(Base64.getDecoder().decode(form.get_username()));
+        this.password = new String(Base64.getDecoder().decode(form.get_password()));
         this.enabled = true; // when a user is created, it is enabled by default
         // TODO which role do we assign?
     }
@@ -91,6 +93,10 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
         // TODO
+    }
+
+    public UsernamePasswordAuthenticationToken toAuthenticationToken() {
+        return new UsernamePasswordAuthenticationToken(username, password);
     }
 
     @Override

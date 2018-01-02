@@ -70,7 +70,8 @@ public class AuthenticationController {
         }
 
         if (form != null) {
-            final UsernamePasswordAuthenticationToken loginToken = form.toAuthenticationToken();
+            User user = new User(form);
+            final UsernamePasswordAuthenticationToken loginToken = user.toAuthenticationToken();
             final Authentication authentication = authenticationManager.authenticate(loginToken);
 
             // upon successful login, we may proceed to create the token
