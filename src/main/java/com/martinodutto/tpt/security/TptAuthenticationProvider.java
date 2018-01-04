@@ -1,7 +1,5 @@
 package com.martinodutto.tpt.security;
 
-import com.martinodutto.tpt.database.entities.User;
-import com.martinodutto.tpt.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,16 +7,21 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TptAuthenticationProvider implements AuthenticationProvider {
 
-    private final AuthenticationService authenticationService;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public TptAuthenticationProvider(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public TptAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,11 +29,11 @@ public class TptAuthenticationProvider implements AuthenticationProvider {
         String username = String.valueOf(authentication.getPrincipal());
         String password = String.valueOf(authentication.getCredentials());
 
-        final User user = authenticationService.getUserBy(username);
+        final UserDetails user = userDetailsService.loadUserByUsername(username);
         if (user == null) {
-            throw new BadCredentialsException("Username not valid");
-        } else if (!user.getPassword().equals(password)) { // user.getPassword() should never return null (because of the db constraint)
-            throw new BadCredentialsException("Password not valid");
+            throw new BadCredentialsException("Invalid username");
+        } else if (!passwordEncoder.matches(password, user.getPassword())) { // user.getPassword() should never return null (because of the db constraint)
+            throw new BadCredentialsException("Invalid password");
         } else if (!user.isEnabled()) {
             throw new DisabledException("Disabled user");
         }

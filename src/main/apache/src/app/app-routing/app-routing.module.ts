@@ -13,6 +13,7 @@ import {RegisterComponent} from "../register/register.component";
 import {PrivatePageGuard} from "../guards/private-page-guard";
 import {LoginPageGuard} from "../guards/login-page-guard";
 import {LogoutComponent} from "../logout/logout.component";
+import {HomePageGuard} from "../guards/home-page-guard";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -38,7 +39,7 @@ const routes: Routes = [{
 }, {
   path: 'home',
   component: HomeComponent,
-  canActivate: [PrivatePageGuard]
+  canActivate: [PrivatePageGuard, HomePageGuard]
 }, {
   path: 'new',
   component: NewActivityComponent,

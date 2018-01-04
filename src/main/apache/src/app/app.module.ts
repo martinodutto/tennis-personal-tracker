@@ -27,6 +27,7 @@ import {JwtInterceptor} from "./interceptors/jwt-interceptor/jwt-interceptor";
 import {PrivatePageGuard} from "./guards/private-page-guard";
 import {LoginPageGuard} from "./guards/login-page-guard";
 import {LogoutComponent} from './logout/logout.component';
+import {HomePageGuard} from "./guards/home-page-guard";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {LogoutComponent} from './logout/logout.component';
     CurrentPlayerResolve,
     KnownPlayersResolve,
     PrivatePageGuard,
-    LoginPageGuard
+    LoginPageGuard,
+    HomePageGuard
   ],
   bootstrap: [
     AppComponent

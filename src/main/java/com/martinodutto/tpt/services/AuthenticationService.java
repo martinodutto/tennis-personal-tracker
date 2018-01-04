@@ -2,6 +2,7 @@ package com.martinodutto.tpt.services;
 
 import com.martinodutto.tpt.database.entities.User;
 import com.martinodutto.tpt.database.mappers.UsersMapper;
+import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,14 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void addUser(@Nonnull User user) {
-        final int insertOutcome = usersMapper.insert(user);
+    public void addUser(@Nonnull User user) throws DuplicateKeyException {
+        int insertOutcome;
+        try {
+            insertOutcome = usersMapper.insert(user);
+        } catch (org.springframework.dao.DuplicateKeyException d) {
+            // makes this a checked exception, with an HTTP response code
+            throw new DuplicateKeyException(d);
+        }
         LOGGER.info("Persisted {} new users", insertOutcome);
     }
 

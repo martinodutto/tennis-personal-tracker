@@ -6,7 +6,6 @@ import com.martinodutto.tpt.database.entities.Player;
 import com.martinodutto.tpt.database.entities.Result;
 import com.martinodutto.tpt.exceptions.EmptyInputException;
 import com.martinodutto.tpt.exceptions.InvalidInputException;
-import com.martinodutto.tpt.exceptions.NoDataFoundOnDatabaseException;
 import com.martinodutto.tpt.services.ActivityService;
 import com.martinodutto.tpt.services.PlayerService;
 import org.slf4j.Logger;
@@ -34,14 +33,10 @@ public class NewActivityController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/activity/getCurrentUserPlayer")
-    public Player getCurrentUserPlayer() throws NoDataFoundOnDatabaseException {
+    public Player getCurrentUserPlayer() {
 
         LOGGER.info("Finding current user's player");
         final Player currentPlayer = playerService.getCurrentPlayer();
-
-        if (currentPlayer == null) {
-            throw new NoDataFoundOnDatabaseException();
-        }
 
         return currentPlayer;
     }
