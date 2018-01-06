@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
 import {Player} from "../model/player";
-import {ActivityService} from "../services/activity/activity.service";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/empty';
+import {PlayerService} from "../services/player/player.service";
 
 /**
  * Resolves the current user's player data, in a way that it can be used while transitioning to new routes.
@@ -11,10 +11,10 @@ import 'rxjs/add/observable/empty';
 @Injectable()
 export class CurrentPlayerResolve implements Resolve<Player> {
 
-  constructor(private activityService: ActivityService) {
+  constructor(private playerService: PlayerService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Player> | Promise<Player> | Player {
-    return this.activityService.getCurrentPlayer();
+    return this.playerService.getCurrentPlayer();
   }
 }

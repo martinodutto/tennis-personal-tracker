@@ -32,15 +32,6 @@ public class NewActivityController {
         this.playerService = playerService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/activity/getCurrentUserPlayer")
-    public Player getCurrentUserPlayer() {
-
-        LOGGER.info("Finding current user's player");
-        final Player currentPlayer = playerService.getCurrentPlayer();
-
-        return currentPlayer;
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/activity/getKnownPlayers")
     public List<Player> getKnownPlayers() {
 

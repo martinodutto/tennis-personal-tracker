@@ -26,7 +26,7 @@ export class JwtInterceptor implements HttpInterceptor {
       if (err instanceof HttpErrorResponse) {
         // managing the unauthorized case (e.g. when the token expires or when the login fails)
         if (err.status === 401) {
-          localStorage.removeItem('jwt'); // removed, in order to let the login page be reached
+          localStorage.clear(); // removed JWT token, in order to let the login page be reached
           this.router.navigate(['login']);
         } else if (err.status === 503) {
           this.router.navigate(['serviceunavailable']);

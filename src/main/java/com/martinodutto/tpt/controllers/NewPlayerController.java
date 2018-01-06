@@ -48,4 +48,13 @@ public class NewPlayerController {
 
         return player;
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/player/getCurrentUserPlayer")
+    public Player getCurrentUserPlayer() {
+
+        LOGGER.info("Finding current user's player");
+        final Player currentPlayer = playerService.getCurrentPlayer();
+
+        return currentPlayer;
+    }
 }

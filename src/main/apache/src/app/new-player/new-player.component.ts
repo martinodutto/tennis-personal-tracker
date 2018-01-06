@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Guest, Player} from "../model/player";
 import {PlayerService} from "../services/player/player.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,11 +13,9 @@ export class NewPlayerComponent implements OnInit {
 
   form: FormGroup;
   optionsGender: Array<string>;
-  @ViewChild("successModalContent") successModalContent: any;
 
   constructor(private formBuilder: FormBuilder,
               private playerService: PlayerService,
-              private modalService: NgbModal,
               private router: Router) { }
 
   ngOnInit() {
@@ -39,9 +36,7 @@ export class NewPlayerComponent implements OnInit {
       new Player(this.form, Guest.N)
     ).subscribe(() => {
       console.debug('Player created correctly!');
-      this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {
-        this.router.navigate(['home']);
-      });
+      this.router.navigate(['home']);
     }, error => {
       console.error(`Player creation ended with error: ${error.message}`);
       this.router.navigate(['unrecoverableerror']);

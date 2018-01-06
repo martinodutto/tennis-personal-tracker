@@ -1,7 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewPlayerComponent} from './new-player.component';
-import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ReactiveFormsModule} from "@angular/forms";
 import {PlayerService} from "../services/player/player.service";
 import {Router} from "@angular/router";
@@ -15,7 +14,6 @@ describe('NewPlayerComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        NgbModalModule.forRoot(),
         HttpClientTestingModule
       ],
       declarations: [

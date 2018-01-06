@@ -13,4 +13,8 @@ export class PlayerService {
   createPlayer(player: Player): Observable<Player> {
     return this.http.post<Player>(this.URL_PREFIX + "/createPlayer", player);
   }
+
+  getCurrentPlayer(): Observable<Player> {
+    return this.http.get<Player>(this.URL_PREFIX + "/getCurrentUserPlayer");
+  }
 }

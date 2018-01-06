@@ -2,18 +2,28 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../model/user";
+import {LoggedUser} from "../../model/logged-user";
 
 @Injectable()
 export class AuthenticationService {
 
-  private URL_PREFIX: string = "../script/authentication";
-  private JWT_TOKEN_PARAM_NAME = "jwt";
+  private readonly URL_PREFIX: string = "../script/authentication";
+  private readonly JWT_TOKEN_PARAM_NAME = "jwt";
+  private readonly USER_NAME_PARAM_NAME = "username";
+  private readonly PLAYER_NAME_PARAM_NAME = "playername";
+  private readonly PLAYER_SURNAME_PARAM_NAME = "playersurname";
 
   constructor(private http: HttpClient) {
   }
 
-  saveJwtToken(token: string): void {
+  saveJwtTokenAndUsername(token: string, username: string): void {
     localStorage.setItem(this.JWT_TOKEN_PARAM_NAME, token);
+    localStorage.setItem(this.USER_NAME_PARAM_NAME, username);
+  }
+
+  savePlayerNameAndSurname(name: string, surname: string) {
+    localStorage.setItem(this.PLAYER_NAME_PARAM_NAME, name);
+    localStorage.setItem(this.PLAYER_SURNAME_PARAM_NAME, surname);
   }
 
   getJwtToken(): string {
@@ -29,11 +39,20 @@ export class AuthenticationService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.JWT_TOKEN_PARAM_NAME);
+    localStorage.clear();
   }
 
   isSignedIn(): boolean {
     return this.getJwtToken() !== null;
+  }
+
+  getLoggedUserInfos(): LoggedUser {
+    let loggedUser: LoggedUser = new LoggedUser();
+    loggedUser.userName = localStorage.getItem(this.USER_NAME_PARAM_NAME);
+    loggedUser.playerName = localStorage.getItem(this.PLAYER_NAME_PARAM_NAME) || 'Unknown Player';
+    loggedUser.playerSurname = localStorage.getItem(this.PLAYER_SURNAME_PARAM_NAME);
+
+    return loggedUser;
   }
 
   private static encodeToBase64(user: User): User {

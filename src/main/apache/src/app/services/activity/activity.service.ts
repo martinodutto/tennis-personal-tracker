@@ -11,10 +11,6 @@ export class ActivityService {
 
   constructor(private http: HttpClient) { }
 
-  getCurrentPlayer(): Observable<Player> {
-    return this.http.get<Player>(this.URL_PREFIX + "/getCurrentUserPlayer");
-  }
-
   getKnownPlayers(): Observable<Player[]> {
     return this.http.get<Player[]>(this.URL_PREFIX + "/getKnownPlayers");
   }

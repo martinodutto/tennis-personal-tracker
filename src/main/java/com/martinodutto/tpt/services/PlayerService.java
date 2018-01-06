@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class PlayerService {
     }
 
     @Transactional
-    public Player getCurrentPlayer() {
+    public @Nullable Player getCurrentPlayer() {
         return playersMapper.selectUserPlayer(currentUserHelper.getUserId());
     }
 

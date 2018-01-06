@@ -31,9 +31,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(
       new User(this.form)
     ).subscribe(response => {
-      // console.debug(`Successfully logged in with token ${response.token}`);
       // we set the JWT on the local storage, where it can be retrieved by subsequent requests
-      this.authenticationService.saveJwtToken(response.token);
+      this.authenticationService.saveJwtTokenAndUsername(response.token, this.form.value['username']);
       this.router.navigate(['home']);
     }, error => {
       console.error(`Error while logging in: ${error.message}`);

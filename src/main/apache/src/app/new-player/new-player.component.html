@@ -47,24 +47,5 @@
         </div>
       </div>
     </form>
-
-    <ng-template #successModalContent let-c="close">
-      <div class="modal-header">
-        <h4 class="modal-title">Success</h4>
-      </div>
-      <div class="modal-body">
-        <p>
-          Congratulations {{form.value.name}}, you successfully created your brand new player profile! Now you're ready
-          to
-          access all the functionalities of Tennis Personal Tracker.
-        </p>
-        <p>
-          Click the button to access your homepage. Have fun!
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="c('Success')">Go to your homepage</button>
-      </div>
-    </ng-template>
   </div>
 </div>
