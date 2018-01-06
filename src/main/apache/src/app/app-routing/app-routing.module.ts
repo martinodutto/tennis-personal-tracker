@@ -14,6 +14,7 @@ import {PrivatePageGuard} from "../guards/private-page-guard";
 import {LoginPageGuard} from "../guards/login-page-guard";
 import {LogoutComponent} from "../logout/logout.component";
 import {HomePageGuard} from "../guards/home-page-guard";
+import {ServiceUnavailablePageComponent} from "../service-unavailable-page/service-unavailable-page.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -52,6 +53,9 @@ const routes: Routes = [{
   path: 'credits',
   component: CreditsComponent,
   canActivate: [PrivatePageGuard]
+}, {
+  path: 'serviceunavailable',
+  component: ServiceUnavailablePageComponent // must be reached from any user (logged-in or not)
 }, {
   path: '**', // this must be the LAST path, because it matches any not resolved path
   component: PageNotFoundComponent,

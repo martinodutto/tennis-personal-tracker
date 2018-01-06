@@ -28,6 +28,7 @@ import {PrivatePageGuard} from "./guards/private-page-guard";
 import {LoginPageGuard} from "./guards/login-page-guard";
 import {LogoutComponent} from './logout/logout.component';
 import {HomePageGuard} from "./guards/home-page-guard";
+import {ServiceUnavailablePageComponent} from './service-unavailable-page/service-unavailable-page.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {HomePageGuard} from "./guards/home-page-guard";
     NewPlayerComponent,
     LoginComponent,
     RegisterComponent,
-    LogoutComponent
+    LogoutComponent,
+    ServiceUnavailablePageComponent
   ],
   imports: [
     BrowserModule,

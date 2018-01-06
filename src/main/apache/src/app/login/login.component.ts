@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['home']);
     }, error => {
       console.error(`Error while logging in: ${error.message}`);
-      this.loginErrorMessage = error.error ? error.error.message : 'Invalid credentials';
+      this.loginErrorMessage = error.error ? error.error.message || 'Generic error' : 'Generic error';
     });
   }
 

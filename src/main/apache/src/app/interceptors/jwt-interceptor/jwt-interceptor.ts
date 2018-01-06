@@ -28,6 +28,8 @@ export class JwtInterceptor implements HttpInterceptor {
         if (err.status === 401) {
           localStorage.removeItem('jwt'); // removed, in order to let the login page be reached
           this.router.navigate(['login']);
+        } else if (err.status === 503) {
+          this.router.navigate(['serviceunavailable']);
         }
       }
     });
