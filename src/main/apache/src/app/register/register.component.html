@@ -51,5 +51,22 @@
         </div>
       </div>
     </form>
+
+    <ng-template #successModalContent let-c="close">
+      <div class="modal-header">
+        <h4 class="modal-title">Success</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Congratulations {{form.value.username}}, you successfully signed-up to Tennis Personal Tracker!
+        </p>
+        <p>
+          Please click the button to login with your new credentials.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="c('Success')">Go to login</button>
+      </div>
+    </ng-template>
   </div>
 </div>

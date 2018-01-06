@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {User} from "../model/user";
 import {Router} from "@angular/router";
 import {PasswordConfirmationValidator} from "../validators/password-confirmation-validator/password-confirmation-validator";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-register',
@@ -14,10 +15,12 @@ export class RegisterComponent implements OnInit {
 
   form: FormGroup;
   signUpErrorMessage: string;
+  @ViewChild("successModalContent") successModalContent: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -34,8 +37,9 @@ export class RegisterComponent implements OnInit {
       new User(this.form)
     ).subscribe(() => {
       console.info('Successful user sign-up');
-      // TODO show a success message somewhere
-      this.router.navigate(['login']);
+      this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {
+        this.router.navigate(['login']);
+      });
     }, error => {
       console.debug(`Error while registering the new user: ${error.message}`);
       switch (error.status) {

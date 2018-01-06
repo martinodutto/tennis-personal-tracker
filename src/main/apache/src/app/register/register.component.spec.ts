@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlertModule, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -16,7 +16,8 @@ describe('RegisterComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
-        NgbAlertModule.forRoot()
+        NgbAlertModule.forRoot(),
+        NgbModalModule.forRoot()
       ],
       declarations: [ RegisterComponent ],
       providers: [
