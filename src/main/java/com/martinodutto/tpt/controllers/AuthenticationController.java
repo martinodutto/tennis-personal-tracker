@@ -8,7 +8,7 @@ import com.martinodutto.tpt.exceptions.EmptyInputException;
 import com.martinodutto.tpt.exceptions.InvalidInputException;
 import com.martinodutto.tpt.security.TokenHandler;
 import com.martinodutto.tpt.services.AuthenticationService;
-import com.martinodutto.tpt.services.CurrentUserHelper;
+import com.martinodutto.tpt.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +33,17 @@ public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
     private final AuthenticationService authenticationService;
-    private final CurrentUserHelper currentUserHelper;
     private final TokenHandler tokenHandler;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, AuthenticationService authenticationService, CurrentUserHelper currentUserHelper, TokenHandler tokenHandler, PasswordEncoder passwordEncoder) {
+    public AuthenticationController(AuthenticationManager authenticationManager, AuthenticationService authenticationService, TokenHandler tokenHandler, PasswordEncoder passwordEncoder, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.authenticationService = authenticationService;
-        this.currentUserHelper = currentUserHelper;
         this.tokenHandler = tokenHandler;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/authentication/register")
@@ -83,7 +83,7 @@ public class AuthenticationController {
             // upon successful login, we may proceed to create the token
             SecurityContextHolder.getContext().setAuthentication(authentication); // this makes the username available elsewhere
 
-            User u = currentUserHelper.getUser();
+            User u = userService.getUser();
             return new AuthenticationResponse(tokenHandler.createTokenForUser(u));
         } else {
             throw new EmptyInputException();

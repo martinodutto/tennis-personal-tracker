@@ -16,12 +16,12 @@ public class PlayerService {
 
     private final PlayersMapper playersMapper;
 
-    private final CurrentUserHelper currentUserHelper;
+    private final UserService userService;
 
     @Autowired
-    public PlayerService(PlayersMapper playersMapper, CurrentUserHelper currentUserHelper) {
+    public PlayerService(PlayersMapper playersMapper, UserService userService) {
         this.playersMapper = playersMapper;
-        this.currentUserHelper = currentUserHelper;
+        this.userService = userService;
     }
 
     @Transactional
@@ -36,12 +36,12 @@ public class PlayerService {
 
     @Transactional
     public @Nullable Player getCurrentPlayer() {
-        return playersMapper.selectUserPlayer(currentUserHelper.getUserId());
+        return playersMapper.selectUserPlayer(userService.getUserId());
     }
 
     @Transactional
     public List<Player> getKnownPlayers() {
-        final List<Player> players = playersMapper.selectUserKnownPlayers(currentUserHelper.getUserId());
+        final List<Player> players = playersMapper.selectUserKnownPlayers(userService.getUserId());
         prependEmptyPlayer(players);
 
         return players;

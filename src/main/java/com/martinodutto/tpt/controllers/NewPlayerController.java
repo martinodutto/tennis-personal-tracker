@@ -4,8 +4,8 @@ import com.martinodutto.tpt.controllers.entities.PlayerForm;
 import com.martinodutto.tpt.database.entities.Player;
 import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import com.martinodutto.tpt.exceptions.InvalidInputException;
-import com.martinodutto.tpt.services.CurrentUserHelper;
 import com.martinodutto.tpt.services.PlayerService;
+import com.martinodutto.tpt.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,12 @@ public class NewPlayerController {
 
     private final PlayerService playerService;
 
-    private final CurrentUserHelper currentUserHelper;
+    private final UserService userService;
 
     @Autowired
-    public NewPlayerController(PlayerService playerService, CurrentUserHelper currentUserHelper) {
+    public NewPlayerController(PlayerService playerService, UserService userService) {
         this.playerService = playerService;
-        this.currentUserHelper = currentUserHelper;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/player/createPlayer")
@@ -41,7 +41,7 @@ public class NewPlayerController {
             throw new InvalidInputException(bindingResult.getAllErrors());
         }
 
-        Player player = new Player(form, currentUserHelper.getUserId());
+        Player player = new Player(form, userService.getUserId());
         final int insert = playerService.addPlayer(player);
 
         LOGGER.info("Successfully inserted {} records", insert);
