@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .exceptionHandling()
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("'Bearer token_type=\"JWT\"'"));
+
+        // very important: the session creation is set to stateless because otherwise Spring Security shares the same instance of
+        // SecurityContext between all the threads of the same session. This would be a problem, because we dynamically set
+        // the authentication object in a per-request scope, and so we would have concurrency problems if the context was shared.
+        // More details at https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#tech-intro-sec-context-persistence
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // we add the StatelessAuthenticationFilter to the filter chain
         http.addFilterBefore(statelessAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

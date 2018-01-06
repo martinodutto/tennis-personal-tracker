@@ -22,12 +22,12 @@ public class CurrentUserHelperImpl implements CurrentUserHelper {
 
     @Override
     public int getUserId() {
-        return getUser().map(User::getUserId).orElse(0); // TODO case in which is null?
+        return getUser().getUserId();
     }
 
     @Override
-    public Optional<User> getUser() {
+    public User getUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return Optional.ofNullable(authenticationService.getUserBy(authentication.getName()));
+        return Optional.ofNullable(authenticationService.getUserBy(authentication.getName())).orElseThrow(() -> new RuntimeException("User not found. This is unexpected!"));
     }
 }

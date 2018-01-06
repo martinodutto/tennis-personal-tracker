@@ -27,9 +27,9 @@ export class NewPlayerComponent implements OnInit {
       'F'
     ];
     this.form = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
-      gender: new FormControl(this.optionsGender[0], Validators.required)
+      name: new FormControl('', [Validators.required, Validators.maxLength(32)]),
+      surname: new FormControl('', [Validators.required, Validators.maxLength(32)]),
+      gender: new FormControl(this.optionsGender[0], [Validators.required, Validators.maxLength(1)])
     });
   }
 

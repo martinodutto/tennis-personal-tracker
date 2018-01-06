@@ -1,16 +1,20 @@
 package com.martinodutto.tpt.controllers.entities;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class PlayerForm {
 
     @NotEmpty
+    @Length(max = 32)
     private String _name;
 
     @NotEmpty
+    @Length(max = 32)
     private String _surname;
 
     @NotEmpty
+    @Length(max = 1)
     private String _gender;
 
     @NotEmpty

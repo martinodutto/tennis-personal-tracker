@@ -4,8 +4,6 @@ import com.martinodutto.tpt.database.entities.User;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Profile("test")
 public class MockCurrentUserHelper implements CurrentUserHelper {
@@ -25,7 +23,7 @@ public class MockCurrentUserHelper implements CurrentUserHelper {
     }
 
     @Override
-    public Optional<User> getUser() {
-        return Optional.of(mockUser);
+    public User getUser() {
+        return mockUser;
     }
 }

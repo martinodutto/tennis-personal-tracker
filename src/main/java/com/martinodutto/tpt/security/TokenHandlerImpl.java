@@ -40,10 +40,12 @@ public class TokenHandlerImpl implements TokenHandler {
 
     @Override
     public String createTokenForUser(User user) {
+//        long t = System.currentTimeMillis();
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getUserId())) // expiration + session
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .setExpiration(Date.from(LocalDate.now().plusWeeks(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()))
+//                .setExpiration(new Date(t + 60000))
                 .compact();
     }
 }

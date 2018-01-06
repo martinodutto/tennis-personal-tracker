@@ -83,10 +83,8 @@ public class AuthenticationController {
             // upon successful login, we may proceed to create the token
             SecurityContextHolder.getContext().setAuthentication(authentication); // this makes the username available elsewhere
 
-            return currentUserHelper.getUser().map(u -> {
-                final String token = tokenHandler.createTokenForUser(u);
-                return new AuthenticationResponse(token);
-            }).orElseThrow(RuntimeException::new);
+            User u = currentUserHelper.getUser();
+            return new AuthenticationResponse(tokenHandler.createTokenForUser(u));
         } else {
             throw new EmptyInputException();
         }

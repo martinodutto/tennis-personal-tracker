@@ -4,6 +4,7 @@ import {HeaderComponent} from './header.component';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {Subject} from "rxjs/Subject";
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -20,6 +21,7 @@ describe('HeaderComponent', () => {
         {
           provide: Router, useClass: class {
             navigate = jasmine.createSpy("navigate");
+            events = new Subject();
           }
         }
       ]

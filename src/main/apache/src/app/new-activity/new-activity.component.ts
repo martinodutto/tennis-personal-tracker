@@ -143,9 +143,9 @@ export class NewActivityComponent implements OnInit {
 
   openNewPlayerModal(content) {
     this.newPlayerForm = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
-      gender: new FormControl(this.optionsGender[0], Validators.required)
+      name: new FormControl('', [Validators.required, Validators.maxLength(32)]),
+      surname: new FormControl('', [Validators.required, Validators.maxLength(32)]),
+      gender: new FormControl(this.optionsGender[0], [Validators.required, Validators.maxLength(1)])
     });
 
     this.newPlayerErrorMessage = null; // reset, in case an error message was already displayed
