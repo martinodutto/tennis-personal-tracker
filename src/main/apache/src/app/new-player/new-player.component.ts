@@ -44,7 +44,7 @@ export class NewPlayerComponent implements OnInit {
       });
     }, error => {
       console.error(`Player creation ended with error: ${error.message}`);
-      // TODO manage error
+      this.router.navigate(['unrecoverableerror']);
     });
   }
 }

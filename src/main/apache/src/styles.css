@@ -11,6 +11,18 @@ html, body {
   margin: 20px 0 20px 0;
 }
 
+.tpt-user-message-page > div {
+  text-align: center;
+}
+
+.tpt-user-message-page > div > i {
+  font-size: 300px;
+}
+
+.tpt-user-message-page > div > p.main-message {
+  font-size: 36px;
+}
+
 /* removes the up/down arrows on WebKit-based browsers */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

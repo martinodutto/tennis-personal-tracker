@@ -28,7 +28,8 @@ import {PrivatePageGuard} from "./guards/private-page-guard";
 import {LoginPageGuard} from "./guards/login-page-guard";
 import {LogoutComponent} from './logout/logout.component';
 import {HomePageGuard} from "./guards/home-page-guard";
-import {ServiceUnavailablePageComponent} from './service-unavailable-page/service-unavailable-page.component';
+import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-error.component';
+import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {ServiceUnavailablePageComponent} from './service-unavailable-page/servic
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
-    ServiceUnavailablePageComponent
+    UnrecoverableErrorComponent,
+    ServiceUnavailableComponent
   ],
   imports: [
     BrowserModule,
