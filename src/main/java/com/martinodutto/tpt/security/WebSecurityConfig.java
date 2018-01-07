@@ -36,8 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers("/authentication/**").permitAll()
+                .antMatchers("/authentication/**", "/h2/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+            .headers()
+                .frameOptions().disable() // needed to make accessible the H2 web console
                 .and()
             .exceptionHandling()
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("'Bearer token_type=\"JWT\"'"));
