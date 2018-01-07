@@ -1,19 +1,16 @@
-import {AbstractControl, FormControl, FormGroup, ValidationErrors} from "@angular/forms";
+import {AbstractControl, FormGroup, ValidationErrors} from "@angular/forms";
 
 export class PasswordConfirmationValidator {
 
   static validate(c: AbstractControl): ValidationErrors | null {
-    let pwdConfirmation = <FormControl> c;
-    let formGroup = <FormGroup> pwdConfirmation.parent;
+    let g = <FormGroup> c;
+    let c1 = g.controls['password'];
+    let c2 = g.controls['confirmPassword'];
 
-    if (formGroup) {
-      let pwd = formGroup.controls['password'];
-
-      if (pwdConfirmation.value !== pwd.value) {
-        return {
-          "passwordValidator": {
-            "matching": false
-          }
+    if (c1.value !== c2.value) {
+      return {
+        "passwordValidator": {
+          "matching": false
         }
       }
     }

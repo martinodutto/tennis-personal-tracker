@@ -6,11 +6,15 @@ export class User {
 
   private _password;
 
-  constructor(form: FormGroup) {
+  constructor(form: FormGroup, passwordsForm?: FormGroup) {
     let formValues: AbstractControl = form.value;
 
     this.username = formValues['username'];
-    this.password = formValues['password'];
+    if (passwordsForm) {
+      this.password = passwordsForm.value['password'];
+    } else {
+      this.password = formValues['password'];
+    }
   }
 
   get username() {

@@ -14,6 +14,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  passwordsForm: FormGroup;
   signUpErrorMessage: string;
   @ViewChild("successModalContent") successModalContent: any;
 
@@ -24,17 +25,23 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.passwordsForm = this.formBuilder.group({
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)])
+    }, {
+      validator: PasswordConfirmationValidator.validate
+    });
+
     this.form = this.formBuilder.group({
       username: new FormControl('', [Validators.required, Validators.maxLength(64)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255), PasswordConfirmationValidator.validate])
-    })
+      passwords: this.passwordsForm
+    });
   }
 
   register() {
     this.signUpErrorMessage = null; // reset, in case an error message was already displayed
     this.authenticationService.register(
-      new User(this.form)
+      new User(this.form, this.passwordsForm)
     ).subscribe(() => {
       console.info('Successful user sign-up');
       this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {

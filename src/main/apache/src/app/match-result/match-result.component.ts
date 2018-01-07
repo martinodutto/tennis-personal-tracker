@@ -41,7 +41,7 @@ export class MatchResultComponent implements OnInit {
       secondPlayerGames: new FormControl(0)
     }, {
       validator: TieBreakSetValidator.validate
-    })
+    });
   }
 
   // adds a new set to the match, without a result (yet)
