@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
 
+/**
+ * Careful: all the controller methods here are exposed to any user (even not logged-in), with no protection filters!
+ */
 @RestController
 public class AuthenticationController {
 

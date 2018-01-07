@@ -22,7 +22,10 @@ export class HomePageGuard implements CanActivate {
         this.authenticationService.savePlayerNameAndSurname(player.name, player.surname);
       }
       return player !== null;
-    }).toPromise();
+    }).toPromise().catch(err => {
+      console.error(`Unable to resolve data for transition to route ${state.url}: ${err.message}`);
+      return Promise.resolve(false);
+    });
   }
 
 }

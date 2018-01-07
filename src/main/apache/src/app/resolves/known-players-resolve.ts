@@ -11,6 +11,9 @@ export class KnownPlayersResolve implements Resolve<Player[]> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Player[]> | Promise<Player[]> | Player[] {
-    return this.activityService.getKnownPlayers();
+    return this.activityService.getKnownPlayers().catch(err => {
+      console.error(`Unable to resolve data for transition to route ${state.url}: ${err.message}`);
+      return Promise.resolve([]);
+    });
   }
 }

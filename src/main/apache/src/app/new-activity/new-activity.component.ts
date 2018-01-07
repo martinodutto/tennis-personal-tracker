@@ -70,12 +70,11 @@ export class NewActivityComponent implements OnInit {
       'F'
     ];
 
-    // the resolve provides us with the user's player information
-    let currentPlayer: Player = this.route.snapshot.data['currentPlayer'];
-    this.firstPlayerFullName = this.getFullName(currentPlayer);
-
     // loaded by the server (sync)
+    let currentPlayer: Player = this.route.snapshot.data['currentPlayer'];
     this.optionsKnownPlayers = this.route.snapshot.data['knownPlayers'];
+
+    this.firstPlayerFullName = this.getFullName(currentPlayer);
 
     // async loaders
     this.activityService.getUserClubs(currentPlayer.playerId).subscribe(clubs => {
