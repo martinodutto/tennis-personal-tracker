@@ -9,10 +9,19 @@
       <p *ngIf="set.errors.tieBreakSet?.invalidResult !== undefined">Invalid result for a set</p>
     </div>
   </ng-template>
+
+  <!--
+  keypress event binding: needed to forbid insertion of invalid characters on some browsers (e.g. Safari macOS/iOS)
+  pattern: needed to let show the number keypad on some browsers (e.g. Safari iOS)
+   -->
   <input type="number"
          name="first"
-         formControlName="firstPlayerGames">
+         formControlName="firstPlayerGames"
+         (keypress)="numbersOnly($event)"
+         pattern="\d*">
   <input type="number"
          name="second"
-         formControlName="secondPlayerGames">
+         formControlName="secondPlayerGames"
+         (keypress)="numbersOnly($event)"
+         pattern="\d*">
 </div>

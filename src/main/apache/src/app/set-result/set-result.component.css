@@ -16,7 +16,7 @@ input[name="first"] {
   input {
     height: 80px;
     width: 53px;
-    font-size: 64px;
+    font-size: 30px;
   }
 }
 
@@ -24,6 +24,6 @@ input[name="first"] {
   input {
     height: 70px;
     width: 46px;
-    font-size: 60px;
+    font-size: 25px;
   }
 }
