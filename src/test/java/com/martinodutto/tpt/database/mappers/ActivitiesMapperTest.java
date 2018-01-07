@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -49,6 +50,7 @@ public class ActivitiesMapperTest {
         assertEquals("Tennis Park", activity.getClub());
         assertEquals("-", activity.getTournament());
         assertEquals("Bella partita", activity.getNotes());
+        assertEquals(LocalDateTime.parse("2017-12-28 13:15:22.752000000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS")), activity.getCreationTimestamp());
     }
 
     @Test
@@ -77,6 +79,7 @@ public class ActivitiesMapperTest {
         activity.setClub("Country Club de Monaco");
         activity.setTournament("Montecarlo Rolex Masters 2017");
         activity.setNotes("Entertaining match");
+        activity.setCreationTimestamp(LocalDateTime.parse("2017-05-13 14:15:24.752000000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS")));
 
         assertEquals(1, activitiesMapper.insert(activity));
         assertNotNull(activitiesMapper.selectByPk(activity.getActivityId())); // this also lets us verify that the id is attached correctly to the entity

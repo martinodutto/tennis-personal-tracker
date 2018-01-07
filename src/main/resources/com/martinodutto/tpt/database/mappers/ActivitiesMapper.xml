@@ -12,6 +12,8 @@
         <result column="CLUB" javaType="java.lang.String" jdbcType="VARCHAR" property="club"/>
         <result column="TOURNAMENT" javaType="java.lang.String" jdbcType="VARCHAR" property="tournament"/>
         <result column="NOTES" javaType="java.lang.String" jdbcType="VARCHAR" property="notes"/>
+        <result column="CREATION_TIMESTAMP" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"
+                property="creationTimestamp"/>
     </resultMap>
 
     <sql id="selectAllSql">
@@ -25,7 +27,8 @@
             ACTIVITY_TYPE,
             CLUB,
             TOURNAMENT,
-            NOTES
+            NOTES,
+            CREATION_TIMESTAMP
         FROM ACTIVITIES
     </sql>
 
@@ -55,7 +58,8 @@
         ACTIVITY_TYPE,
         CLUB,
         TOURNAMENT,
-        NOTES)
+        NOTES,
+        CREATION_TIMESTAMP)
         VALUES (
         #{activity.activityDate, jdbcType=DATE},
         #{activity.activityTime, jdbcType=TIME},
@@ -65,7 +69,8 @@
         #{activity.activityType, jdbcType=VARCHAR},
         #{activity.club, jdbcType=VARCHAR},
         #{activity.tournament, jdbcType=VARCHAR},
-        #{activity.notes, jdbcType=VARCHAR})
+        #{activity.notes, jdbcType=VARCHAR},
+        #{activity.creationTimestamp, jdbcType=TIMESTAMP})
         <selectKey keyProperty="activity.activityId" order="AFTER" resultType="int">
             SELECT LAST_INSERT_ID();
         </selectKey>

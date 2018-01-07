@@ -4,6 +4,7 @@ import com.martinodutto.tpt.controllers.entities.ActivityForm;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Activity {
@@ -28,6 +29,8 @@ public class Activity {
 
     private String notes;
 
+    private LocalDateTime creationTimestamp;
+
     public Activity() {
     }
 
@@ -41,6 +44,7 @@ public class Activity {
         this.club = activityForm.get_club();
         this.tournament = activityForm.get_tournament();
         this.notes = activityForm.get_notes();
+        this.creationTimestamp = LocalDateTime.now();
     }
 
     public int getActivityId() {
@@ -123,6 +127,14 @@ public class Activity {
         this.notes = notes;
     }
 
+    public LocalDateTime getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    public void setCreationTimestamp(LocalDateTime creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Activity{" +
@@ -136,6 +148,7 @@ public class Activity {
                 ", club='" + club + '\'' +
                 ", tournament='" + tournament + '\'' +
                 ", notes='" + notes + '\'' +
+                ", creationTimestamp=" + creationTimestamp +
                 '}';
     }
 }
