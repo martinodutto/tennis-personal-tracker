@@ -1,15 +1,10 @@
 package com.martinodutto.tpt.database.entities;
 
-import com.martinodutto.tpt.controllers.entities.UserForm;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.martinodutto.tpt.security.TptUser;
 
 import javax.annotation.Nonnull;
-import java.util.Base64;
-import java.util.Collection;
 
-public class User implements UserDetails {
+public class User {
 
     private int userId;
 
@@ -24,11 +19,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(@Nonnull UserForm form) {
-        this.username = new String(Base64.getDecoder().decode(form.get_username()));
-        this.password = new String(Base64.getDecoder().decode(form.get_password()));
-        this.enabled = true; // when a user is created, it is enabled by default
-        // TODO which role do we assign?
+    public User(@Nonnull TptUser tptUser) {
+        this.username = tptUser.getUsername();
+        this.password = tptUser.getPassword();
+        this.enabled = tptUser.isEnabled();
+        this.roleId = 2; // TODO make generic
     }
 
     public int getUserId() {
@@ -39,7 +34,6 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
-    @Override
     public String getUsername() {
         return username;
     }
@@ -48,7 +42,6 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    @Override
     public String getPassword() {
         return password;
     }
@@ -57,7 +50,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @Override
     public boolean isEnabled() {
         return enabled;
     }
@@ -75,38 +67,14 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-        // TODO
-    }
-
-    public UsernamePasswordAuthenticationToken toAuthenticationToken() {
-        return new UsernamePasswordAuthenticationToken(username, password);
-    }
-
-    @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", roleId=" + roleId +
-                '}';
+        final StringBuffer sb = new StringBuffer("[");
+        sb.append("userId=").append(userId);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append("[PROTECTED]");
+        sb.append(", enabled=").append(enabled);
+        sb.append(", roleId=").append(roleId);
+        sb.append("]");
+        return sb.toString();
     }
 }

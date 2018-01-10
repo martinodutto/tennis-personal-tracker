@@ -2,11 +2,11 @@ package com.martinodutto.tpt.controllers;
 
 import com.martinodutto.tpt.controllers.entities.AuthenticationResponse;
 import com.martinodutto.tpt.controllers.entities.UserForm;
-import com.martinodutto.tpt.database.entities.User;
 import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import com.martinodutto.tpt.exceptions.EmptyInputException;
 import com.martinodutto.tpt.exceptions.InvalidInputException;
 import com.martinodutto.tpt.security.TokenHandler;
+import com.martinodutto.tpt.security.TptUser;
 import com.martinodutto.tpt.services.AuthenticationService;
 import com.martinodutto.tpt.services.UserService;
 import org.slf4j.Logger;
@@ -59,9 +59,8 @@ public class AuthenticationController {
         }
 
         if (form != null) {
-            User user = new User(form);
-            hashPassword(user);
-            authenticationService.addUser(user);
+            TptUser user = new TptUser(form);
+            authenticationService.addUser(getHashedUser(user));
         } else {
             throw new EmptyInputException();
         }
@@ -79,21 +78,21 @@ public class AuthenticationController {
         }
 
         if (form != null) {
-            User user = new User(form);
+            TptUser user = new TptUser(form);
             final UsernamePasswordAuthenticationToken loginToken = user.toAuthenticationToken();
             final Authentication authentication = authenticationManager.authenticate(loginToken);
 
             // upon successful login, we may proceed to create the token
             SecurityContextHolder.getContext().setAuthentication(authentication); // this makes the username available elsewhere
 
-            User u = userService.getUser();
+            TptUser u = userService.getUser();
             return new AuthenticationResponse(tokenHandler.createTokenForUser(u));
         } else {
             throw new EmptyInputException();
         }
     }
 
-    private void hashPassword(@Nonnull User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    private TptUser getHashedUser(@Nonnull TptUser user) {
+        return new TptUser(user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getAuthorities());
     }
 }

@@ -1,6 +1,7 @@
 package com.martinodutto.tpt.security;
 
-import com.martinodutto.tpt.database.entities.User;
+import com.martinodutto.tpt.database.entities.Role;
+import com.martinodutto.tpt.database.mappers.RolesMapper;
 import com.martinodutto.tpt.services.AuthenticationService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,11 +20,13 @@ public class TokenHandlerImpl implements TokenHandler {
 
     private final String secret;
     private final AuthenticationService authenticationService;
+    private final RolesMapper rolesMapper;
 
     @Autowired
-    public TokenHandlerImpl(@Value("${app.jwt.secret}") String secret, AuthenticationService authenticationService) {
+    public TokenHandlerImpl(@Value("${app.jwt.secret}") String secret, AuthenticationService authenticationService, RolesMapper rolesMapper) {
         this.secret = secret;
         this.authenticationService = authenticationService;
+        this.rolesMapper = rolesMapper;
     }
 
     @Override
@@ -33,13 +36,17 @@ public class TokenHandlerImpl implements TokenHandler {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-        final User user = authenticationService.getUserBy(Integer.valueOf(subject));
 
-        return Optional.ofNullable(user);
+        TptUser tptUser = Optional.ofNullable(authenticationService.getUserBy(Integer.valueOf(subject))).map(u -> {
+            final Role role = rolesMapper.selectByPk(u.getRoleId());
+            return authenticationService.newTptUserFrom(u, role);
+        }).orElse(null);
+
+        return Optional.ofNullable(tptUser);
     }
 
     @Override
-    public String createTokenForUser(User user) {
+    public String createTokenForUser(TptUser user) {
 //        long t = System.currentTimeMillis();
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getUserId())) // expiration + session
