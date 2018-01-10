@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public @Nonnull UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = Optional.ofNullable(authenticationService.getUserBy(username)).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        Role role = rolesMapper.selectByPk(user.getRoleId());
+        final User user = Optional.ofNullable(authenticationService.getUserBy(username)).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        final Role role = Optional.ofNullable(user.getRoleId()).map(rolesMapper::selectByPk).orElse(null);
         UserDetails userDetails = authenticationService.newTptUserFrom(user, role);
         final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
         detailsChecker.check(userDetails);
@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public @Nonnull TptUser getUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = Optional.ofNullable(authenticationService.getUserBy(authentication.getName())).orElseThrow(() -> new RuntimeException("User not found. This is unexpected!"));
-        Role role = rolesMapper.selectByPk(user.getRoleId());
+        final User user = Optional.ofNullable(authenticationService.getUserBy(authentication.getName())).orElseThrow(() -> new RuntimeException("User not found. This is unexpected!"));
+        final Role role = Optional.ofNullable(user.getRoleId()).map(rolesMapper::selectByPk).orElse(null);
 
         return authenticationService.newTptUserFrom(user, role);
     }

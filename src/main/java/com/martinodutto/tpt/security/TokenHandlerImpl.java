@@ -38,7 +38,7 @@ public class TokenHandlerImpl implements TokenHandler {
                 .getSubject();
 
         TptUser tptUser = Optional.ofNullable(authenticationService.getUserBy(Integer.valueOf(subject))).map(u -> {
-            final Role role = rolesMapper.selectByPk(u.getRoleId());
+            final Role role = Optional.ofNullable(u.getRoleId()).map(rolesMapper::selectByPk).orElse(null);
             return authenticationService.newTptUserFrom(u, role);
         }).orElse(null);
 
