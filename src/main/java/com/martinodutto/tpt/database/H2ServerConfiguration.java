@@ -19,7 +19,7 @@ public class H2ServerConfiguration {
      * TCP connection to connect with SQL clients to the embedded H2 database.
      *
      * @see Server
-     * @throws SQLException If something went wrong during startup the server.
+     * @throws SQLException If something went wrong during startup of the server.
      * @return H2 db Server.
      */
     @Bean(initMethod = "start", destroyMethod = "stop")
