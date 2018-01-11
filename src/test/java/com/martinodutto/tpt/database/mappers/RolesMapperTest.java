@@ -28,11 +28,11 @@ public class RolesMapperTest {
         assertEquals(2, roles.size());
 
         // to test the mapping of the fields
-        final Optional<Role> opAdmin = roles.stream().filter(r -> "ADMIN".equals(r.getRole())).findFirst();
+        final Optional<Role> opAdmin = roles.stream().filter(r -> "ROLE_ADMIN".equals(r.getRole())).findFirst();
         assertTrue(opAdmin.isPresent());
         final Role admin = opAdmin.get();
         assertEquals(1, admin.getRoleId());
-        assertEquals("ADMIN", admin.getRole());
+        assertEquals("ROLE_ADMIN", admin.getRole());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class RolesMapperTest {
         final Role role = rolesMapper.selectByPk(2);
         assertNotNull(role);
         assertEquals(2, role.getRoleId());
-        assertEquals("USER", role.getRole());
+        assertEquals("ROLE_USER", role.getRole());
     }
 
     @Test

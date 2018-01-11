@@ -21,4 +21,20 @@ public class TptGrantedAuthority implements GrantedAuthority {
     public String getAuthority() {
         return roleName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else {
+            if (obj instanceof TptGrantedAuthority) {
+                TptGrantedAuthority tptGrantedAuthority = (TptGrantedAuthority) obj;
+                return ((tptGrantedAuthority.roleName != null) && tptGrantedAuthority.roleName.equals(this.roleName))
+                        ||
+                        (tptGrantedAuthority.roleName == null && this.roleName == null);
+            } else {
+                return false;
+            }
+        }
+    }
 }
