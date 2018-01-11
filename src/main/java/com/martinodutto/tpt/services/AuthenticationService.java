@@ -4,11 +4,14 @@ import com.martinodutto.tpt.database.entities.Role;
 import com.martinodutto.tpt.database.entities.User;
 import com.martinodutto.tpt.database.mappers.UsersMapper;
 import com.martinodutto.tpt.exceptions.DuplicateKeyException;
+import com.martinodutto.tpt.exceptions.UnregisteredRoleException;
 import com.martinodutto.tpt.security.TptGrantedAuthority;
 import com.martinodutto.tpt.security.TptUser;
+import org.h2.jdbc.JdbcSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,13 +35,21 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void addUser(@Nonnull TptUser user) throws DuplicateKeyException {
+    public void addUser(@Nonnull TptUser user) throws DuplicateKeyException, UnregisteredRoleException {
         int insertOutcome;
         try {
             insertOutcome = usersMapper.insert(new User(user));
         } catch (org.springframework.dao.DuplicateKeyException d) {
             // makes this a checked exception, with an HTTP response code
             throw new DuplicateKeyException(d);
+        } catch (DataIntegrityViolationException dve) {
+            if (dve.getCause() instanceof JdbcSQLException) {
+                int errorCode = ((JdbcSQLException) dve.getCause()).getErrorCode();
+                if (errorCode == 23506) {
+                    throw new UnregisteredRoleException();
+                }
+            }
+            throw dve;
         }
         LOGGER.info("Persisted {} new users", insertOutcome);
     }

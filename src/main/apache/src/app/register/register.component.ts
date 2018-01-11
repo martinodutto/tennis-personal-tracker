@@ -5,6 +5,7 @@ import {User} from "../model/user";
 import {Router} from "@angular/router";
 import {PasswordConfirmationValidator} from "../validators/password-confirmation-validator/password-confirmation-validator";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -47,15 +48,21 @@ export class RegisterComponent implements OnInit {
       this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {
         this.router.navigate(['login']);
       });
-    }, error => {
+    }, (error: HttpErrorResponse) => {
       console.debug(`Error while registering the new user: ${error.message}`);
       switch (error.status) {
         case 409: {
           this.signUpErrorMessage = 'Name already taken! Please choose another';
           break;
         }
+        case 500: {
+          if (error.error && error.error.message === 'Unregistered role') {
+            this.signUpErrorMessage = 'Unregistered role. Please contact the administrator';
+            break;
+          }
+        }
         default: {
-          // TODO manage, maybe by redirecting on an error page
+          this.signUpErrorMessage = 'Error while signing up';
         }
       }
     });

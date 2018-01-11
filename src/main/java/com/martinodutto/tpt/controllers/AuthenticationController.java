@@ -5,6 +5,7 @@ import com.martinodutto.tpt.controllers.entities.UserForm;
 import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import com.martinodutto.tpt.exceptions.EmptyInputException;
 import com.martinodutto.tpt.exceptions.InvalidInputException;
+import com.martinodutto.tpt.exceptions.UnregisteredRoleException;
 import com.martinodutto.tpt.security.TokenHandler;
 import com.martinodutto.tpt.security.TptUser;
 import com.martinodutto.tpt.services.AuthenticationService;
@@ -41,7 +42,11 @@ public class AuthenticationController {
     private final UserService userService;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, AuthenticationService authenticationService, TokenHandler tokenHandler, PasswordEncoder passwordEncoder, UserService userService) {
+    public AuthenticationController(AuthenticationManager authenticationManager,
+                                    AuthenticationService authenticationService,
+                                    TokenHandler tokenHandler,
+                                    PasswordEncoder passwordEncoder,
+                                    UserService userService) {
         this.authenticationManager = authenticationManager;
         this.authenticationService = authenticationService;
         this.tokenHandler = tokenHandler;
@@ -50,7 +55,8 @@ public class AuthenticationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/authentication/register")
-    public void register(@Valid @RequestBody UserForm form, BindingResult bindingResult) throws InvalidInputException, EmptyInputException, DuplicateKeyException {
+    public void register(@Valid @RequestBody UserForm form, BindingResult bindingResult)
+            throws InvalidInputException, EmptyInputException, DuplicateKeyException, UnregisteredRoleException {
 
         LOGGER.info("Registering a new user");
 
@@ -69,7 +75,8 @@ public class AuthenticationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/authentication/login")
-    public AuthenticationResponse login(@Valid @RequestBody UserForm form, BindingResult bindingResult) throws InvalidInputException, EmptyInputException {
+    public AuthenticationResponse login(@Valid @RequestBody UserForm form, BindingResult bindingResult)
+            throws InvalidInputException, EmptyInputException {
 
         LOGGER.info("Logging in");
 

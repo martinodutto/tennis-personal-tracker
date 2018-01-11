@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['home']);
     }, error => {
       console.error(`Error while logging in: ${error.message}`);
-      this.loginErrorMessage = error.error ? error.error.message || 'Generic error' : 'Generic error';
+      this.loginErrorMessage = error.error ? error.error.message || 'Error while logging in' : 'Error while logging in';
     });
   }
 

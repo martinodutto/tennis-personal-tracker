@@ -1,5 +1,6 @@
 package com.martinodutto.tpt.database.entities;
 
+import com.martinodutto.tpt.security.Authorities;
 import com.martinodutto.tpt.security.TptUser;
 
 import javax.annotation.Nonnull;
@@ -23,7 +24,7 @@ public class User {
         this.username = tptUser.getUsername();
         this.password = tptUser.getPassword();
         this.enabled = tptUser.isEnabled();
-        this.roleId = 2; // TODO make generic
+        this.roleId = Authorities.ROLE_USER.getId();
     }
 
     public int getUserId() {
