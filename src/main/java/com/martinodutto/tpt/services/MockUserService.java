@@ -1,5 +1,7 @@
 package com.martinodutto.tpt.services;
 
+import com.martinodutto.tpt.exceptions.DuplicateKeyException;
+import com.martinodutto.tpt.exceptions.UnregisteredRoleException;
 import com.martinodutto.tpt.security.TptGrantedAuthority;
 import com.martinodutto.tpt.security.TptUser;
 import org.springframework.context.annotation.Profile;
@@ -7,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 
 @Service("userService")
@@ -20,13 +23,22 @@ public class MockUserService implements UserService {
     }
 
     @Override
-    public int getUserId() {
-        return getUser().getUserId();
+    public void addUser(@Nonnull TptUser user) throws DuplicateKeyException, UnregisteredRoleException {
     }
 
     @Override
-    public TptUser getUser() {
+    public int getCurrentUserId() {
+        return getCurrentUser().getUserId();
+    }
+
+    @Override
+    public TptUser getCurrentUser() {
         return mockUser;
+    }
+
+    @Override
+    public TptUser getUserBy(int userId) {
+        return userId == 0 ? mockUser : null;
     }
 
     @Override

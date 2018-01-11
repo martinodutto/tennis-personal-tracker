@@ -1,8 +1,7 @@
 package com.martinodutto.tpt.security;
 
-import com.martinodutto.tpt.database.entities.Role;
 import com.martinodutto.tpt.database.mappers.RolesMapper;
-import com.martinodutto.tpt.services.AuthenticationService;
+import com.martinodutto.tpt.services.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,14 @@ import java.util.Optional;
 public class TokenHandlerImpl implements TokenHandler {
 
     private final String secret;
-    private final AuthenticationService authenticationService;
     private final RolesMapper rolesMapper;
+    private final UserService userService;
 
     @Autowired
-    public TokenHandlerImpl(@Value("${app.jwt.secret}") String secret, AuthenticationService authenticationService, RolesMapper rolesMapper) {
+    public TokenHandlerImpl(@Value("${app.jwt.secret}") String secret, RolesMapper rolesMapper, UserService userService) {
         this.secret = secret;
-        this.authenticationService = authenticationService;
         this.rolesMapper = rolesMapper;
+        this.userService = userService;
     }
 
     @Override
@@ -37,12 +36,7 @@ public class TokenHandlerImpl implements TokenHandler {
                 .getBody()
                 .getSubject();
 
-        TptUser tptUser = Optional.ofNullable(authenticationService.getUserBy(Integer.valueOf(subject))).map(u -> {
-            final Role role = Optional.ofNullable(u.getRoleId()).map(rolesMapper::selectByPk).orElse(null);
-            return authenticationService.newTptUserFrom(u, role);
-        }).orElse(null);
-
-        return Optional.ofNullable(tptUser);
+        return Optional.ofNullable(userService.getUserBy(Integer.valueOf(subject)));
     }
 
     @Override

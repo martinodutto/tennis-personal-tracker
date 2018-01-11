@@ -8,7 +8,6 @@ import com.martinodutto.tpt.exceptions.InvalidInputException;
 import com.martinodutto.tpt.exceptions.UnregisteredRoleException;
 import com.martinodutto.tpt.security.TokenHandler;
 import com.martinodutto.tpt.security.TptUser;
-import com.martinodutto.tpt.services.AuthenticationService;
 import com.martinodutto.tpt.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,19 +35,16 @@ public class AuthenticationController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
 
     private final AuthenticationManager authenticationManager;
-    private final AuthenticationService authenticationService;
     private final TokenHandler tokenHandler;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
     @Autowired
     public AuthenticationController(AuthenticationManager authenticationManager,
-                                    AuthenticationService authenticationService,
                                     TokenHandler tokenHandler,
                                     PasswordEncoder passwordEncoder,
                                     UserService userService) {
         this.authenticationManager = authenticationManager;
-        this.authenticationService = authenticationService;
         this.tokenHandler = tokenHandler;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
@@ -66,7 +62,7 @@ public class AuthenticationController {
 
         if (form != null) {
             TptUser user = new TptUser(form);
-            authenticationService.addUser(getHashedUser(user));
+            userService.addUser(getHashedUser(user));
         } else {
             throw new EmptyInputException();
         }
@@ -92,7 +88,7 @@ public class AuthenticationController {
             // upon successful login, we may proceed to create the token
             SecurityContextHolder.getContext().setAuthentication(authentication); // this makes the username available elsewhere
 
-            TptUser u = userService.getUser();
+            TptUser u = userService.getCurrentUser();
             return new AuthenticationResponse(tokenHandler.createTokenForUser(u));
         } else {
             throw new EmptyInputException();

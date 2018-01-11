@@ -36,12 +36,12 @@ public class PlayerService {
 
     @Transactional
     public @Nullable Player getCurrentPlayer() {
-        return playersMapper.selectUserPlayer(userService.getUserId());
+        return playersMapper.selectUserPlayer(userService.getCurrentUserId());
     }
 
     @Transactional
     public List<Player> getKnownPlayers() {
-        final List<Player> players = playersMapper.selectUserKnownPlayers(userService.getUserId());
+        final List<Player> players = playersMapper.selectUserKnownPlayers(userService.getCurrentUserId());
         prependEmptyPlayer(players);
 
         return players;

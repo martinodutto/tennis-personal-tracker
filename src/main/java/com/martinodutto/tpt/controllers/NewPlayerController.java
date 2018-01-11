@@ -41,7 +41,7 @@ public class NewPlayerController {
             throw new InvalidInputException(bindingResult.getAllErrors());
         }
 
-        Player player = new Player(form, userService.getUserId());
+        Player player = new Player(form, userService.getCurrentUserId());
         final int insert = playerService.addPlayer(player);
 
         LOGGER.info("Successfully inserted {} records", insert);
