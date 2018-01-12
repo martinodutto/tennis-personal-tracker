@@ -24,10 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -86,9 +83,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public @Nonnull TptUser getCurrentUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Objects.requireNonNull(authentication, "Unexpected null authentication object");
         final User user = Optional.ofNullable(usersMapper.selectByUsername(authentication.getName())).orElseThrow(() -> new
-                RuntimeException
-                ("User not found. This is unexpected!"));
+                RuntimeException("User not found. This is unexpected!"));
         final Role role = Optional.ofNullable(user.getRoleId()).map(rolesMapper::selectByPk).orElse(null);
 
         return newTptUserFrom(user, role);
