@@ -10,9 +10,7 @@ import {NgbPopover} from "@ng-bootstrap/ng-bootstrap";
 export class SetResultComponent implements OnInit {
 
   @Input("group") set: FormGroup;
-
   @Input() parity: boolean;
-
   @ViewChild("p") popover: NgbPopover; // this way we can refer to the view-defined variable "p"
 
   ngOnInit() {
@@ -23,5 +21,9 @@ export class SetResultComponent implements OnInit {
         this.popover.open();
       }
     });
+  }
+
+  numbersOnly(event) {
+    return (((event.which > 47) && (event.which < 58)) || (event.which == 13));
   }
 }

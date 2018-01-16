@@ -33,7 +33,7 @@
               Second player
             </label>
             <div class="input-group col-md-6 col-lg-4">
-              <select class="form-control" formControlName="secondPlayerId" id="secondPlayerFullName"
+              <select class="form-control" formControlName="secondPlayerId" id="secondPlayerFullName" autofocus
                       (ngModelChange)="onSecondPlayerChange($event)"
                       [ngClass]="{'is-invalid': form.controls['secondPlayerId'].touched && form.controls['secondPlayerId'].invalid}">
                 <option *ngFor="let player of optionsKnownPlayers" [value]="player.playerId">{{getFullName(player)}}

@@ -53,7 +53,10 @@
             <button type="button" class="btn btn-info" (click)="goToLogin()" tabindex="5">Back to login</button>
           </div>
           <div class="pull-right">
-            <button type="submit" class="btn btn-success" [disabled]="form.invalid" tabindex="4">Register me!</button>
+            <button type="submit" class="btn btn-success" [disabled]="form.invalid" tabindex="4">
+              <i class="fa fa-key" aria-hidden="true"></i>
+              Register me!
+            </button>
           </div>
         </div>
       </div>
