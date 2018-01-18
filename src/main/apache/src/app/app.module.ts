@@ -30,6 +30,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {HomePageGuard} from "./guards/home-page-guard";
 import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-error.component';
 import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {ServiceUnavailableComponent} from './service-unavailable/service-unavail
     RegisterComponent,
     LogoutComponent,
     UnrecoverableErrorComponent,
-    ServiceUnavailableComponent
+    ServiceUnavailableComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

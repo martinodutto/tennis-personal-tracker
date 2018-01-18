@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../model/user";
 import {LoggedUser} from "../../model/logged-user";
+import {ChangePassword} from "../../model/change-password";
 
 @Injectable()
 export class AuthenticationService {
@@ -31,11 +32,15 @@ export class AuthenticationService {
   }
 
   register(user: User): Observable<any> {
-    return this.http.post(this.URL_PREFIX + "/register", AuthenticationService.encodeToBase64(user));
+    return this.http.post(this.URL_PREFIX + "/unfiltered/register", AuthenticationService.encodeUserToBase64(user));
   }
 
   login(user: User): Observable<any> {
-    return this.http.post(this.URL_PREFIX + "/login", AuthenticationService.encodeToBase64(user));
+    return this.http.post(this.URL_PREFIX + "/unfiltered/login", AuthenticationService.encodeUserToBase64(user));
+  }
+
+  changePassword(changePassword: ChangePassword): Observable<any> {
+    return this.http.post(this.URL_PREFIX + "/changePassword", AuthenticationService.encodeChangePasswordToBase64(changePassword));
   }
 
   logout(): void {
@@ -55,11 +60,20 @@ export class AuthenticationService {
     return loggedUser;
   }
 
-  private static encodeToBase64(user: User): User {
+  // careful: this method operates destructively on the passed object!
+  private static encodeUserToBase64(user: User): User {
     user.username = this.b64EncodeUnicode(user.username);
     user.password = this.b64EncodeUnicode(user.password);
 
     return user;
+  }
+
+  // careful: this method operates destructively on the passed object!
+  private static encodeChangePasswordToBase64(changePassword: ChangePassword): ChangePassword {
+    changePassword.oldPassword = this.b64EncodeUnicode(changePassword.oldPassword);
+    changePassword.newPassword = this.b64EncodeUnicode(changePassword.newPassword);
+
+    return changePassword;
   }
 
   /**

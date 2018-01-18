@@ -1,6 +1,5 @@
 package com.martinodutto.tpt.security;
 
-import com.martinodutto.tpt.database.mappers.RolesMapper;
 import com.martinodutto.tpt.services.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,13 +17,11 @@ import java.util.Optional;
 public class TokenHandlerImpl implements TokenHandler {
 
     private final String secret;
-    private final RolesMapper rolesMapper;
     private final UserService userService;
 
     @Autowired
-    public TokenHandlerImpl(@Value("${app.jwt.secret}") String secret, RolesMapper rolesMapper, UserService userService) {
+    public TokenHandlerImpl(@Value("${app.jwt.secret}") String secret, UserService userService) {
         this.secret = secret;
-        this.rolesMapper = rolesMapper;
         this.userService = userService;
     }
 

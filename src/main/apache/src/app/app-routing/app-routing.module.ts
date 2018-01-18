@@ -16,6 +16,7 @@ import {LogoutComponent} from "../logout/logout.component";
 import {HomePageGuard} from "../guards/home-page-guard";
 import {ServiceUnavailableComponent} from "../service-unavailable/service-unavailable.component";
 import {UnrecoverableErrorComponent} from "../unrecoverable-error/unrecoverable-error.component";
+import {ChangePasswordComponent} from "../change-password/change-password.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -30,6 +31,10 @@ const routes: Routes = [{
   path: 'register',
   component: RegisterComponent,
   canActivate: [LoginPageGuard]
+}, {
+  path: 'changepassword',
+  component: ChangePasswordComponent,
+  canActivate: [PrivatePageGuard]
 }, {
   path: 'logout',
   component: LogoutComponent,

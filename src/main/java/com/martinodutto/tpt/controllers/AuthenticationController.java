@@ -1,11 +1,9 @@
 package com.martinodutto.tpt.controllers;
 
 import com.martinodutto.tpt.controllers.entities.AuthenticationResponse;
+import com.martinodutto.tpt.controllers.entities.ChangePasswordForm;
 import com.martinodutto.tpt.controllers.entities.UserForm;
-import com.martinodutto.tpt.exceptions.DuplicateKeyException;
-import com.martinodutto.tpt.exceptions.EmptyInputException;
-import com.martinodutto.tpt.exceptions.InvalidInputException;
-import com.martinodutto.tpt.exceptions.UnregisteredRoleException;
+import com.martinodutto.tpt.exceptions.*;
 import com.martinodutto.tpt.security.TokenHandler;
 import com.martinodutto.tpt.security.TptUser;
 import com.martinodutto.tpt.services.UserService;
@@ -25,10 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Nonnull;
 import javax.validation.Valid;
+import java.util.Base64;
 
-/**
- * Careful: all the controller methods here are exposed to any user (even not logged-in), with no protection filters!
- */
 @RestController
 public class AuthenticationController {
 
@@ -50,7 +46,7 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/authentication/register")
+    @RequestMapping(method = RequestMethod.POST, value = "/authentication/unfiltered/register")
     public void register(@Valid @RequestBody UserForm form, BindingResult bindingResult)
             throws InvalidInputException, EmptyInputException, DuplicateKeyException, UnregisteredRoleException {
 
@@ -70,7 +66,7 @@ public class AuthenticationController {
         LOGGER.info("Successfully registered a new user");
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/authentication/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/authentication/unfiltered/login")
     public AuthenticationResponse login(@Valid @RequestBody UserForm form, BindingResult bindingResult)
             throws InvalidInputException, EmptyInputException {
 
@@ -90,6 +86,22 @@ public class AuthenticationController {
 
             TptUser u = userService.getCurrentUser();
             return new AuthenticationResponse(tokenHandler.createTokenForUser(u));
+        } else {
+            throw new EmptyInputException();
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/authentication/changePassword")
+    public void changePassword(@Valid @RequestBody ChangePasswordForm form, BindingResult bindingResult) throws InvalidInputException, EmptyInputException, BadCurrentUserPasswordException {
+
+        LOGGER.info("Changing password");
+
+        if (bindingResult.hasErrors()) {
+            throw new InvalidInputException(bindingResult.getAllErrors());
+        }
+
+        if (form != null) {
+            userService.changePassword(new String(Base64.getDecoder().decode(form.get_oldPassword())), new String(Base64.getDecoder().decode(form.get_newPassword())));
         } else {
             throw new EmptyInputException();
         }

@@ -28,11 +28,20 @@
                 <div class="col-12">
                   <p class="text-left player-name"><strong>{{loggedUser.playerName}} {{loggedUser.playerSurname}}</strong></p>
                   <p class="text-left small">{{loggedUser.userName}}</p>
-                  <p class="text-left">
-                    <a href="" class="btn btn-dark btn-block btn-sm" (click)="logout($event)">
-                      Logout <span class="sr-only">(logout)</span>
-                    </a>
-                  </p>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom: 5px;">
+                <div class="col-12">
+                  <a href="" class="btn btn-dark btn-block btn-sm" (click)="goToChangePassword($event)">
+                    Change password <span class="sr-only">(change password)</span>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <a href="" class="btn btn-dark btn-block btn-sm" (click)="logout($event)">
+                    Logout <span class="sr-only">(logout)</span>
+                  </a>
                 </div>
               </div>
             </div>

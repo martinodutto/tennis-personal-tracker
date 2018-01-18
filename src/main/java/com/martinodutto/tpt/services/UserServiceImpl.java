@@ -4,6 +4,7 @@ import com.martinodutto.tpt.database.entities.Role;
 import com.martinodutto.tpt.database.entities.User;
 import com.martinodutto.tpt.database.mappers.RolesMapper;
 import com.martinodutto.tpt.database.mappers.UsersMapper;
+import com.martinodutto.tpt.exceptions.BadCurrentUserPasswordException;
 import com.martinodutto.tpt.exceptions.DuplicateKeyException;
 import com.martinodutto.tpt.exceptions.UnregisteredRoleException;
 import com.martinodutto.tpt.security.TptGrantedAuthority;
@@ -19,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,11 +35,13 @@ public class UserServiceImpl implements UserService {
 
     private final UsersMapper usersMapper;
     private final RolesMapper rolesMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UsersMapper usersMapper, RolesMapper rolesMapper) {
+    public UserServiceImpl(UsersMapper usersMapper, RolesMapper rolesMapper, PasswordEncoder passwordEncoder) {
         this.usersMapper = usersMapper;
         this.rolesMapper = rolesMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -71,6 +75,19 @@ public class UserServiceImpl implements UserService {
             throw dve;
         }
         LOGGER.info("Persisted {} new users", insertOutcome);
+    }
+
+    @Transactional
+    @Override
+    public void changePassword(String oldPassword, String newPassword) throws BadCurrentUserPasswordException {
+        final TptUser user = getCurrentUser();
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new BadCurrentUserPasswordException();
+        }
+        final User userToUpdate = usersMapper.selectByPk(user.getUserId());
+        Objects.requireNonNull(userToUpdate); // at this point we may expect it to be not null
+        userToUpdate.setPassword(passwordEncoder.encode(newPassword));
+        usersMapper.update(userToUpdate);
     }
 
     @Transactional
