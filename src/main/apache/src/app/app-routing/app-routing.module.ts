@@ -12,7 +12,6 @@ import {LoginComponent} from "../login/login.component";
 import {RegisterComponent} from "../register/register.component";
 import {PrivatePageGuard} from "../guards/private-page-guard";
 import {LoginPageGuard} from "../guards/login-page-guard";
-import {LogoutComponent} from "../logout/logout.component";
 import {HomePageGuard} from "../guards/home-page-guard";
 import {ServiceUnavailableComponent} from "../service-unavailable/service-unavailable.component";
 import {UnrecoverableErrorComponent} from "../unrecoverable-error/unrecoverable-error.component";
@@ -35,10 +34,6 @@ const routes: Routes = [{
   path: 'changepassword',
   component: ChangePasswordComponent,
   canActivate: [PrivatePageGuard]
-}, {
-  path: 'logout',
-  component: LogoutComponent,
-  canActivate: [LoginPageGuard]
 }, {
   path: 'newplayer',
   component: NewPlayerComponent,

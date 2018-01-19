@@ -26,7 +26,6 @@ import {AuthenticationService} from "./services/authentication/authentication.se
 import {JwtInterceptor} from "./interceptors/jwt-interceptor/jwt-interceptor";
 import {PrivatePageGuard} from "./guards/private-page-guard";
 import {LoginPageGuard} from "./guards/login-page-guard";
-import {LogoutComponent} from './logout/logout.component';
 import {HomePageGuard} from "./guards/home-page-guard";
 import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-error.component';
 import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
@@ -46,7 +45,6 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
     NewPlayerComponent,
     LoginComponent,
     RegisterComponent,
-    LogoutComponent,
     UnrecoverableErrorComponent,
     ServiceUnavailableComponent,
     ChangePasswordComponent

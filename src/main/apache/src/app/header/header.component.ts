@@ -45,6 +45,6 @@ export class HeaderComponent implements OnInit {
   logout(event: MouseEvent) {
     event.preventDefault();
     this.authenticationService.logout();
-    this.router.navigate(['logout']);
+    this.router.navigate(['login']);
   }
 }
