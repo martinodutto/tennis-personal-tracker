@@ -22,21 +22,31 @@
                      [ngClass]="{'is-invalid': form.controls['password'].touched && form.controls['password'].invalid}">
             </div>
           </div>
-          <div>
-            <ngb-alert *ngIf="loginErrorMessage" type="danger" (close)="loginErrorMessage = null">
-              {{loginErrorMessage}}
-            </ngb-alert>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="pull-left">
-            <button type="button" class="btn btn-info" (click)="signUp()" tabindex="4">Sign-up</button>
-          </div>
-          <div class="pull-right">
-            <button type="submit" class="btn btn-success" [disabled]="form.invalid" tabindex="3">
-              <i class="fa fa-sign-in" aria-hidden="true"></i>
-              Sign-in
-            </button>
+
+          <div class="login-buttons">
+            <div class="row">
+              <div class="col-sm-10 offset-sm-1">
+                <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid" tabindex="3">
+                  <i class="fa fa-sign-in" aria-hidden="true"></i>
+                  Sign-in
+                </button>
+              </div>
+            </div>
+
+            <div class="error-message">
+              <ngb-alert *ngIf="loginErrorMessage" type="danger" (close)="loginErrorMessage = null">
+                {{loginErrorMessage}}
+              </ngb-alert>
+            </div>
+
+            <hr class="hr-text" data-content="New on TPT? Register"/>
+            <div class="row">
+              <div class="col-sm-10 offset-sm-1">
+                <button type="button" class="btn btn-info btn-block" (click)="signUp()" tabindex="4">
+                  Sign-up
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
