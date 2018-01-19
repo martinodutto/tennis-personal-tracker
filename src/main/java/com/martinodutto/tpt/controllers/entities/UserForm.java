@@ -1,16 +1,13 @@
 package com.martinodutto.tpt.controllers.entities;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserForm {
 
     @NotEmpty
-    @Length(max = 64)
     private String _username;
 
     @NotEmpty
-    @Length(min = 8, max = 255)
     private String _password;
 
     public String get_username() {
