@@ -1,9 +1,13 @@
 package com.martinodutto.tpt.controllers.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class ChangePasswordForm {
 
+    @NotEmpty
     private String _oldPassword;
 
+    @NotEmpty
     private String _newPassword;
 
     public String get_oldPassword() {

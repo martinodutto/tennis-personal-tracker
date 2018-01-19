@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {PasswordConfirmationValidator} from "../validators/password-confirmation-validator/password-confirmation-validator";
 import {ChangePassword} from "../model/change-password";
 import {HttpErrorResponse} from "@angular/common/http";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-change-password',
@@ -17,10 +18,12 @@ export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
   newPasswordsForm: FormGroup;
   changePasswordErrorMessage: string;
+  @ViewChild("successModalContent") successModalContent: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.currentUserName = this.authenticationService.getLoggedUserInfos().userName;
@@ -42,8 +45,9 @@ export class ChangePasswordComponent implements OnInit {
     ).subscribe(() => {
       console.info('Successful password change');
       this.authenticationService.logout();
-      // TODO show a friendly error message here
-      this.router.navigate(['login']);
+      this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {
+        this.router.navigate(['login']);
+      });
     }, (error: HttpErrorResponse) => {
       console.debug(`Error while changing password: ${error.message}`);
       switch (error.status) {

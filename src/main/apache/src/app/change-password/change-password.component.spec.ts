@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ChangePasswordComponent} from './change-password.component';
-import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlertModule, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
@@ -16,7 +16,8 @@ describe('ChangePasswordComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
-        NgbAlertModule.forRoot()
+        NgbAlertModule.forRoot(),
+        NgbModalModule.forRoot()
       ],
       declarations: [ ChangePasswordComponent ],
       providers: [
