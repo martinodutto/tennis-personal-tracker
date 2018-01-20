@@ -24,12 +24,13 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {AuthenticationService} from "./services/authentication/authentication.service";
 import {JwtInterceptor} from "./interceptors/jwt-interceptor/jwt-interceptor";
-import {PrivatePageGuard} from "./guards/private-page-guard";
-import {LoginPageGuard} from "./guards/login-page-guard";
-import {HomePageGuard} from "./guards/home-page-guard";
+import {PrivatePageGuard} from "./guards/private-page.guard";
+import {LoginPageGuard} from "./guards/login-page.guard";
+import {HomePageGuard} from "./guards/home-page.guard";
 import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-error.component';
 import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import {UnsavedActivityGuard} from "./guards/unsaved-activity.guard";
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
     KnownPlayersResolve,
     PrivatePageGuard,
     LoginPageGuard,
-    HomePageGuard
+    HomePageGuard,
+    UnsavedActivityGuard
   ],
   bootstrap: [
     AppComponent

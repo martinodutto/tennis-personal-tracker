@@ -3,7 +3,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NewActivityComponent} from './new-activity.component';
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {
-  NgbAlertModule, NgbDatepickerModule, NgbModalModule, NgbPopoverModule, NgbTimepickerModule,
+  NgbAlertModule,
+  NgbDatepickerModule,
+  NgbModalModule,
+  NgbPopoverModule,
+  NgbTimepickerModule,
   NgbTypeaheadModule
 } from "@ng-bootstrap/ng-bootstrap";
 import {MatchResultComponent} from "../match-result/match-result.component";
@@ -14,6 +18,7 @@ import {TimeFormatService} from "../services/time-format/time-format.service";
 import {PlayerService} from "../services/player/player.service";
 import {Guest, Player} from "../model/player";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {AuthenticationService} from "../services/authentication/authentication.service";
 
 describe('NewActivityComponent', () => {
   let component: NewActivityComponent;
@@ -43,6 +48,7 @@ describe('NewActivityComponent', () => {
         TimeFormatService,
         ActivityService,
         PlayerService,
+        AuthenticationService,
         {
           provide: Router, useClass: class {
             navigate = jasmine.createSpy("navigate");

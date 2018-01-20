@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SetResultComponent} from "../set-result/set-result.component";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityService} from "../services/activity/activity.service";
@@ -12,6 +12,7 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
 import "rxjs/add/operator/map";
+import {AuthenticationService} from "../services/authentication/authentication.service";
 
 @Component({
   selector: 'app-new-activity',
@@ -33,7 +34,9 @@ export class NewActivityComponent implements OnInit {
   secondPlayerFullName: string;
   newPlayerErrorMessage: string;
   submitErrorMessage: string;
+  hasBeenSaved: boolean;
   typeaheadClubs: string[] = []; // loaded asynchronously
+  @ViewChild('discardModalContent') discardModal: any;
   searchClub = (text$: Observable<string>) => {
     return text$
       .debounceTime(200)
@@ -48,10 +51,12 @@ export class NewActivityComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private timeFormatService: TimeFormatService,
-              private playerService: PlayerService) {
+              private playerService: PlayerService,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
+    this.hasBeenSaved = false;
     const now = new Date();
     this.optionsActivityType = [
       'Match',
@@ -111,6 +116,7 @@ export class NewActivityComponent implements OnInit {
       new Activity(<FormGroup> this.form, this.timeFormatService)
     ).subscribe(() => {
       console.debug('Form submitted correctly!');
+      this.hasBeenSaved = true;
       this.router.navigate(['home']);
     }, (error) => {
       console.error(`Form submission ended with error: ${error.message}`);
@@ -130,13 +136,18 @@ export class NewActivityComponent implements OnInit {
     });
   }
 
-  openDiscardModal(content) {
-    this.modalService.open(content).result.then((result) => {
+  goToHome(event: MouseEvent) {
+    event.preventDefault();
+    this.router.navigate(['home']);
+  }
+
+  openDiscardModal(): Promise<boolean> {
+    return this.modalService.open(this.discardModal).result.then((result) => {
       if (result === 'Discarded') {
-        this.router.navigate(['home']);
+        return true;
       }
     }, () => {
-      // nothing to do
+      return false;
     });
   }
 
@@ -205,11 +216,21 @@ export class NewActivityComponent implements OnInit {
     this.collapsedOptionalSection = !this.collapsedOptionalSection;
   }
 
-  getFullName(p: Player) {
+  private getFullName(p: Player) {
     if (p.name && p.surname) {
       return p.name + ' ' + p.surname;
     } else {
       return '';
     }
+  }
+
+  /**
+   * When returning true, this method allows for a straightforward route change towards another page.
+   * When returning false, it sets the conditions under which a discard confirmation popup displays.
+   *
+   * @returns {boolean} True to let the route change, false to ask for confirmation.
+   */
+  canDeactivate(): boolean {
+    return this.hasBeenSaved || this.form.pristine || !this.authenticationService.isSignedIn();
   }
 }
