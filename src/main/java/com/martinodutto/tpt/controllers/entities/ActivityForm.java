@@ -1,5 +1,6 @@
 package com.martinodutto.tpt.controllers.entities;
 
+import com.martinodutto.tpt.validation.OnlyPast;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Min;
@@ -10,6 +11,7 @@ import java.time.LocalTime;
 public class ActivityForm {
 
     @NotNull
+    @OnlyPast
     private LocalDate _activityDate;
 
     private int _firstPlayerId;

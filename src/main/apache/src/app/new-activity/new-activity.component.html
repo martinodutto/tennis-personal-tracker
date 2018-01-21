@@ -12,6 +12,7 @@
               <input class="form-control" formControlName="activityDate" placeholder="yyyy-mm-dd" name="dp"
                      ngbDatepicker
                      #d="ngbDatepicker" id="activityDateInput"
+                     [maxDate]="maxDatepickerDate"
                      [ngClass]="{'is-invalid': form.controls['activityDate'].touched && form.controls['activityDate'].invalid}">
               <button class="input-group-addon" (click)="d.toggle()" type="button">
                 <i class="fa fa-calendar" aria-hidden="true"></i>

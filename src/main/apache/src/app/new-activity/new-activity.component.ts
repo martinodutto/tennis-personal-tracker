@@ -3,7 +3,7 @@ import {SetResultComponent} from "../set-result/set-result.component";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivityService} from "../services/activity/activity.service";
 import {Activity} from "../model/activity";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDateStruct, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TimeFormatService} from "../services/time-format/time-format.service";
 import {PlayerService} from "../services/player/player.service";
@@ -29,6 +29,7 @@ export class NewActivityComponent implements OnInit {
   optionsLastSetTiebreak: Array<string>;
   optionsGender: Array<string>;
   result: SetResultComponent[];
+  maxDatepickerDate: NgbDateStruct;
   collapsedOptionalSection: boolean = true;
   firstPlayerFullName: string;
   secondPlayerFullName: string;
@@ -58,6 +59,7 @@ export class NewActivityComponent implements OnInit {
   ngOnInit() {
     this.hasBeenSaved = false;
     const now = new Date();
+    this.maxDatepickerDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
     this.optionsActivityType = [
       'Match',
       'Training'
