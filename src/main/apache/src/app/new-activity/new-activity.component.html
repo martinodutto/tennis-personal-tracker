@@ -141,8 +141,14 @@
       </div>
 
       <div>
-        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save and close</button>
-        <button type="button" class="btn btn-danger" (click)="goToHome($event)">Discard</button>
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          Save and close
+        </button>
+        <button type="button" class="btn btn-danger" (click)="goToHome($event)">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+          Discard
+        </button>
       </div>
     </form>
 
@@ -211,8 +217,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" (click)="c('Close click')">Cancel</button>
+          <button type="button" class="btn btn-info" (click)="c('Close click')">
+            <i class="fa fa-close" aria-hidden="true"></i>
+            Cancel
+          </button>
           <button type="button" class="btn btn-success" (click)="c(newPlayerForm)" [disabled]="newPlayerForm.invalid">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
             Add
           </button>
         </div>
