@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.martinodutto.tpt.database.mappers.ActivitiesAndResultsMapper">
+    <resultMap id="ActivitiesAndResultsRM" type="com.martinodutto.tpt.database.entities.ActivityAndResult">
+        <id column="ACTIVITY_ID" javaType="int" jdbcType="NUMERIC" property="activityId"/>
+        <result column="ACTIVITY_DATE" javaType="java.time.LocalDate" jdbcType="DATE" property="activityDate"/>
+        <result column="ACTIVITY_TIME" javaType="java.time.LocalTime" jdbcType="TIME" property="activityTime"/>
+        <result column="DURATION" javaType="java.time.LocalTime" jdbcType="TIME" property="duration"/>
+        <result column="ACTIVITY_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" property="activityType"/>
+        <result column="CLUB" javaType="java.lang.String" jdbcType="VARCHAR" property="club"/>
+        <result column="TOURNAMENT" javaType="java.lang.String" jdbcType="VARCHAR" property="tournament"/>
+        <result column="NOTES" javaType="java.lang.String" jdbcType="VARCHAR" property="notes"/>
+        <result column="FIRST_PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="firstPlayerId"/>
+        <result column="FIRST_PLAYER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" property="firstPlayerName"/>
+        <result column="FIRST_PLAYER_SURNAME" javaType="java.lang.String" jdbcType="VARCHAR"
+                property="firstPlayerSurname"/>
+        <result column="SECOND_PLAYER_ID" javaType="int" jdbcType="NUMERIC" property="secondPlayerId"/>
+        <result column="SECOND_PLAYER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" property="secondPlayerName"/>
+        <result column="SECOND_PLAYER_SURNAME" javaType="java.lang.String" jdbcType="VARCHAR"
+                property="secondPlayerSurname"/>
+        <result column="SET_1_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set1P1"/>
+        <result column="SET_1_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set1P2"/>
+        <result column="SET_2_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set2P1"/>
+        <result column="SET_2_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set2P2"/>
+        <result column="SET_3_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set3P1"/>
+        <result column="SET_3_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set3P2"/>
+        <result column="SET_4_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set4P1"/>
+        <result column="SET_4_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set4P2"/>
+        <result column="SET_5_P_1" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set5P1"/>
+        <result column="SET_5_P_2" javaType="java.lang.Integer" jdbcType="NUMERIC" property="set5P2"/>
+    </resultMap>
+
+    <sql id="selectAllSql">
+        SELECT
+            ACTIVITY_ID,
+            ACTIVITY_DATE,
+            ACTIVITY_TIME,
+            DURATION,
+            ACTIVITY_TYPE,
+            CLUB,
+            TOURNAMENT,
+            NOTES,
+            FIRST_PLAYER_ID,
+            FIRST_PLAYER_NAME,
+            FIRST_PLAYER_SURNAME,
+            SECOND_PLAYER_ID,
+            SECOND_PLAYER_NAME,
+            SECOND_PLAYER_SURNAME,
+            SET_1_P_1,
+            SET_1_P_2,
+            SET_2_P_1,
+            SET_2_P_2,
+            SET_3_P_1,
+            SET_3_P_2,
+            SET_4_P_1,
+            SET_4_P_2,
+            SET_5_P_1,
+            SET_5_P_2
+        FROM ACTIVITIES_AND_RESULTS
+    </sql>
+
+    <select id="selectPaginatedByFirstPlayerId" resultMap="ActivitiesAndResultsRM">
+        <include refid="selectAllSql"/>
+        WHERE FIRST_PLAYER_ID = #{firstPlayerId, jdbcType=NUMERIC}
+        ORDER BY ACTIVITY_DATE DESC
+        LIMIT #{limit, jdbcType=NUMERIC}
+        OFFSET #{offset, jdbcType=NUMERIC}
+    </select>
+</mapper>
