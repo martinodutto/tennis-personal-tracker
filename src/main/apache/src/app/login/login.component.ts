@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {User} from "../model/user";
+import {PlayerService} from "../services/player/player.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private playerService: PlayerService) { }
 
   ngOnInit() {
     this.loading = false;
@@ -37,7 +39,13 @@ export class LoginComponent implements OnInit {
       this.loading = false;
       // we set the JWT on the local storage, where it can be retrieved by subsequent requests
       this.authenticationService.saveJwtTokenAndUsername(response.token, this.form.value['username']);
-      this.router.navigate(['home']);
+      this.playerService.getCurrentPlayer().subscribe(player => {
+        if (player === null) {
+          this.router.navigate(['newplayer']);
+        } else {
+          this.router.navigate(['home']);
+        }
+      });
     }, error => {
       this.loading = false;
       console.error(`Error while logging in: ${error.message}`);

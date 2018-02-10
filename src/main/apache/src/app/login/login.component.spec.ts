@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {PlayerService} from "../services/player/player.service";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -21,6 +22,7 @@ describe('LoginComponent', () => {
       declarations: [ LoginComponent ],
       providers: [
         AuthenticationService,
+        PlayerService,
         {
           provide: Router, useClass: class {
             navigate = jasmine.createSpy("navigate");

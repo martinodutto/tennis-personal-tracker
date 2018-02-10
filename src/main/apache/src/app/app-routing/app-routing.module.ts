@@ -12,12 +12,13 @@ import {LoginComponent} from "../login/login.component";
 import {RegisterComponent} from "../register/register.component";
 import {PrivatePageGuard} from "../guards/private-page.guard";
 import {LoginPageGuard} from "../guards/login-page.guard";
-import {HomePageGuard} from "../guards/home-page.guard";
 import {ServiceUnavailableComponent} from "../service-unavailable/service-unavailable.component";
 import {UnrecoverableErrorComponent} from "../unrecoverable-error/unrecoverable-error.component";
 import {ChangePasswordComponent} from "../change-password/change-password.component";
 import {UnsavedActivityGuard} from "../guards/unsaved-activity.guard";
 import {PastResultsComponent} from "../past-results/past-results.component";
+import {PlayerNotCreatedGuard} from "../guards/player-not-created.guard";
+import {PlayerAlreadyCreatedGuard} from "../guards/player-already-created.guard";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -39,11 +40,12 @@ const routes: Routes = [{
 }, {
   path: 'newplayer',
   component: NewPlayerComponent,
-  canActivate: [PrivatePageGuard]
+  canActivate: [PrivatePageGuard, PlayerAlreadyCreatedGuard],
+  canDeactivate: [PlayerNotCreatedGuard]
 }, {
   path: 'home',
   component: HomeComponent,
-  canActivate: [PrivatePageGuard, HomePageGuard]
+  canActivate: [PrivatePageGuard]
 }, {
   path: 'new',
   component: NewActivityComponent,

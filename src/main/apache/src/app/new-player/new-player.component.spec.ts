@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {PlayerService} from "../services/player/player.service";
 import {Router} from "@angular/router";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {AuthenticationService} from "../services/authentication/authentication.service";
 
 describe('NewPlayerComponent', () => {
   let component: NewPlayerComponent;
@@ -21,6 +22,7 @@ describe('NewPlayerComponent', () => {
       ],
       providers: [
         PlayerService,
+        AuthenticationService,
         {
           provide: Router, useClass: class {
             navigate = jasmine.createSpy("navigate");

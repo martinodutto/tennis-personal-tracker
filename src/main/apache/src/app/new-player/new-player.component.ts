@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Guest, Player} from "../model/player";
 import {PlayerService} from "../services/player/player.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../services/authentication/authentication.service";
 
 @Component({
   selector: 'app-new-player',
@@ -16,7 +17,8 @@ export class NewPlayerComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private playerService: PlayerService,
-              private router: Router) { }
+              private router: Router,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.optionsGender = [
@@ -34,8 +36,9 @@ export class NewPlayerComponent implements OnInit {
     console.debug('Creating new player...');
     this.playerService.createPlayer(
       new Player(this.form, Guest.N)
-    ).subscribe(() => {
+    ).subscribe(p => {
       console.debug('Player created correctly!');
+      this.authenticationService.savePlayerNameAndSurname(p.name, p.surname);
       this.router.navigate(['home']);
     }, error => {
       console.error(`Player creation ended with error: ${error.message}`);

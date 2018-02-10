@@ -26,7 +26,6 @@ import {AuthenticationService} from "./services/authentication/authentication.se
 import {JwtInterceptor} from "./interceptors/jwt-interceptor/jwt-interceptor";
 import {PrivatePageGuard} from "./guards/private-page.guard";
 import {LoginPageGuard} from "./guards/login-page.guard";
-import {HomePageGuard} from "./guards/home-page.guard";
 import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-error.component';
 import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
@@ -34,6 +33,8 @@ import {UnsavedActivityGuard} from "./guards/unsaved-activity.guard";
 import {PastResultsComponent} from './past-results/past-results.component';
 import {DataTableModule} from "angular5-data-table";
 import {ActivitiesAndResultsService} from "./services/activities-and-results/activities-and-results.service";
+import {PlayerNotCreatedGuard} from "./guards/player-not-created.guard";
+import {PlayerAlreadyCreatedGuard} from "./guards/player-already-created.guard";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {ActivitiesAndResultsService} from "./services/activities-and-results/act
     KnownPlayersResolve,
     PrivatePageGuard,
     LoginPageGuard,
-    HomePageGuard,
+    PlayerNotCreatedGuard,
+    PlayerAlreadyCreatedGuard,
     UnsavedActivityGuard
   ],
   bootstrap: [
