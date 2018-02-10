@@ -1,9 +1,12 @@
 package com.martinodutto.tpt.services;
 
 import com.martinodutto.tpt.database.entities.Activity;
+import com.martinodutto.tpt.database.entities.ActivityAndResult;
 import com.martinodutto.tpt.database.entities.Result;
+import com.martinodutto.tpt.database.mappers.ActivitiesAndResultsMapper;
 import com.martinodutto.tpt.database.mappers.ActivitiesMapper;
 import com.martinodutto.tpt.database.mappers.ResultsMapper;
+import com.martinodutto.tpt.pagination.PagingOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +25,13 @@ public class ActivityService {
 
     private final ResultsMapper resultsMapper;
 
+    private final ActivitiesAndResultsMapper activitiesAndResultsMapper;
+
     @Autowired
-    public ActivityService(ActivitiesMapper activitiesMapper, ResultsMapper resultsMapper) {
+    public ActivityService(ActivitiesMapper activitiesMapper, ResultsMapper resultsMapper, ActivitiesAndResultsMapper activitiesAndResultsMapper) {
         this.activitiesMapper = activitiesMapper;
         this.resultsMapper = resultsMapper;
+        this.activitiesAndResultsMapper = activitiesAndResultsMapper;
     }
 
     @Transactional
@@ -48,5 +54,15 @@ public class ActivityService {
     @Transactional
     public List<String> getUserClubs(int userPlayerId) {
         return activitiesMapper.selectUserClubs(userPlayerId);
+    }
+
+    @Transactional
+    public List<ActivityAndResult> getPastActivities(int playerId, PagingOptions pagingOptions) {
+        return activitiesAndResultsMapper.selectPaginatedByFirstPlayerId(playerId, pagingOptions);
+    }
+
+    @Transactional
+    public long countPastActivities(int playerId) {
+        return activitiesAndResultsMapper.countByFirstPlayerId(playerId);
     }
 }

@@ -1,0 +1,62 @@
+<div class="container-fluid tpt-page-content">
+  <div class="container">
+    <div *ngIf="!loadingErrorMessage">
+      <data-table id="pastResultsGrid"
+                  headerTitle="Activities"
+                  [items]="items"
+                  [itemCount]="itemCount"
+                  [indexColumn]="false"
+                  [substituteRows]="false"
+                  (reload)="reloadItems($event)">
+        <data-table-column
+          [property]="'activityDate'"
+          [header]="'Date'"
+          [sortable]="true">
+          <ng-template #dataTableCell let-item="item">
+            <span>{{item.activityDate | date: 'yyyy-MM-dd'}}</span>
+          </ng-template>
+        </data-table-column>
+        <data-table-column
+          [property]="'activityType'"
+          [header]="'Type'"
+          [sortable]="true"
+          [resizable]="true">
+        </data-table-column>
+        <data-table-column
+          [property]="'secondPlayer'"
+          [header]="'Opponent name'"
+          [sortable]="true"
+          [resizable]="true">
+          <ng-template #dataTableCell let-item="item">
+            <span>{{item.secondPlayerName + ' ' + item.secondPlayerSurname}}</span>
+          </ng-template>
+        </data-table-column>
+        <data-table-column
+          [property]="'matchResult'"
+          [header]="'Result'"
+          [sortable]="false"
+          [resizable]="true">
+          <ng-template #dataTableCell let-item="item">
+            <span>{{formatMatchResult(item)}}</span>
+          </ng-template>
+        </data-table-column>
+        <data-table-column
+          [property]="'club'"
+          [header]="'Club'"
+          [sortable]="true"
+          [resizable]="true">
+        </data-table-column>
+        <data-table-column
+          [property]="'notes'"
+          [header]="'Notes'"
+          [sortable]="true"
+          [resizable]="true">
+        </data-table-column>
+      </data-table>
+    </div>
+
+    <div>
+      <ngb-alert *ngIf="loadingErrorMessage" type="danger" (close)="loadingErrorMessage = null">{{loadingErrorMessage}}</ngb-alert>
+    </div>
+  </div>
+</div>

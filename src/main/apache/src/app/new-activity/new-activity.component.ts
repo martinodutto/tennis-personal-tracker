@@ -119,7 +119,7 @@ export class NewActivityComponent implements OnInit {
     ).subscribe(() => {
       console.debug('Form submitted correctly!');
       this.hasBeenSaved = true;
-      this.router.navigate(['home']);
+      this.router.navigate(['past']);
     }, (error) => {
       console.error(`Form submission ended with error: ${error.message}`);
       switch (error.status) {

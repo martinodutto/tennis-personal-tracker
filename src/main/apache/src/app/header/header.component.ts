@@ -37,6 +37,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['home']);
   }
 
+  goToPastResults(event: MouseEvent) {
+    event.preventDefault();
+    this.router.navigate(['past']);
+  }
+
   goToChangePassword(event: MouseEvent) {
     event.preventDefault();
     this.router.navigate(['changepassword']);

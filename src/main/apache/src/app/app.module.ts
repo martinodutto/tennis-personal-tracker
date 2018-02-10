@@ -31,6 +31,9 @@ import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-e
 import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {UnsavedActivityGuard} from "./guards/unsaved-activity.guard";
+import {PastResultsComponent} from './past-results/past-results.component';
+import {DataTableModule} from "angular5-data-table";
+import {ActivitiesAndResultsService} from "./services/activities-and-results/activities-and-results.service";
 
 @NgModule({
   declarations: [
@@ -48,13 +51,15 @@ import {UnsavedActivityGuard} from "./guards/unsaved-activity.guard";
     RegisterComponent,
     UnrecoverableErrorComponent,
     ServiceUnavailableComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    PastResultsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    DataTableModule,
     NgbModule.forRoot()
   ],
   providers: [
@@ -62,6 +67,7 @@ import {UnsavedActivityGuard} from "./guards/unsaved-activity.guard";
     PlayerService,
     ActivityService,
     AuthenticationService,
+    ActivitiesAndResultsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

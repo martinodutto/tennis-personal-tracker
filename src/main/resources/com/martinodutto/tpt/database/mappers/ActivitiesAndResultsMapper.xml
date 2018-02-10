@@ -62,8 +62,25 @@
     <select id="selectPaginatedByFirstPlayerId" resultMap="ActivitiesAndResultsRM">
         <include refid="selectAllSql"/>
         WHERE FIRST_PLAYER_ID = #{firstPlayerId, jdbcType=NUMERIC}
-        ORDER BY ACTIVITY_DATE DESC
-        LIMIT #{limit, jdbcType=NUMERIC}
-        OFFSET #{offset, jdbcType=NUMERIC}
+        ORDER BY
+        <if test="paging.sortBy != null">
+            ${paging.sortBy}
+        </if>
+        <if test="paging.sortBy == null">
+            ACTIVITY_DATE
+        </if>
+        <if test="paging.sortAsc">
+            ASC
+        </if>
+        <if test="!paging.sortAsc">
+            DESC
+        </if>
+        LIMIT #{paging.limit, jdbcType=NUMERIC}
+        OFFSET #{paging.offset, jdbcType=NUMERIC}
+    </select>
+
+    <select id="countByFirstPlayerId" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM ACTIVITIES_AND_RESULTS
+        WHERE FIRST_PLAYER_ID = #{firstPlayerId, jdbcType=NUMERIC}
     </select>
 </mapper>

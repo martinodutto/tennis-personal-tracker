@@ -13,7 +13,10 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="" class="nav-link" (click)="goToHome($event)">Home <span class="sr-only">(current)</span></a>
+          <a href="" class="nav-link" (click)="goToHome($event)">Home <span class="sr-only">home</span></a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link" (click)="goToPastResults($event)">Activities <span class="sr-only">activities</span></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -33,14 +36,14 @@
               <div class="row" style="margin-bottom: 5px;">
                 <div class="col-12">
                   <a href="" class="btn btn-dark btn-block btn-sm" (click)="goToChangePassword($event)">
-                    Change password <span class="sr-only">(change password)</span>
+                    Change password <span class="sr-only">change password</span>
                   </a>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
                   <a href="" class="btn btn-dark btn-block btn-sm" (click)="logout($event)">
-                    Logout <span class="sr-only">(logout)</span>
+                    Logout <span class="sr-only">logout</span>
                   </a>
                 </div>
               </div>

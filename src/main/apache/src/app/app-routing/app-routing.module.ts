@@ -17,6 +17,7 @@ import {ServiceUnavailableComponent} from "../service-unavailable/service-unavai
 import {UnrecoverableErrorComponent} from "../unrecoverable-error/unrecoverable-error.component";
 import {ChangePasswordComponent} from "../change-password/change-password.component";
 import {UnsavedActivityGuard} from "../guards/unsaved-activity.guard";
+import {PastResultsComponent} from "../past-results/past-results.component";
 
 // here we list all the routes available to the application
 const routes: Routes = [{
@@ -52,6 +53,10 @@ const routes: Routes = [{
     currentPlayer: CurrentPlayerResolve,
     knownPlayers: KnownPlayersResolve
   }
+}, {
+  path: 'past',
+  component: PastResultsComponent,
+  canActivate: [PrivatePageGuard]
 }, {
   path: 'credits',
   component: CreditsComponent,
