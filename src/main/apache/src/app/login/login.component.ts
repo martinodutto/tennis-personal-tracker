@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         if (player === null) {
           this.router.navigate(['newplayer']);
         } else {
+          this.authenticationService.savePlayerNameAndSurname(player.name, player.surname);
           this.router.navigate(['home']);
         }
       });
