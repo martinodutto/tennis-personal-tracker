@@ -3,9 +3,9 @@
 
 _Tennis Personal Tracker_ (a.k.a. _TPT_) is a web application that aims to track all of your tennis activities:
 
-* Matches with your friends
-* Matches in tournaments
-* Tennis training
+* matches with your friends
+* matches in tournaments
+* tennis training.
 
 It features a very simple and user-friendly GUI, that you can access from your computer as well as from your mobile phone or tablet, since it's built with responsive design techniques.
 
