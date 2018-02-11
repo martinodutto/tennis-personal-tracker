@@ -12,6 +12,7 @@ export class MatchResultComponent implements OnInit {
   @Input("group") match: FormGroup;
 
   _setNumber: number;
+  _setArray: FormArray;
 
   @Input()
   set setNumber(setNumber: string) {
@@ -33,6 +34,7 @@ export class MatchResultComponent implements OnInit {
     this.match.addControl('sets', this._fb.array([
       this.initSet()
     ]));
+    this._setArray = <FormArray> this.match['controls']['sets'];
   }
 
   initSet() {
@@ -46,7 +48,6 @@ export class MatchResultComponent implements OnInit {
 
   // adds a new set to the match, without a result (yet)
   addNewSet() {
-    const setArray = <FormArray> this.match.controls['sets'];
-    setArray.push(this.initSet());
+    this._setArray.push(this.initSet());
   }
 }
