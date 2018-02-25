@@ -56,3 +56,7 @@ button:not([disabled]) {
 button[disabled] {
   cursor: not-allowed;
 }
+
+ngb-timepicker input {
+  width: 55px !important;
+}
