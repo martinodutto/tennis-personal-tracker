@@ -1,13 +1,16 @@
 package com.martinodutto.tpt.controllers.entities;
 
+import com.martinodutto.tpt.validation.Base64Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class ChangePasswordForm {
 
     @NotEmpty
+    @Base64Length(min = 8, max = 255)
     private String _oldPassword;
 
     @NotEmpty
+    @Base64Length(min = 8, max = 255)
     private String _newPassword;
 
     public String get_oldPassword() {

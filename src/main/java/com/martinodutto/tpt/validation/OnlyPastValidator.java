@@ -12,7 +12,6 @@ public class OnlyPastValidator implements ConstraintValidator<OnlyPast, LocalDat
 
     @Override
     public boolean isValid(LocalDate localDate, ConstraintValidatorContext constraintValidatorContext) {
-
         final LocalDate max = LocalDate.now();
         return localDate == null || localDate.isBefore(max) || localDate.isEqual(max);
     }
