@@ -12,7 +12,9 @@
                 Choose a username
               </label>
               <input type="text" class="form-control" formControlName="username" id="username" autocomplete="username"
-                     autofocus tabindex="1"
+                     placeholder="Username"
+                     autofocus
+                     tabindex="1"
                      [ngClass]="{'is-invalid': form.controls['username'].touched && form.controls['username'].invalid}">
             </div>
           </div>
@@ -42,6 +44,14 @@
               </div>
             </div>
           </fieldset>
+          <div class="row" style="margin-top: 34px;">
+            <div class="col-sm-10 offset-sm-1">
+              <button type="submit" class="btn btn-success btn-block" [disabled]="form.invalid" tabindex="4">
+                <i class="fa fa-key" aria-hidden="true"></i>
+                Register me!
+              </button>
+            </div>
+          </div>
           <div>
             <ngb-alert *ngIf="signUpErrorMessage" type="danger" (close)="signUpErrorMessage = null">
               {{signUpErrorMessage}}
@@ -49,18 +59,10 @@
           </div>
         </div>
         <div class="card-footer">
-          <div class="pull-left">
-            <button type="button" class="btn btn-info" (click)="goToLogin()" tabindex="5">
-              <i class="fa fa-chevron-left" aria-hidden="true"></i>
-              Back to login
-            </button>
-          </div>
-          <div class="pull-right">
-            <button type="submit" class="btn btn-success" [disabled]="form.invalid" tabindex="4">
-              <i class="fa fa-key" aria-hidden="true"></i>
-              Register me!
-            </button>
-          </div>
+          <button type="button" class="btn btn-dark" (click)="goToLogin()" tabindex="5">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Back to login
+          </button>
         </div>
       </div>
     </form>
