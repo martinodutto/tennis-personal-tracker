@@ -4,7 +4,9 @@ import {Observable} from 'rxjs';
 import {Activity} from '../../model/activity';
 import {Player} from '../../model/player';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ActivityService {
 
   private URL_PREFIX = '../script/activity';

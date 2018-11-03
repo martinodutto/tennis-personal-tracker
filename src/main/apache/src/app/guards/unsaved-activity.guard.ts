@@ -3,7 +3,9 @@ import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot} from '@angul
 import {Observable} from 'rxjs';
 import {NewActivityComponent} from '../new-activity/new-activity.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UnsavedActivityGuard implements CanDeactivate<NewActivityComponent> {
 
   canDeactivate(component: NewActivityComponent,

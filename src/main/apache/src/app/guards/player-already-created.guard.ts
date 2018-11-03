@@ -4,7 +4,9 @@ import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular
 import {Observable} from 'rxjs';
 import {PlayerService} from '../services/player/player.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PlayerAlreadyCreatedGuard implements CanActivate {
 
   constructor(private playerService: PlayerService) {}

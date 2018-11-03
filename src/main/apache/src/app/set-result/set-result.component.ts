@@ -9,13 +9,13 @@ import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SetResultComponent implements OnInit {
 
-  @Input() group: FormGroup;
+  @Input() set: FormGroup;
   @Input() parity: boolean;
   @ViewChild('p') popover: NgbPopover; // this way we can refer to the view-defined variable "p"
 
   ngOnInit() {
-    this.group.valueChanges.subscribe(() => {
-      if (this.group.valid) {
+    this.set.valueChanges.subscribe(() => {
+      if (this.set.valid) {
         this.popover.close();
       } else {
         this.popover.open();

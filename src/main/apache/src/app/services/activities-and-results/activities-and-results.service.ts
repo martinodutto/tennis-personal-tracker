@@ -5,7 +5,9 @@ import {ActivityAndResult} from '../../model/activity-and-result';
 import {Observable} from 'rxjs';
 import {PaginatedResponse} from '../../model/paginated-response';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ActivitiesAndResultsService {
 
   private URL_PREFIX = '../script/activitiesAndResults';

@@ -3,7 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {Player} from '../../model/player';
 import {Observable} from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PlayerService {
 
   private URL_PREFIX = '../script/player';

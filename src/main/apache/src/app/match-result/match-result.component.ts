@@ -9,7 +9,7 @@ import {TieBreakSetValidator} from '../validators/tie-break-set-validator/tie-br
 })
 export class MatchResultComponent implements OnInit {
 
-  @Input() group: FormGroup;
+  @Input() match: FormGroup;
 
   _setNumber: number;
   _setArray: FormArray;
@@ -18,7 +18,7 @@ export class MatchResultComponent implements OnInit {
   set setNumber(setNumber: string) {
     const sn = parseInt(setNumber, 10);
     this._setNumber = sn;
-    const setArray = <FormArray> this.group.controls['sets'];
+    const setArray = <FormArray> this.match.controls['sets'];
     // this gets called before ngOnInit, so we must ensure that all the elements exist
     if (setArray && setArray.length > sn) {
       for (let i = setArray.length - 1; i >= sn; i--) {
@@ -31,10 +31,10 @@ export class MatchResultComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.group.addControl('sets', this._fb.array([
+    this.match.addControl('sets', this._fb.array([
       this.initSet()
     ]));
-    this._setArray = <FormArray> this.group['controls']['sets'];
+    this._setArray = <FormArray> this.match['controls']['sets'];
   }
 
   initSet() {

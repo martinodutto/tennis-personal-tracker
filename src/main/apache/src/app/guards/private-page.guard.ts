@@ -3,7 +3,9 @@ import {AuthenticationService} from '../services/authentication/authentication.s
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PrivatePageGuard implements CanActivate {
 
   constructor(private router: Router,

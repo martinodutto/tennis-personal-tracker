@@ -4,7 +4,9 @@ import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {ActivityService} from '../services/activity/activity.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class KnownPlayersResolve implements Resolve<Player[]> {
 
   constructor(private activityService: ActivityService) {

@@ -6,7 +6,9 @@ import {NewPlayerComponent} from '../new-player/new-player.component';
 import {PlayerService} from '../services/player/player.service';
 import {AuthenticationService} from '../services/authentication/authentication.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PlayerNotCreatedGuard implements CanDeactivate<NewPlayerComponent> {
 
   constructor(private playerService: PlayerService,

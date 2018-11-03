@@ -9,7 +9,9 @@ import {PlayerService} from '../services/player/player.service';
 /**
  * Resolves the current user's player data, in a way that it can be used while transitioning to new routes.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CurrentPlayerResolve implements Resolve<Player> {
 
   constructor(private playerService: PlayerService) {

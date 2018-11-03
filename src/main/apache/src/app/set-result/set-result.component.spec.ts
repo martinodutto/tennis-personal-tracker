@@ -23,7 +23,7 @@ describe('SetResultComponent', () => {
     fixture = TestBed.createComponent(SetResultComponent);
     component = fixture.componentInstance;
     // manually initialized because it's an @Input()
-    component.group = new FormGroup({
+    component.set = new FormGroup({
       firstPlayerGames: new FormControl(0),
       secondPlayerGames: new FormControl(0)
     });

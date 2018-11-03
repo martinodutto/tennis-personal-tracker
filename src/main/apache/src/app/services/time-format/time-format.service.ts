@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TimeFormatService {
 
   constructor() {

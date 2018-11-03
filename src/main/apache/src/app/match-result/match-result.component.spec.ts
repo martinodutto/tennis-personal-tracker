@@ -23,7 +23,7 @@ describe('MatchResultComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MatchResultComponent);
     component = fixture.componentInstance;
-    component.group = new FormGroup({});
+    component.match = new FormGroup({});
     fixture.detectChanges();
   });
 

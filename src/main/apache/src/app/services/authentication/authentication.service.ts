@@ -5,7 +5,9 @@ import {User} from '../../model/user';
 import {LoggedUser} from '../../model/logged-user';
 import {ChangePassword} from '../../model/change-password';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
 
   constructor(private http: HttpClient) {
