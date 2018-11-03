@@ -14,6 +14,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from '../services/authentication/authentication.service';
+import {DateFormatService} from '../services/date-format/date-format.service';
 
 @Component({
   selector: 'app-new-activity',
@@ -56,6 +57,7 @@ export class NewActivityComponent implements OnInit {
               private modalService: NgbModal,
               private router: Router,
               private route: ActivatedRoute,
+              private dateFormatService: DateFormatService,
               private timeFormatService: TimeFormatService,
               private playerService: PlayerService,
               private authenticationService: AuthenticationService) {
@@ -121,7 +123,7 @@ export class NewActivityComponent implements OnInit {
     console.debug('Submitting the data to the server...');
     this.submitErrorMessage = null; // reset, in case an error message was already displayed
     this.activityService.createActivity(
-      new Activity(<FormGroup> this.form, this.timeFormatService)
+      new Activity(<FormGroup> this.form, this.dateFormatService, this.timeFormatService)
     ).subscribe(() => {
       console.debug('Form submitted correctly!');
       this.hasBeenSaved = true;

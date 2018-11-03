@@ -1,6 +1,7 @@
 import {MatchResult} from './match-result';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {TimeFormatService} from '../services/time-format/time-format.service';
+import {DateFormatService} from '../services/date-format/date-format.service';
 
 export class Activity {
 
@@ -28,12 +29,10 @@ export class Activity {
 
   private _match: MatchResult;
 
-  constructor(form: FormGroup, timeFormatService: TimeFormatService) {
-    // TODO solve NgBootstrap import problem
-    // let df: NgbDateISOParserFormatter = new NgbDateISOParserFormatter();
+  constructor(form: FormGroup, dateFormatService: DateFormatService, timeFormatService: TimeFormatService) {
     const formValues: AbstractControl = form.value;
 
-    // this.activityDate = df.format(formValues['activityDate']);
+    this.activityDate = dateFormatService.isoFormat(formValues['activityDate']);
     this.firstPlayerId = formValues['firstPlayerId'];
     this.secondPlayerId = formValues['secondPlayerId'];
     this.activityType = formValues['activityType'];
