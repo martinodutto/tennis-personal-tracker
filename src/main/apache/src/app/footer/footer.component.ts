@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationStart, Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-footer',
@@ -16,7 +17,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     // we subscribe to all the navigation change events, in order to use the refreshed login status of the user to show/hide the footer
-    this.router.events.filter(event => event instanceof NavigationStart).subscribe(() => {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(() => {
       this.showFooter = this.authenticationService.isSignedIn();
     });
   }

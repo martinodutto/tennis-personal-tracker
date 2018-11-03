@@ -1,3 +1,4 @@
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SetResultComponent} from "../set-result/set-result.component";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -8,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TimeFormatService} from "../services/time-format/time-format.service";
 import {PlayerService} from "../services/player/player.service";
 import {Guest, Player} from "../model/player";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs";
 import "rxjs/add/operator/debounceTime";
 import "rxjs/add/operator/distinctUntilChanged";
 import "rxjs/add/operator/map";
@@ -24,10 +25,10 @@ export class NewActivityComponent implements OnInit {
   form: FormGroup;
   newPlayerForm: FormGroup;
   optionsKnownPlayers: Player[];
-  optionsActivityType: Array<string>;
-  optionsBestOf: Array<number>;
-  optionsLastSetTiebreak: Array<string>;
-  optionsGender: Array<string>;
+  optionsActivityType: string[];
+  optionsBestOf: number[];
+  optionsLastSetTiebreak: string[];
+  optionsGender: string[];
   result: SetResultComponent[];
   maxDatepickerDate: NgbDateStruct;
   collapsedOptionalSection: boolean = true;
@@ -39,10 +40,10 @@ export class NewActivityComponent implements OnInit {
   typeaheadClubs: string[] = []; // loaded asynchronously
   @ViewChild('discardModalContent') discardModal: any;
   searchClub = (text$: Observable<string>) => {
-    return text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(searchKey => searchKey.length < 2 ? [] : this.typeaheadClubs.filter(v => v.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0).slice(0, 10));
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(searchKey => searchKey.length < 2 ? [] : this.typeaheadClubs.filter(v => v.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0).slice(0, 10)),);
   };
 
   // injections

@@ -1,7 +1,8 @@
+import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import 'rxjs/add/operator/do';
+import {Observable} from "rxjs";
+
 import {Router} from "@angular/router";
 
 @Injectable()
@@ -20,7 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(req).do(() => {
+    return next.handle(req).pipe(tap(() => {
       // nothing to do
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
@@ -32,7 +33,7 @@ export class JwtInterceptor implements HttpInterceptor {
           this.router.navigate(['serviceunavailable']);
         }
       }
-    });
+    }));
   }
 
 }

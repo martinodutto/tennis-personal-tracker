@@ -1,7 +1,8 @@
+import {filter} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, NavigationStart, Router} from "@angular/router";
 import {AuthenticationService} from "../services/authentication/authentication.service";
-import 'rxjs/add/operator/filter';
+
 import {LoggedUser} from "../model/logged-user";
 
 @Component({
@@ -22,11 +23,11 @@ export class HeaderComponent implements OnInit {
     this.loggedUser = this.authenticationService.getLoggedUserInfos();
 
     // we subscribe to all the navigation change events, in order to use the refreshed login status of the user to show/hide the header
-    this.router.events.filter(event => event instanceof NavigationStart).subscribe(() => {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(() => {
       this.showHeader = this.authenticationService.isSignedIn();
     });
 
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(() => {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
       // at any route change we update the user infos shown (necessary because we could have logged in/out)
       this.loggedUser = this.authenticationService.getLoggedUserInfos();
     });

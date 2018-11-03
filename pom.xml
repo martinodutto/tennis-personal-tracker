@@ -101,6 +101,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- needed because of Java 11 not including this dependency by default anymore (and JWT needs it) -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>tennis-personal-tracker</finalName>

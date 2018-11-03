@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {DataTableParams} from "angular5-data-table";
 import {ActivityAndResult} from "../../model/activity-and-result";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs";
 import {PaginatedResponse} from "../../model/paginated-response";
 
 @Injectable()
