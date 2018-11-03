@@ -4,13 +4,19 @@ import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 @Injectable()
 export class TimeFormatService {
 
-  constructor() { }
+  constructor() {
+  }
+
+  private static padNumber(n: number, length: number): string {
+    return (n ? n.toString() : '').padStart(length, '0');
+  }
 
   public format(time: NgbTimeStruct): string {
-    const formattedTime: string = null;
+    let formattedTime: string = null;
     if (time) {
-      // TODO solve NgBootstrap import problem
-      // formattedTime = `${padNumber(time.hour) || '00'}:${padNumber(time.minute) || '00'}:${padNumber(time.second) || '00'}`;
+      formattedTime = `${TimeFormatService.padNumber(time.hour, 2) || '00'}:` +
+        `${TimeFormatService.padNumber(time.minute, 2) || '00'}:` +
+        `${TimeFormatService.padNumber(time.second, 2) || '00'}`;
     }
     return formattedTime;
   }
