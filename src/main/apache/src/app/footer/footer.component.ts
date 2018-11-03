@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationStart, Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {filter} from "rxjs/operators";
+import {NavigationStart, Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-footer',

@@ -2,7 +2,7 @@ import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {PlayerService} from "../services/player/player.service";
+import {PlayerService} from '../services/player/player.service';
 
 @Injectable()
 export class PlayerAlreadyCreatedGuard implements CanActivate {

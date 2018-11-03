@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PageNotFoundComponent} from './page-not-found.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 describe('PageNotFoundComponent', () => {
   let component: PageNotFoundComponent;
@@ -12,7 +12,7 @@ describe('PageNotFoundComponent', () => {
       declarations: [PageNotFoundComponent],
       providers: [{
         provide: Router, useClass: class {
-          navigate = jasmine.createSpy("navigate");
+          navigate = jasmine.createSpy('navigate');
         }
       }]
     })

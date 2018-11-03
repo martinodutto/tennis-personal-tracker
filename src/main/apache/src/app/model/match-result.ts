@@ -1,4 +1,4 @@
-import {SetResult} from "./set-result";
+import {SetResult} from './set-result';
 
 export class MatchResult {
 

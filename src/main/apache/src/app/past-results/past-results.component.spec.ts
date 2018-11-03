@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PastResultsComponent} from './past-results.component';
-import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
-import {DataTableModule} from "angular5-data-table";
-import {ActivitiesAndResultsService} from "../services/activities-and-results/activities-and-results.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {DataTableModule} from 'angular5-data-table';
+import {ActivitiesAndResultsService} from '../services/activities-and-results/activities-and-results.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('PastResultsComponent', () => {
   let component: PastResultsComponent;
@@ -14,7 +14,7 @@ describe('PastResultsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         DataTableModule,
-        NgbAlertModule.forRoot(),
+        NgbAlertModule,
         HttpClientTestingModule
       ],
       declarations: [

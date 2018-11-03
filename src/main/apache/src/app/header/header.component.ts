@@ -1,9 +1,9 @@
 import {filter} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, NavigationStart, Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
+import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
 
-import {LoggedUser} from "../model/logged-user";
+import {LoggedUser} from '../model/logged-user';
 
 @Component({
   selector: 'app-header',

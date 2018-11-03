@@ -2,9 +2,9 @@ import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {NewPlayerComponent} from "../new-player/new-player.component";
-import {PlayerService} from "../services/player/player.service";
-import {AuthenticationService} from "../services/authentication/authentication.service";
+import {NewPlayerComponent} from '../new-player/new-player.component';
+import {PlayerService} from '../services/player/player.service';
+import {AuthenticationService} from '../services/authentication/authentication.service';
 
 @Injectable()
 export class PlayerNotCreatedGuard implements CanDeactivate<NewPlayerComponent> {

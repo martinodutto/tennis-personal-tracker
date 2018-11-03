@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Guest, Player} from "../model/player";
-import {PlayerService} from "../services/player/player.service";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Guest, Player} from '../model/player';
+import {PlayerService} from '../services/player/player.service';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-new-player',

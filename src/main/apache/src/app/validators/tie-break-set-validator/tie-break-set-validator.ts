@@ -1,13 +1,13 @@
-import {AbstractControl, FormGroup, ValidationErrors} from "@angular/forms";
-import {isNullOrUndefined} from "util";
+import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {isNullOrUndefined} from 'util';
 
 export class TieBreakSetValidator {
 
   static validate(c: AbstractControl): ValidationErrors | null {
-    let g = <FormGroup> c;
-    let c1 = g.controls['firstPlayerGames'];
-    let c2 = g.controls['secondPlayerGames'];
-    let errorDetails: Object = {};
+    const g = <FormGroup> c;
+    const c1 = g.controls['firstPlayerGames'];
+    const c2 = g.controls['secondPlayerGames'];
+    const errorDetails: Object = {};
 
     if (!isNullOrUndefined(c1.value)) {
       if (c1.value < 0) {
@@ -41,14 +41,14 @@ export class TieBreakSetValidator {
       errorDetails['required'] = true;
     }
 
-    let empty: boolean = true;
-    for (let prop in errorDetails) {
+    let empty = true;
+    for (const prop in errorDetails) {
       if (errorDetails.hasOwnProperty(prop)) {
         empty = false;
         break;
       }
     }
 
-    return empty ? null : {"tieBreakSet": errorDetails};
+    return empty ? null : {'tieBreakSet': errorDetails};
   }
 }

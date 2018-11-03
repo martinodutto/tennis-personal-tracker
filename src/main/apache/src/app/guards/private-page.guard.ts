@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs";
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class PrivatePageGuard implements CanActivate {

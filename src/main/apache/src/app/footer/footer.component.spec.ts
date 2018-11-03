@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {FooterComponent} from './footer.component';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {Subject} from "rxjs/Subject";
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Subject} from 'rxjs/Subject';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -20,7 +20,7 @@ describe('FooterComponent', () => {
         AuthenticationService,
         {
           provide: Router, useClass: class {
-            navigate = jasmine.createSpy("navigate");
+            navigate = jasmine.createSpy('navigate');
             events = new Subject();
           }
         }

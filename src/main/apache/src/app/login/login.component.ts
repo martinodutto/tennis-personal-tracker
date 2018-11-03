@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {User} from "../model/user";
-import {PlayerService} from "../services/player/player.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {User} from '../model/user';
+import {PlayerService} from '../services/player/player.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.form = this.formBuilder.group({
       username: new FormControl('', [Validators.required, Validators.maxLength(64)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)])
-    })
+    });
   }
 
   login() {

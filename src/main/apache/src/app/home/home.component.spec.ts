@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HomeComponent} from './home.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
       declarations: [HomeComponent],
       providers: [{
         provide: Router, useClass: class {
-          navigate = jasmine.createSpy("navigate");
+          navigate = jasmine.createSpy('navigate');
         }
       }]
     })

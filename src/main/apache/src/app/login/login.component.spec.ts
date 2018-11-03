@@ -1,12 +1,12 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LoginComponent} from './login.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
-import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {PlayerService} from "../services/player/player.service";
+import {ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {PlayerService} from '../services/player/player.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,7 +17,7 @@ describe('LoginComponent', () => {
       imports: [
         HttpClientTestingModule,
         ReactiveFormsModule,
-        NgbAlertModule.forRoot()
+        NgbAlertModule
       ],
       declarations: [ LoginComponent ],
       providers: [
@@ -25,7 +25,7 @@ describe('LoginComponent', () => {
         PlayerService,
         {
           provide: Router, useClass: class {
-            navigate = jasmine.createSpy("navigate");
+            navigate = jasmine.createSpy('navigate');
           }
         }
       ]

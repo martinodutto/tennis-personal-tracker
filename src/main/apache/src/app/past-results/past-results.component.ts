@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivitiesAndResultsService} from "../services/activities-and-results/activities-and-results.service";
-import {ActivityAndResult} from "../model/activity-and-result";
+import {ActivitiesAndResultsService} from '../services/activities-and-results/activities-and-results.service';
+import {ActivityAndResult} from '../model/activity-and-result';
 
 @Component({
   selector: 'app-past-results',
@@ -9,11 +9,20 @@ import {ActivityAndResult} from "../model/activity-and-result";
 })
 export class PastResultsComponent implements OnInit {
 
+  constructor(private activitiesAndResultsService: ActivitiesAndResultsService) { }
+
   items: ActivityAndResult[] = [];
-  itemCount: number = 0;
+  itemCount = 0;
   loadingErrorMessage: string = null;
 
-  constructor(private activitiesAndResultsService: ActivitiesAndResultsService) { }
+  // TODO maybe put this logic inside a SetResult
+  static formatSetResult(player1Result: number, player2Result: number): string {
+    if (player1Result !== null && player2Result !== null) {
+      return `${player1Result} - ${player2Result}`;
+    } else {
+      return '';
+    }
+  }
 
   ngOnInit() {
   }
@@ -36,15 +45,10 @@ export class PastResultsComponent implements OnInit {
 
   // TODO maybe put this logic inside a MatchResult
   formatMatchResult(record: ActivityAndResult): string {
-    return `${PastResultsComponent.formatSetResult(record.set1P1, record.set1P2)} ${PastResultsComponent.formatSetResult(record.set2P1, record.set2P2)} ${PastResultsComponent.formatSetResult(record.set3P1, record.set3P2)} ${PastResultsComponent.formatSetResult(record.set4P1, record.set4P2)} ${PastResultsComponent.formatSetResult(record.set5P1, record.set5P2)}`;
-  }
-
-  // TODO maybe put this logic inside a SetResult
-  static formatSetResult(player1Result: number, player2Result: number): string {
-    if (player1Result !== null && player2Result !== null) {
-      return `${player1Result} - ${player2Result}`;
-    } else {
-      return '';
-    }
+    return `${PastResultsComponent.formatSetResult(record.set1P1, record.set1P2)} ` +
+      `${PastResultsComponent.formatSetResult(record.set2P1, record.set2P2)} ` +
+      `${PastResultsComponent.formatSetResult(record.set3P1, record.set3P2)} ` +
+      `${PastResultsComponent.formatSetResult(record.set4P1, record.set4P2)} ` +
+      `${PastResultsComponent.formatSetResult(record.set5P1, record.set5P2)}`;
   }
 }
