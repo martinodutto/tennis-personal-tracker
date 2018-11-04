@@ -9,10 +9,6 @@ _Tennis Personal Tracker_ (a.k.a. _TPT_) is a web application that aims to track
 
 It features a very simple and user-friendly GUI, that you can access from your computer as well as from your mobile phone or tablet, since it's built with responsive design techniques.
 
-#### Want to try it?
-
-Even though it is still quite a work in progress, you can try the latest alpha at [www.martinodutto.cloud](https://www.martinodutto.cloud/tennis-personal-tracker/static/)
-
 #### What I plan to release in the future
 
 I'm planning to work at:
