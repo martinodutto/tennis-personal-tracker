@@ -15,6 +15,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/map';
 import {AuthenticationService} from '../services/authentication/authentication.service';
 import {DateFormatService} from '../services/date-format/date-format.service';
+import {ActivityTypes} from '../enums/activity-types.enum';
 
 @Component({
   selector: 'app-new-activity',
@@ -68,8 +69,8 @@ export class NewActivityComponent implements OnInit {
     const now = new Date();
     this.maxDatepickerDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
     this.optionsActivityType = [
-      'Match',
-      'Training'
+      ActivityTypes.Match,
+      ActivityTypes.Training
     ];
     this.optionsBestOf = [
       3,
