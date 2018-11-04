@@ -1,15 +1,18 @@
+import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {PlayerService} from "../services/player/player.service";
+import {Observable} from 'rxjs';
+import {PlayerService} from '../services/player/player.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PlayerAlreadyCreatedGuard implements CanActivate {
 
   constructor(private playerService: PlayerService) {}
 
   canActivate(next: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.playerService.getCurrentPlayer().map(player => player === null);
+              state: RouterStateSnapshot): Observable<boolean> | boolean {
+    return this.playerService.getCurrentPlayer().pipe(map(player => player === null));
   }
 }

@@ -1,4 +1,4 @@
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormGroup} from '@angular/forms';
 
 export class Player {
 
@@ -13,7 +13,7 @@ export class Player {
   private _guest: Guest;
 
   constructor(form: FormGroup, guest: Guest) {
-    let formValues: AbstractControl = form.value;
+    const formValues: AbstractControl = form.value;
 
     this.name = formValues['name'];
     this.surname = formValues['surname'];
@@ -63,6 +63,6 @@ export class Player {
 }
 
 export enum Guest {
-  Y = "Y",
-  N = "N"
+  Y = 'Y',
+  N = 'N'
 }

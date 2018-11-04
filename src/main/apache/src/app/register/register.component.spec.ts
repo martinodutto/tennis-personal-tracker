@@ -1,11 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {RegisterComponent} from './register.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {NgbAlertModule, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {NgbAlertModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -16,15 +16,15 @@ describe('RegisterComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
-        NgbAlertModule.forRoot(),
-        NgbModalModule.forRoot()
+        NgbAlertModule,
+        NgbModalModule
       ],
       declarations: [ RegisterComponent ],
       providers: [
         AuthenticationService,
         {
           provide: Router, useClass: class {
-            navigate = jasmine.createSpy("navigate");
+            navigate = jasmine.createSpy('navigate');
           }
         }
       ]

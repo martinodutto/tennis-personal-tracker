@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {NewActivityComponent} from "../new-activity/new-activity.component";
+import {Observable} from 'rxjs';
+import {NewActivityComponent} from '../new-activity/new-activity.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UnsavedActivityGuard implements CanDeactivate<NewActivityComponent> {
 
   canDeactivate(component: NewActivityComponent,

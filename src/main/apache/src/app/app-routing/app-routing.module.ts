@@ -1,24 +1,24 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
-import {NewActivityComponent} from "../new-activity/new-activity.component";
-import {PageNotFoundComponent} from "../page-not-found/page-not-found.component";
-import {HomeComponent} from "../home/home.component";
-import {CreditsComponent} from "../credits/credits.component";
-import {NewPlayerComponent} from "../new-player/new-player.component";
-import {CurrentPlayerResolve} from "../resolves/current-player-resolve";
-import {KnownPlayersResolve} from "../resolves/known-players-resolve";
-import {LoginComponent} from "../login/login.component";
-import {RegisterComponent} from "../register/register.component";
-import {PrivatePageGuard} from "../guards/private-page.guard";
-import {LoginPageGuard} from "../guards/login-page.guard";
-import {ServiceUnavailableComponent} from "../service-unavailable/service-unavailable.component";
-import {UnrecoverableErrorComponent} from "../unrecoverable-error/unrecoverable-error.component";
-import {ChangePasswordComponent} from "../change-password/change-password.component";
-import {UnsavedActivityGuard} from "../guards/unsaved-activity.guard";
-import {PastResultsComponent} from "../past-results/past-results.component";
-import {PlayerNotCreatedGuard} from "../guards/player-not-created.guard";
-import {PlayerAlreadyCreatedGuard} from "../guards/player-already-created.guard";
+import {RouterModule, Routes} from '@angular/router';
+import {NewActivityComponent} from '../new-activity/new-activity.component';
+import {PageNotFoundComponent} from '../page-not-found/page-not-found.component';
+import {HomeComponent} from '../home/home.component';
+import {CreditsComponent} from '../credits/credits.component';
+import {NewPlayerComponent} from '../new-player/new-player.component';
+import {CurrentPlayerResolve} from '../resolves/current-player-resolve';
+import {KnownPlayersResolve} from '../resolves/known-players-resolve';
+import {LoginComponent} from '../login/login.component';
+import {RegisterComponent} from '../register/register.component';
+import {PrivatePageGuard} from '../guards/private-page.guard';
+import {LoginPageGuard} from '../guards/login-page.guard';
+import {ServiceUnavailableComponent} from '../service-unavailable/service-unavailable.component';
+import {UnrecoverableErrorComponent} from '../unrecoverable-error/unrecoverable-error.component';
+import {ChangePasswordComponent} from '../change-password/change-password.component';
+import {UnsavedActivityGuard} from '../guards/unsaved-activity.guard';
+import {PastResultsComponent} from '../past-results/past-results.component';
+import {PlayerNotCreatedGuard} from '../guards/player-not-created.guard';
+import {PlayerAlreadyCreatedGuard} from '../guards/player-already-created.guard';
 
 // here we list all the routes available to the application
 const routes: Routes = [{

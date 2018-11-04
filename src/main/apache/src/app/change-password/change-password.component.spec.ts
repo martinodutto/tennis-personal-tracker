@@ -1,11 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ChangePasswordComponent} from './change-password.component';
-import {NgbAlertModule, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
-import {ReactiveFormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {NgbAlertModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent;
@@ -16,15 +16,15 @@ describe('ChangePasswordComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
-        NgbAlertModule.forRoot(),
-        NgbModalModule.forRoot()
+        NgbAlertModule,
+        NgbModalModule
       ],
       declarations: [ ChangePasswordComponent ],
       providers: [
         AuthenticationService,
         {
           provide: Router, useClass: class {
-            navigate = jasmine.createSpy("navigate");
+            navigate = jasmine.createSpy('navigate');
           }
         }
       ]

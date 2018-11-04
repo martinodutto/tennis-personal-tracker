@@ -1,65 +1,57 @@
 package com.martinodutto.tpt.pagination;
 
-public class PagingOptions {
+import com.google.common.annotations.VisibleForTesting;
 
-    private int limit;
+import java.util.Collections;
+import java.util.Set;
 
-    private int offset;
+public final class PagingOptions<S extends SortModelEntry> {
 
-    private String sortBy;
+    private int startRow;
+    private int endRow;
+    private Set<S> sortModel = Collections.emptySet();
 
-    private boolean sortAsc;
-
-    public PagingOptions(int limit, int offset) {
-        this(limit, offset, null, false);
+    // needed for deserialization
+    @SuppressWarnings("unused")
+    public PagingOptions() {
     }
 
-    public PagingOptions(int limit, int offset, String sortBy, boolean sortAsc) {
-        this.limit = limit;
-        this.offset = offset;
-        this.sortBy = sortBy;
-        this.sortAsc = sortAsc;
+    @VisibleForTesting
+    public PagingOptions(int startRow, int endRow) {
+        this.startRow = startRow;
+        this.endRow = endRow;
     }
 
-    public int getLimit() {
-        return limit;
+    public int getStartRow() {
+        return startRow;
     }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
     }
 
-    public int getOffset() {
-        return offset;
+    public int getEndRow() {
+        return endRow;
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
+    public void setEndRow(int endRow) {
+        this.endRow = endRow;
     }
 
-    public String getSortBy() {
-        return sortBy;
+    public Set<S> getSortModel() {
+        return sortModel;
     }
 
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
-    }
-
-    public boolean isSortAsc() {
-        return sortAsc;
-    }
-
-    public void setSortAsc(boolean sortAsc) {
-        this.sortAsc = sortAsc;
+    public void setSortModel(Set<S> sortModel) {
+        this.sortModel = sortModel;
     }
 
     @Override
     public String toString() {
         return "PagingOptions{" +
-                "limit=" + limit +
-                ", offset=" + offset +
-                ", sortBy='" + sortBy + '\'' +
-                ", sortAsc=" + sortAsc +
+                "startRow=" + startRow +
+                ", endRow=" + endRow +
+                ", sortModel=" + sortModel +
                 '}';
     }
 }

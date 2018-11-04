@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {DataTableParams} from "angular5-data-table";
-import {ActivityAndResult} from "../../model/activity-and-result";
-import {Observable} from "rxjs/Observable";
-import {PaginatedResponse} from "../../model/paginated-response";
+import {HttpClient} from '@angular/common/http';
+import {ActivityAndResult} from '../../model/activity-and-result';
+import {Observable} from 'rxjs';
+import {PaginatedResponse} from '../../model/paginated-response';
+import {IGetRowsParams} from 'ag-grid-community';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ActivitiesAndResultsService {
 
-  private URL_PREFIX: string = "../script/activitiesAndResults";
+  private URL_PREFIX = '../script/activitiesAndResults';
 
   constructor(private http: HttpClient) { }
 
-  getPastActivities(params: DataTableParams): Observable<PaginatedResponse<ActivityAndResult>> {
-    return this.http.get<PaginatedResponse<ActivityAndResult>>(this.URL_PREFIX + "/getPastActivities", {
-      params: params
-    });
+  getPastActivities(params: IGetRowsParams): Observable<PaginatedResponse<ActivityAndResult>> {
+    return this.http.post<PaginatedResponse<ActivityAndResult>>(this.URL_PREFIX + '/getPastActivities', params);
   }
 }

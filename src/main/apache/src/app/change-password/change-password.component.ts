@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {PasswordConfirmationValidator} from "../validators/password-confirmation-validator/password-confirmation-validator";
-import {ChangePassword} from "../model/change-password";
-import {HttpErrorResponse} from "@angular/common/http";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {PasswordConfirmationValidator} from '../validators/password-confirmation-validator/password-confirmation-validator';
+import {ChangePassword} from '../model/change-password';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class ChangePasswordComponent implements OnInit {
   form: FormGroup;
   newPasswordsForm: FormGroup;
   changePasswordErrorMessage: string;
-  @ViewChild("successModalContent") successModalContent: any;
+  @ViewChild('successModalContent') successModalContent: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -45,7 +45,7 @@ export class ChangePasswordComponent implements OnInit {
     ).subscribe(() => {
       console.info('Successful password change');
       this.authenticationService.logout();
-      this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {
+      this.modalService.open(this.successModalContent, {backdrop: 'static'}).result.then(() => {
         this.router.navigate(['login']);
       });
     }, (error: HttpErrorResponse) => {
@@ -59,7 +59,7 @@ export class ChangePasswordComponent implements OnInit {
           this.changePasswordErrorMessage = 'Error while changing password';
         }
       }
-    })
+    });
   }
 
   goToHome(event: MouseEvent) {

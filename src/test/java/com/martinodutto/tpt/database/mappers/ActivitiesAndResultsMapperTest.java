@@ -1,6 +1,7 @@
 package com.martinodutto.tpt.database.mappers;
 
 import com.martinodutto.tpt.database.entities.ActivityAndResult;
+import com.martinodutto.tpt.pagination.ActivitiesAndResultsSortModelEntry;
 import com.martinodutto.tpt.pagination.PagingOptions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,8 @@ public class ActivitiesAndResultsMapperTest {
 
     @Test
     public void selectPaginatedByFirstPlayerIdWorks() {
-        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper.selectPaginatedByFirstPlayerId(1, new PagingOptions(10, 0));
+        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper
+                .selectPaginatedByFirstPlayerId(1, new PagingOptions<ActivitiesAndResultsSortModelEntry>(0, 10));
         assertEquals(2, activitiesAndResults.size());
 
         // to test the mapping and the ordering of the fields
@@ -61,25 +63,29 @@ public class ActivitiesAndResultsMapperTest {
 
     @Test
     public void anOutOfBoundsOffsetReturnsNoData() {
-        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper.selectPaginatedByFirstPlayerId(1, new PagingOptions(10, 314));
+        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper
+                .selectPaginatedByFirstPlayerId(1, new PagingOptions<ActivitiesAndResultsSortModelEntry>(314, 324));
         assertEquals(0, activitiesAndResults.size());
     }
 
     @Test
     public void aLimitOf0ReturnsNoData() {
-        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper.selectPaginatedByFirstPlayerId(1, new PagingOptions(0, 0));
+        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper
+                .selectPaginatedByFirstPlayerId(1, new PagingOptions<ActivitiesAndResultsSortModelEntry>(0, 0));
         assertEquals(0, activitiesAndResults.size());
     }
 
     @Test
     public void aLimitOf1ReturnsOnlyARecord() {
-        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper.selectPaginatedByFirstPlayerId(1, new PagingOptions(1, 1));
+        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper
+                .selectPaginatedByFirstPlayerId(1, new PagingOptions<ActivitiesAndResultsSortModelEntry>(1, 2));
         assertEquals(1, activitiesAndResults.size());
     }
 
     @Test
     public void anInexistentPlayerHasNoData() {
-        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper.selectPaginatedByFirstPlayerId(171, new PagingOptions(10, 0));
+        final List<ActivityAndResult> activitiesAndResults = activitiesAndResultsMapper
+                .selectPaginatedByFirstPlayerId(171, new PagingOptions<ActivitiesAndResultsSortModelEntry>(0, 10));
         assertEquals(0, activitiesAndResults.size());
     }
 

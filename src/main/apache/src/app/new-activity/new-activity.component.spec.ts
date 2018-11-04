@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewActivityComponent} from './new-activity.component';
-import {FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {
   NgbAlertModule,
   NgbDatepickerModule,
@@ -9,34 +9,34 @@ import {
   NgbPopoverModule,
   NgbTimepickerModule,
   NgbTypeaheadModule
-} from "@ng-bootstrap/ng-bootstrap";
-import {MatchResultComponent} from "../match-result/match-result.component";
-import {SetResultComponent} from "../set-result/set-result.component";
-import {ActivityService} from "../services/activity/activity.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TimeFormatService} from "../services/time-format/time-format.service";
-import {PlayerService} from "../services/player/player.service";
-import {Guest, Player} from "../model/player";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {AuthenticationService} from "../services/authentication/authentication.service";
+} from '@ng-bootstrap/ng-bootstrap';
+import {MatchResultComponent} from '../match-result/match-result.component';
+import {SetResultComponent} from '../set-result/set-result.component';
+import {ActivityService} from '../services/activity/activity.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TimeFormatService} from '../services/time-format/time-format.service';
+import {PlayerService} from '../services/player/player.service';
+import {Guest, Player} from '../model/player';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AuthenticationService} from '../services/authentication/authentication.service';
 
 describe('NewActivityComponent', () => {
   let component: NewActivityComponent;
   let fixture: ComponentFixture<NewActivityComponent>;
   // TODO bad
-  let mockPlayer: Player = new Player(new FormGroup({}), Guest.N);
+  const mockPlayer: Player = new Player(new FormGroup({}), Guest.N);
   mockPlayer.playerId = 0;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        NgbDatepickerModule.forRoot(),
-        NgbTimepickerModule.forRoot(),
-        NgbPopoverModule.forRoot(),
-        NgbModalModule.forRoot(),
-        NgbAlertModule.forRoot(),
-        NgbTypeaheadModule.forRoot(),
+        NgbDatepickerModule,
+        NgbTimepickerModule,
+        NgbPopoverModule,
+        NgbModalModule,
+        NgbAlertModule,
+        NgbTypeaheadModule,
         HttpClientTestingModule
       ],
       declarations: [
@@ -51,7 +51,7 @@ describe('NewActivityComponent', () => {
         AuthenticationService,
         {
           provide: Router, useClass: class {
-            navigate = jasmine.createSpy("navigate");
+            navigate = jasmine.createSpy('navigate');
           }
         },
         {

@@ -1,4 +1,4 @@
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormGroup} from '@angular/forms';
 
 export class User {
 
@@ -7,7 +7,7 @@ export class User {
   private _password;
 
   constructor(form: FormGroup, passwordsForm?: FormGroup) {
-    let formValues: AbstractControl = form.value;
+    const formValues: AbstractControl = form.value;
 
     this.username = formValues['username'];
     if (passwordsForm) {

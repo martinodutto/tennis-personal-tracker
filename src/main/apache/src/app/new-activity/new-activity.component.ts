@@ -1,36 +1,38 @@
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SetResultComponent} from "../set-result/set-result.component";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivityService} from "../services/activity/activity.service";
-import {Activity} from "../model/activity";
-import {NgbDateStruct, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TimeFormatService} from "../services/time-format/time-format.service";
-import {PlayerService} from "../services/player/player.service";
-import {Guest, Player} from "../model/player";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/map";
-import {AuthenticationService} from "../services/authentication/authentication.service";
+import {SetResultComponent} from '../set-result/set-result.component';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivityService} from '../services/activity/activity.service';
+import {Activity} from '../model/activity';
+import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TimeFormatService} from '../services/time-format/time-format.service';
+import {PlayerService} from '../services/player/player.service';
+import {Guest, Player} from '../model/player';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/map';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {DateFormatService} from '../services/date-format/date-format.service';
 
 @Component({
   selector: 'app-new-activity',
   templateUrl: './new-activity.component.html',
-  styleUrls: ['./new-activity.component.css']
+  styleUrls: ['./new-activity.component.scss']
 })
 export class NewActivityComponent implements OnInit {
   // form model for the whole page
   form: FormGroup;
   newPlayerForm: FormGroup;
   optionsKnownPlayers: Player[];
-  optionsActivityType: Array<string>;
-  optionsBestOf: Array<number>;
-  optionsLastSetTiebreak: Array<string>;
-  optionsGender: Array<string>;
+  optionsActivityType: string[];
+  optionsBestOf: number[];
+  optionsLastSetTiebreak: string[];
+  optionsGender: string[];
   result: SetResultComponent[];
   maxDatepickerDate: NgbDateStruct;
-  collapsedOptionalSection: boolean = true;
+  collapsedOptionalSection = true;
   firstPlayerFullName: string;
   secondPlayerFullName: string;
   newPlayerErrorMessage: string;
@@ -39,11 +41,15 @@ export class NewActivityComponent implements OnInit {
   typeaheadClubs: string[] = []; // loaded asynchronously
   @ViewChild('discardModalContent') discardModal: any;
   searchClub = (text$: Observable<string>) => {
-    return text$
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .map(searchKey => searchKey.length < 2 ? [] : this.typeaheadClubs.filter(v => v.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0).slice(0, 10));
-  };
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(searchKey => searchKey.length < 2 ? [] : this.typeaheadClubs
+        .filter(v => v.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0)
+        .slice(0, 10)
+      )
+    );
+  }
 
   // injections
   constructor(private formBuilder: FormBuilder,
@@ -51,6 +57,7 @@ export class NewActivityComponent implements OnInit {
               private modalService: NgbModal,
               private router: Router,
               private route: ActivatedRoute,
+              private dateFormatService: DateFormatService,
               private timeFormatService: TimeFormatService,
               private playerService: PlayerService,
               private authenticationService: AuthenticationService) {
@@ -78,7 +85,7 @@ export class NewActivityComponent implements OnInit {
     ];
 
     // loaded by the server (sync)
-    let currentPlayer: Player = this.route.snapshot.data['currentPlayer'];
+    const currentPlayer: Player = this.route.snapshot.data['currentPlayer'];
     this.optionsKnownPlayers = this.route.snapshot.data['knownPlayers'];
 
     this.firstPlayerFullName = this.getFullName(currentPlayer);
@@ -98,7 +105,8 @@ export class NewActivityComponent implements OnInit {
         day: now.getDate()
       }, [Validators.required]),
       firstPlayerId: new FormControl(currentPlayer.playerId, Validators.required), // a "fake" control, because this is constant
-      secondPlayerId: new FormControl(this.optionsKnownPlayers[0].playerId, Validators.min(0)), // this trick lets us have an empty and invalid default
+      // this trick lets us have an empty and invalid default
+      secondPlayerId: new FormControl(this.optionsKnownPlayers[0].playerId, Validators.min(0)),
       activityType: new FormControl(this.optionsActivityType[0]),
       bestOf: new FormControl(this.optionsBestOf[0]),
       lastSetTiebreak: new FormControl(this.optionsLastSetTiebreak[0]),
@@ -115,7 +123,7 @@ export class NewActivityComponent implements OnInit {
     console.debug('Submitting the data to the server...');
     this.submitErrorMessage = null; // reset, in case an error message was already displayed
     this.activityService.createActivity(
-      new Activity(<FormGroup> this.form, this.timeFormatService)
+      new Activity(<FormGroup> this.form, this.dateFormatService, this.timeFormatService)
     ).subscribe(() => {
       console.debug('Form submitted correctly!');
       this.hasBeenSaved = true;
@@ -195,8 +203,8 @@ export class NewActivityComponent implements OnInit {
   }
 
   onSecondPlayerChange(event) {
-    let selectedPlayers: Player[] = this.optionsKnownPlayers.filter(player => {
-      return player.playerId === parseInt(event);
+    const selectedPlayers: Player[] = this.optionsKnownPlayers.filter(player => {
+      return player.playerId === parseInt(event, 10);
     });
     if (selectedPlayers && selectedPlayers.length > 0) {
       this.secondPlayerFullName = this.getFullName(selectedPlayers[0]);
