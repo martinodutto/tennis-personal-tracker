@@ -108,6 +108,12 @@
             <version>2.3.1</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0-jre</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>tennis-personal-tracker</finalName>

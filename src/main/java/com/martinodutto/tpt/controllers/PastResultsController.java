@@ -2,6 +2,7 @@ package com.martinodutto.tpt.controllers;
 
 import com.martinodutto.tpt.database.entities.ActivityAndResult;
 import com.martinodutto.tpt.database.entities.Player;
+import com.martinodutto.tpt.pagination.ActivitiesAndResultsSortModelEntry;
 import com.martinodutto.tpt.pagination.PaginatedResponse;
 import com.martinodutto.tpt.pagination.PagingOptions;
 import com.martinodutto.tpt.services.ActivityService;
@@ -9,9 +10,9 @@ import com.martinodutto.tpt.services.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,18 +33,16 @@ public class PastResultsController {
         this.playerService = playerService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/activitiesAndResults/getPastActivities")
-    public PaginatedResponse<ActivityAndResult> getPastActivities(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset,
-                                                     @RequestParam(value = "sortBy", required = false) String sortBy,
-                                                     @RequestParam(value = "sortAsc", required = false) Boolean sortAsc) {
+    @RequestMapping(method = RequestMethod.POST, value = "/activitiesAndResults/getPastActivities")
+    public PaginatedResponse<ActivityAndResult> getPastActivities(
+            @RequestBody() PagingOptions<ActivitiesAndResultsSortModelEntry> pagingOptions
+    ) {
 
         LOGGER.info("Retrieving user activities");
 
         int currentPlayerId = Optional.ofNullable(playerService.getCurrentPlayer())
                 .map(Player::getPlayerId).orElseThrow(() -> new RuntimeException("Current user's player not found. This is unexpected!"));
-        final List<ActivityAndResult> pastActivities = activityService.getPastActivities(currentPlayerId,
-                new PagingOptions(limit, offset, mapSortPropertyToDatabaseField(Optional.ofNullable(sortBy)), Optional.ofNullable(sortAsc).orElse(false)));
+        final List<ActivityAndResult> pastActivities = activityService.getPastActivities(currentPlayerId, pagingOptions);
         final long totalPastActivities = activityService.countPastActivities(currentPlayerId);
 
         return new PaginatedResponse<>(pastActivities, totalPastActivities);

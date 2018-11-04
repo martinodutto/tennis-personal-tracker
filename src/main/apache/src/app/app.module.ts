@@ -22,7 +22,7 @@ import {UnrecoverableErrorComponent} from './unrecoverable-error/unrecoverable-e
 import {ServiceUnavailableComponent} from './service-unavailable/service-unavailable.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {PastResultsComponent} from './past-results/past-results.component';
-import {DataTableModule} from 'angular5-data-table';
+import {AgGridModule} from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -48,8 +48,8 @@ import {DataTableModule} from 'angular5-data-table';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    DataTableModule,
-    NgbModule
+    NgbModule,
+    AgGridModule.withComponents([])
   ],
   providers: [
     {
