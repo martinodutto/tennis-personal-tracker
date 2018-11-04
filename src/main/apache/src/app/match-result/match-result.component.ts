@@ -5,7 +5,7 @@ import {TieBreakSetValidator} from '../validators/tie-break-set-validator/tie-br
 @Component({
   selector: 'app-match-result',
   templateUrl: './match-result.component.html',
-  styleUrls: ['./match-result.component.css']
+  styleUrls: ['./match-result.component.scss']
 })
 export class MatchResultComponent implements OnInit {
 

@@ -5,7 +5,7 @@ import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-set-result',
   templateUrl: './set-result.component.html',
-  styleUrls: ['./set-result.component.css']
+  styleUrls: ['./set-result.component.scss']
 })
 export class SetResultComponent implements OnInit {
 

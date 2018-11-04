@@ -19,7 +19,7 @@ import {DateFormatService} from '../services/date-format/date-format.service';
 @Component({
   selector: 'app-new-activity',
   templateUrl: './new-activity.component.html',
-  styleUrls: ['./new-activity.component.css']
+  styleUrls: ['./new-activity.component.scss']
 })
 export class NewActivityComponent implements OnInit {
   // form model for the whole page

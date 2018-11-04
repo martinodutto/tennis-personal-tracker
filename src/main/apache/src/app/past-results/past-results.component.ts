@@ -7,7 +7,7 @@ import {PaginatedResponse} from '../model/paginated-response';
 @Component({
   selector: 'app-past-results',
   templateUrl: './past-results.component.html',
-  styleUrls: ['./past-results.component.css']
+  styleUrls: ['./past-results.component.scss']
 })
 export class PastResultsComponent implements OnInit {
 
