@@ -70,7 +70,7 @@
             </foreach>
         </if>
         <if test="paging.sortModel.isEmpty()">
-            ACTIVITY_DATE DESC
+            ACTIVITY_DATE DESC, ACTIVITY_TIME DESC
         </if>
         LIMIT (#{paging.endRow, jdbcType=NUMERIC} - #{paging.startRow, jdbcType=NUMERIC})
         OFFSET #{paging.startRow, jdbcType=NUMERIC}
