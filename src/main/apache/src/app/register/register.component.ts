@@ -1,23 +1,23 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../services/authentication/authentication.service";
-import {User} from "../model/user";
-import {Router} from "@angular/router";
-import {PasswordConfirmationValidator} from "../validators/password-confirmation-validator/password-confirmation-validator";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {HttpErrorResponse} from "@angular/common/http";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../services/authentication/authentication.service';
+import {User} from '../model/user';
+import {Router} from '@angular/router';
+import {PasswordConfirmationValidator} from '../validators/password-confirmation-validator/password-confirmation-validator';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
   passwordsForm: FormGroup;
   signUpErrorMessage: string;
-  @ViewChild("successModalContent") successModalContent: any;
+  @ViewChild('successModalContent') successModalContent: any;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       new User(this.form, this.passwordsForm)
     ).subscribe(() => {
       console.info('Successful user sign-up');
-      this.modalService.open(this.successModalContent, {backdrop: "static"}).result.then(() => {
+      this.modalService.open(this.successModalContent, {backdrop: 'static'}).result.then(() => {
         this.router.navigate(['login']);
       });
     }, (error: HttpErrorResponse) => {
@@ -58,8 +58,9 @@ export class RegisterComponent implements OnInit {
         case 500: {
           if (error.error && error.error.message === 'Unregistered role') {
             this.signUpErrorMessage = 'Unregistered role. Please contact the administrator';
-            break;
           }
+          this.signUpErrorMessage = 'Server error while signing up';
+          break;
         }
         default: {
           this.signUpErrorMessage = 'Error while signing up';

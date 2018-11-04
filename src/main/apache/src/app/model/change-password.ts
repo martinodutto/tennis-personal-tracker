@@ -1,4 +1,4 @@
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormGroup} from '@angular/forms';
 
 export class ChangePassword {
 
@@ -7,7 +7,7 @@ export class ChangePassword {
   private _newPassword: string;
 
   constructor(form: FormGroup, passwordsForm: FormGroup) {
-    let formValues: AbstractControl = form.value;
+    const formValues: AbstractControl = form.value;
 
     this.oldPassword = formValues['oldPassword'];
     this.newPassword = passwordsForm.value['password'];

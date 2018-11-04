@@ -63,20 +63,17 @@
         <include refid="selectAllSql"/>
         WHERE FIRST_PLAYER_ID = #{firstPlayerId, jdbcType=NUMERIC}
         ORDER BY
-        <if test="paging.sortBy != null">
-            ${paging.sortBy}
+        <if test="!paging.sortModel.isEmpty()">
+            <foreach item="item" index="index" collection="paging.sortModel"
+                     separator=",">
+                ${item.databaseCol} ${item.sort}
+            </foreach>
         </if>
-        <if test="paging.sortBy == null">
-            ACTIVITY_DATE
+        <if test="paging.sortModel.isEmpty()">
+            ACTIVITY_DATE DESC
         </if>
-        <if test="paging.sortAsc">
-            ASC
-        </if>
-        <if test="!paging.sortAsc">
-            DESC
-        </if>
-        LIMIT #{paging.limit, jdbcType=NUMERIC}
-        OFFSET #{paging.offset, jdbcType=NUMERIC}
+        LIMIT (#{paging.endRow, jdbcType=NUMERIC} - #{paging.startRow, jdbcType=NUMERIC})
+        OFFSET #{paging.startRow, jdbcType=NUMERIC}
     </select>
 
     <select id="countByFirstPlayerId" resultType="java.lang.Long">

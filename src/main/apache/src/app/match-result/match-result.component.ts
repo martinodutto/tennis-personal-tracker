@@ -1,22 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {TieBreakSetValidator} from "../validators/tie-break-set-validator/tie-break-set-validator";
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {TieBreakSetValidator} from '../validators/tie-break-set-validator/tie-break-set-validator';
 
 @Component({
   selector: 'app-match-result',
   templateUrl: './match-result.component.html',
-  styleUrls: ['./match-result.component.css']
+  styleUrls: ['./match-result.component.scss']
 })
 export class MatchResultComponent implements OnInit {
 
-  @Input("group") match: FormGroup;
+  @Input() match: FormGroup;
 
   _setNumber: number;
   _setArray: FormArray;
 
   @Input()
   set setNumber(setNumber: string) {
-    const sn = parseInt(setNumber);
+    const sn = parseInt(setNumber, 10);
     this._setNumber = sn;
     const setArray = <FormArray> this.match.controls['sets'];
     // this gets called before ngOnInit, so we must ensure that all the elements exist
