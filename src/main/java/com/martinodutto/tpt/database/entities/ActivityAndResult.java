@@ -1,6 +1,7 @@
 package com.martinodutto.tpt.database.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ActivityAndResult {
@@ -20,6 +21,8 @@ public class ActivityAndResult {
     private String tournament;
 
     private String notes;
+
+    private LocalDateTime creationTimestamp;
 
     private int firstPlayerId;
 
@@ -115,6 +118,14 @@ public class ActivityAndResult {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public LocalDateTime getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    public void setCreationTimestamp(LocalDateTime creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
     }
 
     public int getFirstPlayerId() {
@@ -256,6 +267,7 @@ public class ActivityAndResult {
                 ", club='" + club + '\'' +
                 ", tournament='" + tournament + '\'' +
                 ", notes='" + notes + '\'' +
+                ", creationTimestamp=" + creationTimestamp +
                 ", firstPlayerId=" + firstPlayerId +
                 ", firstPlayerName='" + firstPlayerName + '\'' +
                 ", firstPlayerSurname='" + firstPlayerSurname + '\'' +

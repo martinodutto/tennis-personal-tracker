@@ -40,6 +40,7 @@
             CLUB,
             TOURNAMENT,
             NOTES,
+            CREATION_TIMESTAMP,
             FIRST_PLAYER_ID,
             FIRST_PLAYER_NAME,
             FIRST_PLAYER_SURNAME,
@@ -70,7 +71,7 @@
             </foreach>
         </if>
         <if test="paging.sortModel.isEmpty()">
-            ACTIVITY_DATE DESC, ACTIVITY_TIME DESC
+            ACTIVITY_DATE DESC, ACTIVITY_TIME DESC, CREATION_TIMESTAMP DESC
         </if>
         LIMIT (#{paging.endRow, jdbcType=NUMERIC} - #{paging.startRow, jdbcType=NUMERIC})
         OFFSET #{paging.startRow, jdbcType=NUMERIC}
