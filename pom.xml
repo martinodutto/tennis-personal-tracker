@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
         <h2.version>1.4.197</h2.version>
         <jjwt.version>0.9.1</jjwt.version>
         <!-- we use this version because we need at least MyBatis 3.4.5 to correctly handle the new Java 8 LocalDateTime etc. types -->
@@ -19,6 +19,8 @@
         <jackson-datatype-jsr310.version>2.9.7</jackson-datatype-jsr310.version>
         <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <java.source.version>11</java.source.version>
+        <java.target.version>11</java.target.version>
     </properties>
 
     <dependencyManagement>
@@ -111,12 +113,6 @@
             <version>2.3.1</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- TODO remove this dependency whenever the migration to Spring Boot 2 has ended -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -146,8 +142,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.source.version}</source>
+                    <target>${java.target.version}</target>
                 </configuration>
             </plugin>
         </plugins>
