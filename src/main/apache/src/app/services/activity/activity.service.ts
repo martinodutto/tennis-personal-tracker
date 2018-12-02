@@ -9,20 +9,19 @@ import {Player} from '../../model/player';
 })
 export class ActivityService {
 
-  private URL_PREFIX = '../script/activity';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getKnownPlayers(): Observable<Player[]> {
-    return this.http.get<Player[]>(this.URL_PREFIX + '/getKnownPlayers');
+    return this.http.get<Player[]>('/activity/getKnownPlayers');
   }
 
   createActivity(activity: Activity): Observable<Object> {
-    return this.http.post(this.URL_PREFIX + '/createActivity', activity);
+    return this.http.post('/activity/createActivity', activity);
   }
 
   getUserClubs(userPlayerId: number): Observable<string[]> {
-    return this.http.get<string[]>(this.URL_PREFIX + '/getUserClubs', {
+    return this.http.get<string[]>('/activity/getUserClubs', {
       params: {
         firstPlayerId: userPlayerId.toString()
       }

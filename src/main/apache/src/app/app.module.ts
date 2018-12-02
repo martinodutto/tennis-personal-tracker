@@ -23,6 +23,8 @@ import {ServiceUnavailableComponent} from './service-unavailable/service-unavail
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import {PastResultsComponent} from './past-results/past-results.component';
 import {AgGridModule} from 'ag-grid-angular';
+import {environment} from '../environments/environment';
+import {BaseInterceptor} from './interceptors/base-interceptor/base-interceptor';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,15 @@ import {AgGridModule} from 'ag-grid-angular';
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseInterceptor,
+      multi: true
+    },
+    {
+      provide: 'BASE_API_URL',
+      useValue: environment.baseApiUrl
     },
   ],
   bootstrap: [

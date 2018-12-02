@@ -8,15 +8,14 @@ import {Observable} from 'rxjs';
 })
 export class PlayerService {
 
-  private URL_PREFIX = '../script/player';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   createPlayer(player: Player): Observable<Player> {
-    return this.http.post<Player>(this.URL_PREFIX + '/createPlayer', player);
+    return this.http.post<Player>('/player/createPlayer', player);
   }
 
   getCurrentPlayer(): Observable<Player> {
-    return this.http.get<Player>(this.URL_PREFIX + '/getCurrentUserPlayer');
+    return this.http.get<Player>('/player/getCurrentUserPlayer');
   }
 }

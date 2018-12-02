@@ -10,11 +10,10 @@ import {IGetRowsParams} from 'ag-grid-community';
 })
 export class ActivitiesAndResultsService {
 
-  private URL_PREFIX = '../script/activitiesAndResults';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getPastActivities(params: IGetRowsParams): Observable<PaginatedResponse<ActivityAndResult>> {
-    return this.http.post<PaginatedResponse<ActivityAndResult>>(this.URL_PREFIX + '/getPastActivities', params);
+    return this.http.post<PaginatedResponse<ActivityAndResult>>('/activitiesAndResults/getPastActivities', params);
   }
 }

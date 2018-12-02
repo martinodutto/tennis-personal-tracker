@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseApiUrl: 'https://www.martinodutto.cloud/tennis-personal-tracker/script'
 };

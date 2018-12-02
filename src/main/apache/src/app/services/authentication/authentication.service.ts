@@ -13,7 +13,6 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {
   }
 
-  private readonly URL_PREFIX: string = '../script/authentication';
   private readonly JWT_TOKEN_PARAM_NAME = 'jwt';
   private readonly USER_NAME_PARAM_NAME = 'username';
   private readonly PLAYER_NAME_PARAM_NAME = 'playername';
@@ -72,15 +71,15 @@ export class AuthenticationService {
   }
 
   register(user: User): Observable<any> {
-    return this.http.post(this.URL_PREFIX + '/unfiltered/register', AuthenticationService.encodeUserToBase64(user));
+    return this.http.post('/authentication/unfiltered/register', AuthenticationService.encodeUserToBase64(user));
   }
 
   login(user: User): Observable<any> {
-    return this.http.post(this.URL_PREFIX + '/unfiltered/login', AuthenticationService.encodeUserToBase64(user));
+    return this.http.post('/authentication/unfiltered/login', AuthenticationService.encodeUserToBase64(user));
   }
 
   changePassword(changePassword: ChangePassword): Observable<any> {
-    return this.http.post(this.URL_PREFIX + '/changePassword', AuthenticationService.encodeChangePasswordToBase64(changePassword));
+    return this.http.post('/authentication/changePassword', AuthenticationService.encodeChangePasswordToBase64(changePassword));
   }
 
   logout(): void {
