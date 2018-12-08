@@ -48,7 +48,7 @@
             <appender-ref ref="ROOT"/>
             <appender-ref ref="STDOUT"/>
         </Root>
-        <Logger name="com.martinodutto.tpt" level="DEBUG" additivity="true">
+        <Logger name="cloud.martinodutto.tpt" level="DEBUG" additivity="true">
             <appender-ref ref="APP"/>
         </Logger>
     </Loggers>

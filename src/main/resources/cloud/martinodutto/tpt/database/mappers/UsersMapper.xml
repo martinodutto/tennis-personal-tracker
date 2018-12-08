@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.martinodutto.tpt.database.mappers.UsersMapper">
+    <resultMap id="UsersRM" type="cloud.martinodutto.tpt.database.entities.User">
+        <id column="USER_ID" javaType="int" jdbcType="NUMERIC" property="userId"/>
+        <result column="USERNAME" javaType="java.lang.String" jdbcType="VARCHAR" property="username"/>
+        <result column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" property="password"/>
+        <result column="ENABLED" javaType="boolean" jdbcType="BOOLEAN" property="enabled"/>
+        <result column="ROLE_ID" javaType="java.lang.Integer" jdbcType="NUMERIC" property="roleId"/>
+    </resultMap>
+
+    <sql id="selectAllSql">
+        SELECT
+            USER_ID,
+            USERNAME,
+            PASSWORD,
+            ENABLED,
+            ROLE_ID
+        FROM USERS
+    </sql>
+
+    <select id="selectAll" resultMap="UsersRM">
+        <include refid="selectAllSql"/>
+    </select>
+
+    <select id="selectByPk" resultMap="UsersRM">
+        <include refid="selectAllSql"/>
+        WHERE USER_ID = #{userId, jdbcType=NUMERIC}
+    </select>
+
+    <select id="selectByUsername" resultMap="UsersRM">
+        <include refid="selectAllSql"/>
+        WHERE USERNAME = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO USERS (
+        USERNAME,
+        PASSWORD,
+        ENABLED,
+        ROLE_ID)
+        VALUES (
+        #{user.username, jdbcType=VARCHAR},
+        #{user.password, jdbcType=VARCHAR},
+        #{user.enabled, jdbcType=BOOLEAN},
+        #{user.roleId, jdbcType=NUMERIC})
+        <selectKey keyProperty="user.userId" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <update id="update">
+        UPDATE USERS
+        SET
+            USERNAME = #{user.username, jdbcType=VARCHAR},
+            PASSWORD = #{user.password, jdbcType=VARCHAR},
+            ENABLED  = #{user.enabled, jdbcType=BOOLEAN},
+            ROLE_ID  = #{user.roleId, jdbcType=NUMERIC}
+        WHERE USER_ID = #{user.userId, jdbcType=NUMERIC}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM USERS
+        WHERE USER_ID = #{user.userId, jdbcType=NUMERIC}
+    </delete>
+</mapper>

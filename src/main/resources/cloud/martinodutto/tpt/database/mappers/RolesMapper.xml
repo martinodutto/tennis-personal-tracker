@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.martinodutto.tpt.database.mappers.RolesMapper">
+    <resultMap id="RolesRM" type="cloud.martinodutto.tpt.database.entities.Role">
+        <id column="ROLE_ID" javaType="int" jdbcType="NUMERIC" property="roleId"/>
+        <result column="ROLE" javaType="java.lang.String" jdbcType="VARCHAR" property="role"/>
+    </resultMap>
+
+    <sql id="selectAllSql">
+        SELECT
+        ROLE_ID,
+        ROLE
+        FROM ROLES
+    </sql>
+
+    <select id="selectAll" resultMap="RolesRM">
+        <include refid="selectAllSql"/>
+    </select>
+
+    <select id="selectByPk" resultMap="RolesRM">
+        <include refid="selectAllSql"/>
+        WHERE ROLE_ID = #{roleId, jdbcType=NUMERIC}
+    </select>
+</mapper>
