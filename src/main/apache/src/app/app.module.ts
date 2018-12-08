@@ -25,6 +25,7 @@ import {PastResultsComponent} from './past-results/past-results.component';
 import {AgGridModule} from 'ag-grid-angular';
 import {environment} from '../environments/environment';
 import {BaseInterceptor} from './interceptors/base-interceptor/base-interceptor';
+import {EditActivityModalComponent} from './modals/edit-activity-modal/edit-activity-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {BaseInterceptor} from './interceptors/base-interceptor/base-interceptor'
     UnrecoverableErrorComponent,
     ServiceUnavailableComponent,
     ChangePasswordComponent,
-    PastResultsComponent
+    PastResultsComponent,
+    EditActivityModalComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,9 @@ import {BaseInterceptor} from './interceptors/base-interceptor/base-interceptor'
       provide: 'BASE_API_URL',
       useValue: environment.baseApiUrl
     },
+  ],
+  entryComponents: [
+    EditActivityModalComponent
   ],
   bootstrap: [
     AppComponent

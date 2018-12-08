@@ -11,6 +11,7 @@
         [datasource]="dataSource"
         [enableServerSideSorting]="true"
         [enableColResize]="true"
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
         (gridReady)="onGridReady($event)">
       </ag-grid-angular>
     </div>

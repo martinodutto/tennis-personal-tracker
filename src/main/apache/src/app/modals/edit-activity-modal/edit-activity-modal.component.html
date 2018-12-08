@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h4 class="modal-title">See activity</h4>
+  <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <i class="fa fa-close" aria-hidden="true"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <p>Editing form goes here</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-dark" (click)="activeModal.close('Close click')">
+    <i class="fa fa-close" aria-hidden="true"></i>
+    Cancel
+  </button>
+  <button type="button" class="btn btn-warning" (click)="activeModal.close('Discarded')">
+    <i class="fa fa-check" aria-hidden="true"></i>
+    Confirm
+  </button>
+</div>

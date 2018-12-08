@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivitiesAndResultsService} from '../services/activities-and-results/activities-and-results.service';
 import {ActivityAndResult} from '../model/activity-and-result';
-import {ICellRendererParams, IDatasource, IGetRowsParams} from 'ag-grid-community';
+import {ICellRendererParams, IDatasource, IGetRowsParams, RowDoubleClickedEvent} from 'ag-grid-community';
 import {PaginatedResponse} from '../model/paginated-response';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EditActivityModalComponent} from '../modals/edit-activity-modal/edit-activity-modal.component';
 
 @Component({
   selector: 'app-past-results',
@@ -16,8 +18,10 @@ export class PastResultsComponent implements OnInit {
   gridComponents: any;
   dataSource: IDatasource;
   private gridApi: any;
+  @ViewChild('editModalContent') editModalContent: any;
 
-  constructor(private activitiesAndResultsService: ActivitiesAndResultsService) {
+  constructor(private activitiesAndResultsService: ActivitiesAndResultsService,
+              private modalService: NgbModal) {
     this.columnDefs = [{
       headerName: 'Date',
       field: 'activityDate'
@@ -97,5 +101,15 @@ export class PastResultsComponent implements OnInit {
           });
       }
     };
+    event.onRowDoubleClicked = function () {
+      console.info('Row has been double clicked!');
+    };
+  }
+
+  onRowDoubleClicked($event: RowDoubleClickedEvent) {
+    const ngbModalRef = this.modalService.open(EditActivityModalComponent, {
+      size: 'lg'
+    });
+    ngbModalRef.componentInstance.data = $event.data;
   }
 }
