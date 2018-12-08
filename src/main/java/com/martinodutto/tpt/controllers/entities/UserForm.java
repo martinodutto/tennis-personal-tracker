@@ -1,7 +1,8 @@
 package com.martinodutto.tpt.controllers.entities;
 
 import com.martinodutto.tpt.validation.Base64Length;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotEmpty;
 
 public class UserForm {
 
